@@ -16,9 +16,6 @@ module load cray-hdf5/1.8.14          # for WRFV3.5.1 and above
 export TMPDIR=/home/n02/n02/mbexkgy2/tmp
 
 export WRFIO_NCD_LARGE_FILE_SUPPORT=1
-export WRF_CHEM=1
-export WRF_EM_CORE=1
-export WRF_NMM_CORE=0
 
 export NETCDF=/opt/cray/netcdf/4.3.2/intel/140
 
