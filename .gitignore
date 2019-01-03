@@ -1,32 +1,71 @@
-# Prerequisites
-*.d
+# .gitignore (copied from WRF .gitignore)                                    #
+#                                                                            #
+# Filenames and wildcards added below will not be tracked by git in any      #
+# directory in the repository                                                #
+#                                                                            #
+# Ignored file types should include executables, build-time temporary files, #
+# and other files which should not ever be added to the code repository.     #
+#                                                                            #
+# USE CAUTION WHEN ADDING WILDCARDS, as some builds use different filename   #
+# conventions than others                                                    #
+##############################################################################
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+# Ignore figures
+*.svg
+*.png
+*.pdf
+Figures/*
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+#Ignore tar files
+tarfiles/*
+*.tar.gz
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+#WRF-specific wildcards
 *.exe
-*.out
-*.app
+*.o
+*.mod
+*.a
+*.backup
+*.f90
+gitignore.txt
+met_em*
+wrf_input*
+wrf_bdy*
+compile_log.txt
+io_boilerplate_temporary.inc
+compile_wrf.log
+configure.wrf
+io_grib1.f90
+io_grib_share.f90
+io_int_idx_tags.h
+test_io_idx
+md_calls.inc
+module_dm.F
+module_state_description.F
+dm_comm_cpp_flags
+wrf_io_flags.h
+wrf_status_codes.h
+fseeko64_test
+namelist.input
+fseeko64_test
+fseeko_test
+gen_comms.c
+registry
+namelist.input.backup*
+p3_lookup_table_1.dat
+README.namelist
+diffwrf
+Registry
+WRFV3/external/io_grib1/io_grib1.f90
+WRFV3/external/io_grib_share/io_grib_share.f90
+wrfinput_d*
+wrfbdy*
+wrfout.log
+realout.log
+rsl.error.*
+rsl.out.*
+
+#Ignore WPS/
+WPS-4.0.1/*
+
