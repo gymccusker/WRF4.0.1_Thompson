@@ -61,7 +61,7 @@
       REAL, PARAMETER, PRIVATE:: T_0 = 273.15
       REAL, PARAMETER, PRIVATE:: PI = 3.1415926536
       REAL, PARAMETER, PRIVATE :: QSMLL_DG = 1e-8 ! Small value for diagnostics, GYoung
-      
+
 !..Densities of rain, snow, graupel, and cloud ice.
       REAL, PARAMETER, PRIVATE:: rho_w = 1000.0
       REAL, PARAMETER, PRIVATE:: rho_s = 100.0
@@ -3567,7 +3567,6 @@
          if (qs1d(k) .le. R1) qs1d(k) = 0.0
          qg1d(k) = qg1d(k) + qgten(k)*DT
          if (qg1d(k) .le. R1) qg1d(k) = 0.0
-      enddo
 
 !+---+-----------------------------------------------------------------+
 !+---+-----------------------------------------------------------------+
