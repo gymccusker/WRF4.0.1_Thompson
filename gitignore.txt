@@ -21,6 +21,10 @@ Figures/*
 tarfiles/*
 *.tar.gz
 
+# Ignore data
+RUNS/*
+hal.*
+
 #WRF-specific wildcards
 *.exe
 *.o
@@ -61,6 +65,7 @@ freezeH2O.dat
 README.namelist
 diffwrf
 Registry
+Registry_tmp.*
 WRFV3/external/io_grib1/io_grib1.f90
 WRFV3/external/io_grib_share/io_grib_share.f90
 wrfinput_d*
@@ -72,6 +77,8 @@ realout.log
 rsl.error.*
 rsl.out.*
 namelist.output
+realout.*
+wrfout.*
 
 #Ignore WPS/
 WPS-4.0.1/*
