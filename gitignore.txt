@@ -21,6 +21,9 @@ Figures/*
 tarfiles/*
 *.tar.gz
 
+#Ignore RUNS/
+RUNS/*
+
 #WRF-specific wildcards
 *.exe
 *.o
