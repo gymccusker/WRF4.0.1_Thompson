@@ -21,6 +21,7 @@ export NETCDF=/opt/cray/netcdf/4.3.2/intel/140
 
 # Increase stack size
 ulimit -s unlimited
+export OMP_STACKSIZE=16M
 
 # Make sure any symbolic links are resolved to absolute path
 export PBS_O_WORKDIR=$(readlink -f $PBS_O_WORKDIR)               
