@@ -18,6 +18,8 @@ export TMPDIR=/home/n02/n02/mbexkgy2/tmp
 
 export WRFIO_NCD_LARGE_FILE_SUPPORT=1
 
+ulimit -s unlimited
+
 export NETCDF=/opt/cray/netcdf/4.3.2/intel/140
 # Make sure any symbolic links are resolved to absolute path
 export PBS_O_WORKDIR=$(readlink -f $PBS_O_WORKDIR)
