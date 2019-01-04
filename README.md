@@ -9,3 +9,6 @@ Issues with v3.9.1.1 -- error with mismatch between p_top in namelist and in inp
 
 -- Trialing on Archer. (3-Jan-2019)
 
+
+              -- Option 46 (dmpar: CRAY CCE (ftn $(NOOMP)/cc): Cray XE and XC)
+
