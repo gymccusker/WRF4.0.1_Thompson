@@ -52,6 +52,13 @@ import pandas as pd
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 filename = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.TS')
-readtab = pd.read_table(filename,',',skiprows=[0,1])
+readtab = pd.read_table(filename,',',skiprows=[0])
 df = pd.DataFrame(readtab)
 
+
+###################################
+## Quick check
+###################################
+ 
+
+df.iloc[0,:] # prints first row of data
