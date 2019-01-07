@@ -8,4 +8,7 @@ Issues with v3.9.1.1 -- error with mismatch between p_top in namelist and in inp
 -- Success with v4.0.1 on ws8. (3-Jan-2019)
 
 -- Trialing on Archer. (3-Jan-2019)
+
               -- Option 50 (dmpar: INTEL (ftn/icc): Cray XC) 
+              
+              -- Successful compilation and runs without segmentation faults when chem/ code compiled (7-Jan-2019)
