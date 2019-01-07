@@ -3,7 +3,7 @@
 # set -v      # Print script lines as they are read.
 # set -x      # Print commands and their arguments as they are executed.
 # PBS job options (name, compute nodes, job time)
-#PBS -N wrf_exe
+#PBS -N wrf_ARCHER
 #PBS -l select=9
 #PBS -l walltime=24:00:00
 #PBS -A n02-NEK01482X
