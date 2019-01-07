@@ -43,6 +43,7 @@ ax.set_xticks(x_ticks[::20])
 ax.set_xticklabels(x_labels[::20], rotation=45, fontsize=8)
 
 # Set the y-ticks to be height.
+# ax.set_ylim([0,3000])
 vert_vals = to_np(wspd_cross.coords["vertical"])
 v_ticks = np.arange(vert_vals.shape[0])
 ax.set_yticks(v_ticks[::20])
