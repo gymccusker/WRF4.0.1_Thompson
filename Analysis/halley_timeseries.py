@@ -51,6 +51,7 @@ import pandas as pd
 ###################################
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
-filename = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.PH')
-readtab = pd.read_table(filename,',')
+filename = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.TS')
+readtab = pd.read_table(filename,',',skiprows=[0,1])
 df = pd.DataFrame(readtab)
+
