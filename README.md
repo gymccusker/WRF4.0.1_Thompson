@@ -5,10 +5,12 @@ Issues with v3.9.1.1 -- error with mismatch between p_top in namelist and in inp
 
 ------------------------------------------------
 
--- Success with v4.0.1 on ws8. (3-Jan-2019)
+Success with v4.0.1 on ws8. (3-Jan-2019)
 
--- Trialing on Archer. (3-Jan-2019)
+Trialing on Archer. (3-Jan-2019)
 
               -- Option 50 (dmpar: INTEL (ftn/icc): Cray XC) 
               
--- Successful compilation and runs without segmentation faults when chem/ code compiled (7-Jan-2019)
+Successful compilation and runs without segmentation faults when chem/ code compiled (7-Jan-2019)
+  
+-- Model grinds to a halt at d02 2015-11-26_00:00:00 calling inc/HALO_EM_SBM_inline.inc. Does not abort with error message, continues to run. No change in filesize over ~30minutes, so definitely not doing anything (might have been an issue with the rsl.error output).
