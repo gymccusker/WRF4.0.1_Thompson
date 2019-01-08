@@ -21,6 +21,8 @@ export WRF_CHEM=1
 export WRF_EM_CORE=1
 export WRF_NMM_CORE=0
 
+ulimit -s unlimited
+
 export NETCDF=/opt/cray/netcdf/4.3.2/intel/140
 # Make sure any symbolic links are resolved to absolute path
 export PBS_O_WORKDIR=$(readlink -f $PBS_O_WORKDIR)
