@@ -1,34 +1,14 @@
 ##-----------------------------------------------------------------------------------------------------------------------
 ##-----------------------------------------------------------------------------------------------------------------------
-# The first line in a time-series output looks like this:
-# 	
-# 	NZCM McMurdo               2  7 mcm   (-77.850, 166.710) ( 153, 207) (-77.768, 166.500)   81.8 meters
-# 	
-# 	Those are name of the station, grid ID, time-series ID, station lat/lon, grid indices (nearest grid point to
-# 	the station location), grid lat/lon, elevation.
-# 	
-# 	The variables from the time series output are:
-# 	
-# 	id, ts_hour, id_tsloc, ix, iy, t, q, u, v, psfc, glw, gsw, hfx, lh, tsk, tslb(1), rainc, rainnc, clw
-# 	
-# 	id:             grid ID
-# 	ts_hour:        forecast time in hours
-# 	id_tsloc:       time series ID
-# 	ix,iy:          grid location (nearest grid to the station)
-# 	t:              2 m Temperature (K)
-# 	q:              2 m vapor mixing ratio (kg/kg)
-# 	u:              10 m U wind (earth-relative)
-# 	v:              10 m V wind (earth-relative)
-# 	psfc:           surface pressure (Pa)
-# 	glw:            downward longwave radiation flux at the ground (W/m^2, downward is positive)
-# 	gsw:            net shortwave radiation flux at the ground (W/m^2, downward is positive)
-# 	hfx:            surface sensible heat flux (W/m^2, upward is positive)
-# 	lh:             surface latent heat flux (W/m^2, upward is positive)
-# 	tsk:            skin temperature (K)
-# 	tslb(1):        top soil layer temperature (K)
-# 	rainc:          rainfall from a cumulus scheme (mm)
-# 	rainnc:         rainfall from an explicit scheme (mm)
-# 	clw:            total column-integrated water vapor and cloud variables
+# Given a tslist file, for each location inside a model domain (either coarse 
+# or nested), below files are created:
+
+# 1. pfx*.dNN.TS containing the regular time series output of surface variables.
+# 2. pfx.dNN.UU containing a vertical profile of u wind component for each time step
+# 3. pfx.dNN.VV containing a vertical profile of v wind component for each time step
+# 4. pfx.dNN.TH containing a vertical profile of potential temperature for time step
+# 5. pfx.dNN.PH containing a vertical profile of geopotential height in time step
+# 6. pfx.dNN.QV containing a vertical profile of water vapor mixing ratio time step
 ##-----------------------------------------------------------------------------------------------------------------------
 ##-----------------------------------------------------------------------------------------------------------------------
 
@@ -53,14 +33,14 @@ root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 ###################################
 ## d01
 ###################################
-filename1 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.TS')
+filename1 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.UU')
 file1 = np.loadtxt(filename1,skiprows=1)
 df1 = pd.DataFrame(file1)
 
 ###################################
 ## d02
 ###################################
-filename2 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d02.TS')
+filename2 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d02.UU')
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
 
@@ -68,29 +48,26 @@ df2 = pd.DataFrame(file2)
 ## Quick check
 ###################################
  
-df1.iloc[0,:] # prints first row of data
-df1.head()
-
-# data1 = df.values
-# data1[0,0] ## first value
-# df.columns ## headers
+# df1.iloc[0,:] # prints first row of data
+# df1.head()
 
 ###################################
 ## Set column names
 ###################################
 
-df1.columns = ['id','ts_hour','id_tsloc','ix','iy','t','q','u','v','psfc','glw','gsw','hfx','lh','tsk','tslb(1)','rainc','rainnc','clw']
-df2.columns = ['id','ts_hour','id_tsloc','ix','iy','t','q','u','v','psfc','glw','gsw','hfx','lh','tsk','tslb(1)','rainc','rainnc','clw']
+df1.columns = ['ts_hour','z1','z2','z3','z4','z5','z6','z7','z8','z9','z10','z11','z12','z13','z14','z15']
+df2.columns = ['ts_hour','z1','z2','z3','z4','z5','z6','z7','z8','z9','z10','z11','z12','z13','z14','z15']
 
 ###################################
 ## Ignore 1st 24 hours (spin up)
 ###################################
 
-index = 'glw'
+time = np.where(df1.loc[:,'ts_hour']==(24.0+12.0))
+z = np.arange(0,15)
 
-plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label='d01')
-plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label='d02')
-plt.xlabel('Time, h [27-Nov-2018]')
-plt.ylabel(index)
+plt.plot(np.squeeze(df1.values[time,1:]),z,label='d01')
+plt.plot(np.squeeze(df2.values[time,1:]),z,label='d02')
+plt.xlabel('Param')
+plt.ylabel('Model levels')
 plt.legend()
 plt.show()
