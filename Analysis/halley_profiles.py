@@ -48,7 +48,7 @@ df2 = pd.DataFrame(file2)
 ###################################
 ## Obs
 ###################################
-filenameObs = "".join(root_dir+'Halley_Sonde_Data_27-Nov-2015.txt')
+filenameObs = "".join(obs_dir+'Halley_Sonde_Data_27-Nov-2015.txt')
 fileObs = np.loadtxt(filenameObs,skiprows=1)
 dfObs = pd.DataFrame(fileObs)
 
