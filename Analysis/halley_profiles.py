@@ -29,6 +29,7 @@ import pandas as pd
 ###################################
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
+obs_dir = '/data/scihub-users/giyoung/MAC/'
 
 ###################################
 ## d01
@@ -43,6 +44,13 @@ df1 = pd.DataFrame(file1)
 filename2 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d02.TH')
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
+
+###################################
+## Obs
+###################################
+filenameObs = "".join(root_dir+'Halley_Sonde_Data_27-Nov-2015.txt')
+fileObs = np.loadtxt(filenameObs,skiprows=1)
+dfObs = pd.DataFrame(fileObs)
 
 ###################################
 ## Quick check
