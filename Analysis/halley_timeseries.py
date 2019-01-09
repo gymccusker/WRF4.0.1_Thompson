@@ -48,19 +48,23 @@ import pandas as pd
 ## Load in data
 ###################################
 
+## 2_Nisg80_ThompsonDefault/
+file_dir = '3_Nisg80_ThompsonAeroClim/'
+index = 'clw'
+
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
 ###################################
 ## d01
 ###################################
-filename1 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.TS')
+filename1 = "".join(root_dir+file_dir+'hal.d01.TS')
 file1 = np.loadtxt(filename1,skiprows=1)
 df1 = pd.DataFrame(file1)
 
 ###################################
 ## d02
 ###################################
-filename2 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d02.TS')
+filename2 = "".join(root_dir+file_dir+'hal.d02.TS')
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
 
@@ -85,8 +89,6 @@ df2.columns = ['id','ts_hour','id_tsloc','ix','iy','t','q','u','v','psfc','glw',
 ###################################
 ## Ignore 1st 24 hours (spin up)
 ###################################
-
-index = 'glw'
 
 plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label='d01')
 plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label='d02')
