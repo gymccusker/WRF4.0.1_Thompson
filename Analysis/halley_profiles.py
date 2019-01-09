@@ -33,14 +33,14 @@ root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 ###################################
 ## d01
 ###################################
-filename1 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.UU')
+filename1 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.TH')
 file1 = np.loadtxt(filename1,skiprows=1)
 df1 = pd.DataFrame(file1)
 
 ###################################
 ## d02
 ###################################
-filename2 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d02.UU')
+filename2 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d02.TH')
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
 
