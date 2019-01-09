@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from matplotlib.cm import get_cmap
 import cartopy.crs as crs
 from cartopy.feature import NaturalEarthFeature
-
 from netCDF4 import Dataset
+
 from wrf import to_np, getvar, CoordPair, vertcross
 
 # Open the NetCDF file
