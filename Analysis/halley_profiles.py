@@ -28,20 +28,21 @@ import pandas as pd
 ## Load in data
 ###################################
 
+file_dir = '2_Nisg80_ThompsonDefault/'
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 obs_dir = '/data/scihub-users/giyoung/MAC/'
 
 ###################################
 ## d01
 ###################################
-filename1 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.TH')
+filename1 = "".join(root_dir+file_dir+'hal.d01.TH')
 file1 = np.loadtxt(filename1,skiprows=1)
 df1 = pd.DataFrame(file1)
 
 ###################################
 ## d02
 ###################################
-filename2 = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d02.TH')
+filename2 = "".join(root_dir+file_dir+'hal.d02.TH')
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
 
@@ -50,6 +51,15 @@ df2 = pd.DataFrame(file2)
 ###################################
 filenameObs = "".join(obs_dir+'Halley_Sonde_Data_27-Nov-2015.txt')
 dfObs = pd.read_table(filenameObs)
+
+###################################
+## WRF (vertical levels)
+###################################
+# Open the NetCDF file
+nc = Dataset(root_dir+file_dir+'wrfout_d02_2015-11-27_00:00:00')
+
+# Extract the model height and wind speed
+z = getvar(nc, "z")
 
 ###################################
 ## Quick check
