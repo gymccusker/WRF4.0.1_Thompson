@@ -49,8 +49,7 @@ df2 = pd.DataFrame(file2)
 ## Obs
 ###################################
 filenameObs = "".join(obs_dir+'Halley_Sonde_Data_27-Nov-2015.txt')
-fileObs = np.loadtxt(filenameObs,skiprows=1)
-dfObs = pd.DataFrame(fileObs)
+dfObs = pd.read_table(filenameObs)
 
 ###################################
 ## Quick check
@@ -65,6 +64,17 @@ dfObs = pd.DataFrame(fileObs)
 
 df1.columns = ['ts_hour','z1','z2','z3','z4','z5','z6','z7','z8','z9','z10','z11','z12','z13','z14','z15']
 df2.columns = ['ts_hour','z1','z2','z3','z4','z5','z6','z7','z8','z9','z10','z11','z12','z13','z14','z15']
+dfObs.columns = ['Obtime','pres','z','temp','dewpt','U','V','RH']
+
+###################################
+## Obs quality control
+###################################
+
+dfObs.loc[:,'temp'][dfObs.loc[:,'temp'] == 'null'] = np.nan
+dfObs.loc[:,'dewpt'][dfObs.loc[:,'dewpt'] == 'null'] = np.nan
+dfObs.loc[:,'U'][dfObs.loc[:,'U'] == 'null'] = np.nan
+dfObs.loc[:,'V'][dfObs.loc[:,'V'] == 'null'] = np.nan
+dfObs.loc[:,'RH'][dfObs.loc[:,'RH'] == 'null'] = np.nan
 
 ###################################
 ## Ignore 1st 24 hours (spin up)
