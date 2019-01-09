@@ -34,7 +34,7 @@ from wrf import to_np, getvar, CoordPair, vertcross
 ## 2_Nisg80_ThompsonDefault/
 
 file_dir = '3_Nisg80_ThompsonAeroClim/'
-param = 'TH'
+param = 'QV'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 obs_dir = '/data/scihub-users/giyoung/MAC/'
@@ -129,10 +129,10 @@ ztemp = np.arange(0,15)
 
 plt.plot(np.squeeze(df1.values[time,1:]),Z1[0:15,71,118],label = 'd01')
 plt.plot(np.squeeze(df2.values[time,1:]),Z2[0:15,137,183],label = 'd02')
-plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
+# plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
 plt.xlabel(param)
 plt.ylabel('Z [m]')
 plt.ylim([0,1000])
-plt.xlim([270,290])
+# plt.xlim([270,290])
 plt.legend()
 plt.show()
