@@ -32,7 +32,7 @@ from wrf import to_np, getvar, CoordPair, vertcross
 ###################################
 
 file_dir = '2_Nisg80_ThompsonDefault/'
-param = 'QV'
+param = 'TH'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 obs_dir = '/data/scihub-users/giyoung/MAC/'
@@ -98,6 +98,21 @@ dfObs.loc[:,'dewpt'][dfObs.loc[:,'dewpt'] == 'null'] = np.nan
 dfObs.loc[:,'U'][dfObs.loc[:,'U'] == 'null'] = np.nan
 dfObs.loc[:,'V'][dfObs.loc[:,'V'] == 'null'] = np.nan
 dfObs.loc[:,'RH'][dfObs.loc[:,'RH'] == 'null'] = np.nan
+
+###################################
+## Convert temp to theta
+###################################
+
+# data1['theta'] = nc1.variables['T'][time_sci]+300 # potential temperature in K
+# data1['p'] = (nc1.variables['P'][time_sci[0]]+nc1.variables['PB'][time_sci[0]])   # pressure in Pa
+# tempvar = constants.R/float(1005)
+# tempvar0 = (data1['p']/100000)**tempvar       
+# data1['Tk'] = tempvar0*data1['theta']
+# data1['rho'] = data1['p']/(constants.R*data1['Tk'])
+
+kap = float(287.05)/float(1005)
+tempvar = (dfObs.loc[:,'pres']/100000)**kap
+theta = (dfObs.loc[:,'temp']+273.16)/tempvar
 
 ###################################
 ## Ignore 1st 24 hours (spin up)
