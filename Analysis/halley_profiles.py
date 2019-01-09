@@ -32,20 +32,22 @@ from wrf import to_np, getvar, CoordPair, vertcross
 ###################################
 
 file_dir = '2_Nisg80_ThompsonDefault/'
+param = 'QV'
+
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 obs_dir = '/data/scihub-users/giyoung/MAC/'
 
 ###################################
 ## d01
 ###################################
-filename1 = "".join(root_dir+file_dir+'hal.d01.TH')
+filename1 = "".join(root_dir+file_dir+'hal.d01.'+param)
 file1 = np.loadtxt(filename1,skiprows=1)
 df1 = pd.DataFrame(file1)
 
 ###################################
 ## d02
 ###################################
-filename2 = "".join(root_dir+file_dir+'hal.d02.TH')
+filename2 = "".join(root_dir+file_dir+'hal.d02.'+param)
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
 
@@ -110,7 +112,7 @@ ztemp = np.arange(0,15)
 
 plt.plot(np.squeeze(df1.values[time,1:]),Z1[0:15,71,118],label='d01')
 plt.plot(np.squeeze(df2.values[time,1:]),Z2[0:15,137,183],label='d02')
-plt.xlabel('Param')
+plt.xlabel(param)
 plt.ylabel('Z [m]')
 plt.legend()
 plt.show()
