@@ -14,8 +14,8 @@ import cartopy.feature as cfe
 ###################################
 ## Load in WRF data
 ###################################
-
-file_dir = '2_Nisg80_ThompsonDefault/'
+## 2_Nisg80_ThompsonDefault/
+file_dir = '3_Nisg80_ThompsonAeroClim/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 nc = Dataset(root_dir+file_dir+'wrfout_d01_2015-11-27_00:00:00')
