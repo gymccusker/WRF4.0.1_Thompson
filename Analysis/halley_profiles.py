@@ -59,10 +59,18 @@ dfObs = pd.read_table(filenameObs)
 ## WRF (vertical levels)
 ###################################
 # Open the NetCDF file
-nc = Dataset(root_dir+file_dir+'wrfout_d02_2015-11-27_00:00:00')
+nc1 = Dataset(root_dir+file_dir+'wrfout_d01_2015-11-27_00:00:00')
 
 # Extract the model height and wind speed
-Z = getvar(nc, "z")
+Z1 = getvar(nc1, "z")
+nc1.close()
+
+# Open the NetCDF file
+nc2 = Dataset(root_dir+file_dir+'wrfout_d02_2015-11-27_00:00:00')
+
+# Extract the model height and wind speed
+Z2 = getvar(nc2, "z")
+nc2.close()
 
 ###################################
 ## Quick check
@@ -96,9 +104,13 @@ dfObs.loc[:,'RH'][dfObs.loc[:,'RH'] == 'null'] = np.nan
 time = np.where(df1.loc[:,'ts_hour']==(24.0+12.0))
 ztemp = np.arange(0,15)
 
-plt.plot(np.squeeze(df1.values[time,1:]),ztemp,label='d01')
-plt.plot(np.squeeze(df2.values[time,1:]),ztemp,label='d02')
+##### HALLEY POSITION IN MODEL - NEAREST GRID POINT (LAT/LON)
+### D01 = 118,  71 -> Z1[:,71,118]
+### D02 = 183, 137 -> Z2[:,137,183]
+
+plt.plot(np.squeeze(df1.values[time,1:]),Z1[0:15,71,118],label='d01')
+plt.plot(np.squeeze(df2.values[time,1:]),Z2[0:15,137,183],label='d02')
 plt.xlabel('Param')
-plt.ylabel('Model levels')
+plt.ylabel('Z [m]')
 plt.legend()
 plt.show()
