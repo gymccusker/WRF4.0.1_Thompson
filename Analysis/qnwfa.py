@@ -15,8 +15,10 @@ import cartopy.feature as cfe
 ## Load in WRF data
 ###################################
 
+file_dir = '2_Nisg80_ThompsonDefault/'
+
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
-nc = Dataset(root_dir+'2_Nisg80_ThompsonDefault/wrfout_d01_2015-11-27_00:00:00')
+nc = Dataset(root_dir+file_dir+'wrfout_d01_2015-11-27_00:00:00')
 qnwfa = wrf.getvar(nc, 'QNWFA', timeidx=32)
 
 ## Quick Plot to check all is well
