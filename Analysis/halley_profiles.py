@@ -31,7 +31,9 @@ from wrf import to_np, getvar, CoordPair, vertcross
 ## Load in data
 ###################################
 
-file_dir = '2_Nisg80_ThompsonDefault/'
+## 2_Nisg80_ThompsonDefault/
+
+file_dir = '3_Nisg80_ThompsonAeroClim/'
 param = 'TH'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
