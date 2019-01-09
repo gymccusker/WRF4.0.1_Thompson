@@ -62,7 +62,7 @@ dfObs = pd.read_table(filenameObs)
 nc = Dataset(root_dir+file_dir+'wrfout_d02_2015-11-27_00:00:00')
 
 # Extract the model height and wind speed
-z = getvar(nc, "z")
+Z = getvar(nc, "z")
 
 ###################################
 ## Quick check
@@ -94,10 +94,10 @@ dfObs.loc[:,'RH'][dfObs.loc[:,'RH'] == 'null'] = np.nan
 ###################################
 
 time = np.where(df1.loc[:,'ts_hour']==(24.0+12.0))
-z = np.arange(0,15)
+ztemp = np.arange(0,15)
 
-plt.plot(np.squeeze(df1.values[time,1:]),z,label='d01')
-plt.plot(np.squeeze(df2.values[time,1:]),z,label='d02')
+plt.plot(np.squeeze(df1.values[time,1:]),ztemp,label='d01')
+plt.plot(np.squeeze(df2.values[time,1:]),ztemp,label='d02')
 plt.xlabel('Param')
 plt.ylabel('Model levels')
 plt.legend()
