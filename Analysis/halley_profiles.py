@@ -42,14 +42,14 @@ obs_dir = '/data/scihub-users/giyoung/MAC/'
 ###################################
 filename1 = "".join(root_dir+file_dir+'hal.d01.'+param)
 file1 = np.loadtxt(filename1,skiprows=1)
-df1 = pd.DataFrame(file1)
+df1 = pd.DataFrame(file1, dtype='float')
 
 ###################################
 ## d02
 ###################################
 filename2 = "".join(root_dir+file_dir+'hal.d02.'+param)
 file2 = np.loadtxt(filename2,skiprows=1)
-df2 = pd.DataFrame(file2)
+df2 = pd.DataFrame(file2, dtype='float')
 
 ###################################
 ## Obs
@@ -111,8 +111,8 @@ dfObs.loc[:,'RH'][dfObs.loc[:,'RH'] == 'null'] = np.nan
 # data1['rho'] = data1['p']/(constants.R*data1['Tk'])
 
 kap = float(287.05)/float(1005)
-tempvar = (dfObs.loc[:,'pres']/100000)**kap
-theta = (dfObs.loc[:,'temp']+273.16)/tempvar
+tempvar = (pd.to_numeric(dfObs.loc[:,'pres'])/1000)**kap
+theta = (pd.to_numeric(dfObs.loc[:,'temp'])+273.16)/tempvar
 
 ###################################
 ## Ignore 1st 24 hours (spin up)
@@ -125,8 +125,9 @@ ztemp = np.arange(0,15)
 ### D01 = 118,  71 -> Z1[:,71,118]
 ### D02 = 183, 137 -> Z2[:,137,183]
 
-plt.plot(np.squeeze(df1.values[time,1:]),Z1[0:15,71,118],label='d01')
-plt.plot(np.squeeze(df2.values[time,1:]),Z2[0:15,137,183],label='d02')
+plt.plot(np.squeeze(df1.values[time,1:]),Z1[0:15,71,118],label = 'd01')
+plt.plot(np.squeeze(df2.values[time,1:]),Z2[0:15,137,183],label = 'd02')
+plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
 plt.xlabel(param)
 plt.ylabel('Z [m]')
 plt.legend()
