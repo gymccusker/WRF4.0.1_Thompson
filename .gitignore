@@ -17,6 +17,9 @@
 *.pdf
 Figures/*
 
+#Ignore data files
+RUNS/*
+
 #Ignore tar files
 tarfiles/*
 *.tar.gz
