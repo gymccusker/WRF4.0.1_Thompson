@@ -65,6 +65,9 @@ wrfout.log
 realout.log
 rsl.error.*
 rsl.out.*
+qr_acr_qg.dat
+qr_acr_qs.dat
+freezeH2O.dat
 
 #Ignore WPS/
 WPS-4.0.1/*
