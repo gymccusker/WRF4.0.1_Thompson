@@ -691,9 +691,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
             ,do_radar_ref=do_radar_ref                         &
             ,has_reqc=has_reqc                                 &  ! for radiation +
             ,has_reqi=has_reqi                                 &
-            ,has_reqs=has_reqs                                 &
-            ,nisg80=nisg80                                     &  ! GYoung
-            ,qisg80=qisg80                                     &  ! GYoung               
+            ,has_reqs=has_reqs                                 &         
             ,re_cloud=re_cloud                                 &
             ,re_ice=re_ice                                     &
             ,re_snow=re_snow                                   &  ! for radiation -  
@@ -938,6 +936,8 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                      has_reqc=has_reqc,                  & ! G. Thompson
                      has_reqi=has_reqi,                  & ! G. Thompson
                      has_reqs=has_reqs,                  & ! G. Thompson
+                     nisg80=nisg80,                      &  ! GYoung
+                     qisg80=qisg80,                      &  ! GYoung                        
                  IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde, &
                  IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme, &
                  ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte)
