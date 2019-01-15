@@ -79,7 +79,7 @@ plt.show()
 ###################################
 
 # Extract the model height and wind speed
-z = wrf.getvar(nc1, "z")
+z1 = wrf.getvar(nc1, "z")
 
 # Create the start point and end point for the cross section
 start_point = wrf.CoordPair(lat=-74.0, lon=-27.0)
