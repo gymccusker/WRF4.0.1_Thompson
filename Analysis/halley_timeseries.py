@@ -32,8 +32,6 @@
 ##-----------------------------------------------------------------------------------------------------------------------
 ##-----------------------------------------------------------------------------------------------------------------------
 
-
-
 import numpy as np
 
 import matplotlib
@@ -50,15 +48,52 @@ import pandas as pd
 ## Load in data
 ###################################
 
-root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
-filename = "".join(root_dir+'2_Nisg80_ThompsonDefault/hal.d01.TS')
-readtab = pd.read_table(filename,',',skiprows=[0])
-df = pd.DataFrame(readtab)
+## 
+file1_dir = '2_Nisg80_ThompsonDefault/'
+file2_dir = '3_Nisg80_ThompsonAeroClim/'
+index = 't'
 
+root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
+
+###################################
+## d01
+###################################
+filename1 = "".join(root_dir+file1_dir+'hal.d02.TS')
+file1 = np.loadtxt(filename1,skiprows=1)
+df1 = pd.DataFrame(file1)
+
+###################################
+## d02
+###################################
+filename2 = "".join(root_dir+file2_dir+'hal.d02.TS')
+file2 = np.loadtxt(filename2,skiprows=1)
+df2 = pd.DataFrame(file2)
 
 ###################################
 ## Quick check
 ###################################
  
+df1.iloc[0,:] # prints first row of data
+df1.head()
 
-df.iloc[0,:] # prints first row of data
+# data1 = df.values
+# data1[0,0] ## first value
+# df.columns ## headers
+
+###################################
+## Set column names
+###################################
+
+df1.columns = ['id','ts_hour','id_tsloc','ix','iy','t','q','u','v','psfc','glw','gsw','hfx','lh','tsk','tslb(1)','rainc','rainnc','clw']
+df2.columns = ['id','ts_hour','id_tsloc','ix','iy','t','q','u','v','psfc','glw','gsw','hfx','lh','tsk','tslb(1)','rainc','rainnc','clw']
+
+###################################
+## Ignore 1st 24 hours (spin up)
+###################################
+
+plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label='01')
+plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label='02')
+plt.xlabel('Time, h [27-Nov-2018]')
+plt.ylabel(index)
+plt.legend()
+plt.show()
