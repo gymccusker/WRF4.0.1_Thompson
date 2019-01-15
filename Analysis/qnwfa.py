@@ -40,8 +40,8 @@ cart_proj = wrf.get_cartopy(qnwfa1)
 ## MAP
 ###################################
 
-data1 = wrf.to_np(qnwfa1[16,:,:])
-data2 = wrf.to_np(qnwfa2[16,:,:])
+data1 = wrf.to_np(qnwfa1[0,:,:])
+data2 = wrf.to_np(qnwfa2[0,:,:])
 
 # Create a figure
 fig = plt.figure(figsize=(8,4))
@@ -98,7 +98,6 @@ ax.set_ylim(wrf.cartopy_ylim(qnwfa2))
 ax.gridlines(color="black", linestyle="dotted")
 
 plt.title(qnwfa2.description+'\n'+str(qnwfa2.Time.values))
-
 
 plt.show()
 
