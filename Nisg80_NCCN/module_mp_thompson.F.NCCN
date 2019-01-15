@@ -83,8 +83,8 @@
 !.. due to surface land-sea points or vegetation characteristics.
       REAL, PARAMETER, PRIVATE:: naIN0 = 1.5E6
       REAL, PARAMETER, PRIVATE:: naIN1 = 0.5E6
-      REAL, PARAMETER, PRIVATE:: naCCN0 = 300.0E6
-      REAL, PARAMETER, PRIVATE:: naCCN1 = 50.0E6
+      REAL, PARAMETER, PRIVATE:: naCCN0 = 408.0E6
+      REAL, PARAMETER, PRIVATE:: naCCN1 = 100.0E6
 
 !..Generalized gamma distributions for rain, graupel and cloud ice.
 !.. N(D) = N_0 * D**mu * exp(-lamda*D);  mu=0 is exponential.
