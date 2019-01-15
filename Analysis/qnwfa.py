@@ -74,7 +74,7 @@ plt.title(qnwfa1.description+'\n'+str(qnwfa1.Time.values))
 
 
 # Set the GeoAxes to the projection used by WRF
-ax = fig.add_axes([0.1,0.55,0.4,0.8], projection=cart_proj)	# left, bottom, width, height
+ax = fig.add_axes([0.55,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, width, height
 # ax = plt.axes(projection=cart_proj)
 
 # Add coastlines
