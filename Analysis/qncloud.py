@@ -20,11 +20,13 @@ file_dir2 = '3_Nisg80_ThompsonAeroClim/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
+time_index = 32
+
 nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
-qncloud1 = wrf.getvar(nc1, 'QNCLOUD', timeidx=32)
+qncloud1 = wrf.getvar(nc1, 'QNCLOUD', timeidx=time_index)
 
 nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
-qncloud2 = wrf.getvar(nc2, 'QNCLOUD', timeidx=32)
+qncloud2 = wrf.getvar(nc2, 'QNCLOUD', timeidx=time_index)
 
 ## Quick Plot to check all is well
 # qncloud.plot()
@@ -34,6 +36,10 @@ lats, lons = wrf.latlon_coords(qncloud1)
 
 ## Get the cartopy mapping object
 cart_proj = wrf.get_cartopy(qncloud1)
+
+#### 	Define near-aircraft cloud box
+xlon = wrf.getvar(nc2, 'XLONG', timeidx=time_index)
+box = np.where(np.logical_and(xlon >=-29.5, xlon<=-26.5))
 
 ###################################
 ###################################
@@ -144,4 +150,25 @@ ax.gridlines(color="black", linestyle="dotted")
 
 plt.title(qncloud2.name+'\n'+str(qncloud2.Time.values))
 
+plt.show()
+
+
+###################################
+## PROFILE
+###################################
+
+# Extract the model height 
+z1 = wrf.getvar(nc1, "z")
+z2 = wrf.getvar(nc2, "z")
+
+datax1 = np.nanmean(np.nanmean(qncloud1[:,190:340,np.unique(box[1])],1),1)
+datax2 = np.nanmean(np.nanmean(qncloud2[:,190:340,np.unique(box[1])],1),1)
+datay1 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+datay2 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+
+plt.plot(datax1,datay1)
+plt.plot(datax2,datay2)
+plt.ylim([0,2000])
+plt.xlabel(qncloud1.name)
+plt.ylabel(z1.description)
 plt.show()

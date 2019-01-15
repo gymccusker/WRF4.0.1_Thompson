@@ -150,7 +150,7 @@ plt.show()
 ## VERTICAL CROSS-SECTION
 ###################################
 
-# Extract the model height and wind speed
+# Extract the model height 
 z1 = wrf.getvar(nc1, "z")
 
 # Create the start point and end point for the cross section
