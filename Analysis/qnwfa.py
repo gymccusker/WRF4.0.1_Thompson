@@ -44,11 +44,11 @@ data1 = wrf.to_np(qnwfa1[16,:,:])
 data2 = wrf.to_np(qnwfa2[16,:,:])
 
 # Create a figure
-fig = plt.figure(figsize=(6,5))
-# Set the GeoAxes to the projection used by WRF
-ax = fig.add_axes([0.12,0.66,0.28,0.28], projection=cart_proj)	# left, bottom, width, height
-# ax = plt.axes(projection=cart_proj)
+fig = plt.figure(figsize=(8,4))
 
+# Set the GeoAxes to the projection used by WRF
+ax = fig.add_axes([0.1,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, width, height
+# ax = plt.axes(projection=cart_proj)
 
 # Add coastlines
 ax.coastlines('50m', linewidth=0.8)
@@ -71,6 +71,34 @@ ax.set_ylim(wrf.cartopy_ylim(qnwfa1))
 ax.gridlines(color="black", linestyle="dotted")
 
 plt.title(qnwfa1.description+'\n'+str(qnwfa1.Time.values))
+
+
+# Set the GeoAxes to the projection used by WRF
+ax = fig.add_axes([0.1,0.55,0.4,0.8], projection=cart_proj)	# left, bottom, width, height
+# ax = plt.axes(projection=cart_proj)
+
+# Add coastlines
+ax.coastlines('50m', linewidth=0.8)
+ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines', 
+                                       '50m', linewidth=1.0, edgecolor='k', facecolor='none') )
+
+# Plot contours
+plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data2, 10, 
+                transform=crs.PlateCarree(), cmap = mpl_cm.Reds)
+
+# Add a color bar
+cbar = plt.colorbar(ax=ax, shrink=.62)
+cbar.set_label(qnwfa2.units)
+
+# Set the map limits.  Not really necessary, but used for demonstration.
+ax.set_xlim(wrf.cartopy_xlim(qnwfa2))
+ax.set_ylim(wrf.cartopy_ylim(qnwfa2))
+
+# Add the gridlines
+ax.gridlines(color="black", linestyle="dotted")
+
+plt.title(qnwfa2.description+'\n'+str(qnwfa2.Time.values))
+
 
 plt.show()
 
