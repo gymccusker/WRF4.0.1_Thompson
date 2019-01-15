@@ -10,6 +10,8 @@
 # conventions than others                                                    #
 ##############################################################################
 
+## Ignore github-related files
+.github
 
 # Ignore figures
 *.svg
@@ -19,6 +21,8 @@ Figures/*
 
 #Ignore data files
 RUNS/*
+hal.*
+wrfout*
 
 #Ignore tar files
 tarfiles/*
@@ -51,7 +55,7 @@ wrf_io_flags.h
 wrf_status_codes.h
 fseeko64_test
 namelist.input
-fseeko64_test
+namelist.output
 fseeko_test
 gen_comms.c
 registry
@@ -60,8 +64,8 @@ p3_lookup_table_1.dat
 README.namelist
 diffwrf
 Registry
-WRFV3/external/io_grib1/io_grib1.f90
-WRFV3/external/io_grib_share/io_grib_share.f90
+io_grib1.f90
+io_grib_share.f90
 wrfinput_d*
 wrfbdy*
 wrfout.log
@@ -71,6 +75,8 @@ rsl.out.*
 qr_acr_qg.dat
 qr_acr_qs.dat
 freezeH2O.dat
+p3_lookup_table_1.dat-v2.8.2
+p3_lookup_table_2.dat-v2.8.2
 
 #Ignore WPS/
 WPS-4.0.1/*
