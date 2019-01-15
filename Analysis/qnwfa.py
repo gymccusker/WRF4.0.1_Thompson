@@ -35,6 +35,26 @@ lats, lons = wrf.latlon_coords(qnwfa1)
 ## Get the cartopy mapping object
 cart_proj = wrf.get_cartopy(qnwfa1)
 
+###################################
+## WRF data processing
+###################################
+
+theta1 = wrf.getvar(nc1, 'T', timeidx=32) + 300 # potential temperature in K
+theta1.name = 'Potential temperature, K'
+
+pressure1 = wrf.getvar(nc1, 'P', timeidx=32) + wrf.getvar(nc1, 'PB', timeidx=32)   # pressure in Pa
+pressure1.name = 'Air pressure, Pa'
+
+tempvar = float(287.05)/float(1005)
+tempvar0 = (pressure1/100000)**tempvar    
+temperature1 = tempvar0 * theta1
+temperature1.name = 'Air Temperature, K'
+
+rho1 = pressure1/(float(287.05) * temperature1)
+rho1.name = 'Air density, kg m-3'
+
+qnwfa1 = (qnwfa1 * rho1) / float(1e6)
+qnwfa1.name = 'water-friendly aerosol number con, cm-3'
 
 ###################################
 ## MAP
@@ -61,16 +81,16 @@ plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data1, 10,
 
 # Add a color bar
 cbar = plt.colorbar(ax=ax, shrink=.62)
-cbar.set_label(qnwfa1.units)
+cbar.set_label(qnwfa1.name[-5:])
 
 # Set the map limits.  Not really necessary, but used for demonstration.
-ax.set_xlim(wrf.cartopy_xlim(qnwfa1))
-ax.set_ylim(wrf.cartopy_ylim(qnwfa1))
+# ax.set_xlim(wrf.cartopy_xlim(qnwfa1))
+# ax.set_ylim(wrf.cartopy_ylim(qnwfa1))
 
 # Add the gridlines
 ax.gridlines(color="black", linestyle="dotted")
 
-plt.title(qnwfa1.description+'\n'+str(qnwfa1.Time.values))
+plt.title(qnwfa1.name+'\n'+str(qnwfa1.Time.values))
 
 
 # Set the GeoAxes to the projection used by WRF
