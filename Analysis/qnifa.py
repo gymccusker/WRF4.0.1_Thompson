@@ -59,7 +59,7 @@ rho1 = pressure1/(float(287.05) * temperature1)
 rho1.name = 'Air density, kg m-3'
 
 qnifa1 = (qnifa1 * rho1) / float(1e6)
-qnifa1.name = 'water-friendly aerosol number con, cm-3'
+qnifa1.name = 'ice-friendly aerosol number con, cm-3'
 
 ###################################
 #####	FILE #2
