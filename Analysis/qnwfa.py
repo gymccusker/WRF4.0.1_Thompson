@@ -36,9 +36,14 @@ lats, lons = wrf.latlon_coords(qnwfa1)
 cart_proj = wrf.get_cartopy(qnwfa1)
 
 ###################################
+###################################
 ## WRF data processing
 ###################################
+###################################
 
+###################################
+#####	FILE #1
+###################################
 theta1 = wrf.getvar(nc1, 'T', timeidx=32) + 300 # potential temperature in K
 theta1.name = 'Potential temperature, K'
 
@@ -55,6 +60,26 @@ rho1.name = 'Air density, kg m-3'
 
 qnwfa1 = (qnwfa1 * rho1) / float(1e6)
 qnwfa1.name = 'water-friendly aerosol number con, cm-3'
+
+###################################
+#####	FILE #2
+###################################
+theta2 = wrf.getvar(nc2, 'T', timeidx=32) + 300 # potential temperature in K
+theta2.name = 'Potential temperature, K'
+
+pressure2 = wrf.getvar(nc2, 'P', timeidx=32) + wrf.getvar(nc2, 'PB', timeidx=32)   # pressure in Pa
+pressure2.name = 'Air pressure, Pa'
+
+tempvar = float(287.05)/float(1005)
+tempvar0 = (pressure2/100000)**tempvar    
+temperature2 = tempvar0 * theta2
+temperature2.name = 'Air Temperature, K'
+
+rho2 = pressure2/(float(287.05) * temperature2)
+rho2.name = 'Air density, kg m-3'
+
+qnwfa2 = (qnwfa2 * rho2) / float(1e6)
+qnwfa2.name = 'water-friendly aerosol number con, cm-3'
 
 ###################################
 ## MAP
@@ -108,16 +133,16 @@ plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data2, 10,
 
 # Add a color bar
 cbar = plt.colorbar(ax=ax, shrink=.62)
-cbar.set_label(qnwfa2.units)
+cbar.set_label(qnwfa2.name[-5:])
 
 # Set the map limits.  Not really necessary, but used for demonstration.
-ax.set_xlim(wrf.cartopy_xlim(qnwfa2))
-ax.set_ylim(wrf.cartopy_ylim(qnwfa2))
+# ax.set_xlim(wrf.cartopy_xlim(qnwfa2))
+# ax.set_ylim(wrf.cartopy_ylim(qnwfa2))
 
 # Add the gridlines
 ax.gridlines(color="black", linestyle="dotted")
 
-plt.title(qnwfa2.description+'\n'+str(qnwfa2.Time.values))
+plt.title(qnwfa2.name+'\n'+str(qnwfa2.Time.values))
 
 plt.show()
 
@@ -168,6 +193,6 @@ ax.set_yticklabels(vert_vals[::20], fontsize=8)
 ax.set_xlabel("Latitude, Longitude", fontsize=12)
 ax.set_ylabel("Height (m)", fontsize=12)
 
-plt.title(qnwfa1.description+'\n'+str(qnwfa1.Time.values))
+plt.title(qnwfa1.name+'\n'+str(qnwfa1.Time.values))
 
 plt.show()
