@@ -17,13 +17,12 @@
 *.pdf
 Figures/*
 
+#Ignore data files
+RUNS/*
+
 #Ignore tar files
 tarfiles/*
 *.tar.gz
-
-# Ignore data
-RUNS/*
-hal.*
 
 #WRF-specific wildcards
 *.exe
@@ -32,6 +31,7 @@ hal.*
 *.a
 *.backup
 *.f90
+gitignore.txt
 met_em*
 wrf_input*
 wrf_bdy*
@@ -57,29 +57,20 @@ gen_comms.c
 registry
 namelist.input.backup*
 p3_lookup_table_1.dat
-p3_lookup_table_1.dat-v2.8.2
-p3_lookup_table_2.dat-v2.8.2
-qr_acr_qg.dat
-qr_acr_qs.dat
-freezeH2O.dat
 README.namelist
 diffwrf
 Registry
-Registry_tmp.*
 WRFV3/external/io_grib1/io_grib1.f90
 WRFV3/external/io_grib_share/io_grib_share.f90
 wrfinput_d*
 wrfbdy*
-wrfout_*
-wrfrst_*
 wrfout.log
 realout.log
 rsl.error.*
 rsl.out.*
-namelist.output
-realout.*
-wrfout.*
+qr_acr_qg.dat
+qr_acr_qs.dat
+freezeH2O.dat
 
 #Ignore WPS/
 WPS-4.0.1/*
-
