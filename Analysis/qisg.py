@@ -38,10 +38,10 @@ qisg2 = qice2 + qsnow2 + qgraup2
 # qisg.plot()
 
 ## Get the latitude and longitude points
-lats, lons = wrf.latlon_coords(qisg1)
+lats, lons = wrf.latlon_coords(qice1)
 
 ## Get the cartopy mapping object
-cart_proj = wrf.get_cartopy(qisg1)
+cart_proj = wrf.get_cartopy(qice1)
 
 ###################################
 ###################################
