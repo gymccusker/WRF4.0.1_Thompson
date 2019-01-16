@@ -20,11 +20,13 @@ file_dir2 = '3_Nisg80_ThompsonAeroClim/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
+time_index = 32
+
 nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
-qnwfa1 = wrf.getvar(nc1, 'QNWFA', timeidx=32)
+qnwfa1 = wrf.getvar(nc1, 'QNWFA', timeidx=time_index)
 
 nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
-qnwfa2 = wrf.getvar(nc2, 'QNWFA', timeidx=32)
+qnwfa2 = wrf.getvar(nc2, 'QNWFA', timeidx=time_index)
 
 ## Quick Plot to check all is well
 # qnwfa.plot()
@@ -44,10 +46,10 @@ cart_proj = wrf.get_cartopy(qnwfa1)
 ###################################
 #####	FILE #1
 ###################################
-theta1 = wrf.getvar(nc1, 'T', timeidx=32) + 300 # potential temperature in K
+theta1 = wrf.getvar(nc1, 'T', timeidx=time_index) + 300 # potential temperature in K
 theta1.name = 'Potential temperature, K'
 
-pressure1 = wrf.getvar(nc1, 'P', timeidx=32) + wrf.getvar(nc1, 'PB', timeidx=32)   # pressure in Pa
+pressure1 = wrf.getvar(nc1, 'P', timeidx=time_index) + wrf.getvar(nc1, 'PB', timeidx=time_index)   # pressure in Pa
 pressure1.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
@@ -64,10 +66,10 @@ qnwfa1.name = 'water-friendly aerosol number con, cm-3'
 ###################################
 #####	FILE #2
 ###################################
-theta2 = wrf.getvar(nc2, 'T', timeidx=32) + 300 # potential temperature in K
+theta2 = wrf.getvar(nc2, 'T', timeidx=time_index) + 300 # potential temperature in K
 theta2.name = 'Potential temperature, K'
 
-pressure2 = wrf.getvar(nc2, 'P', timeidx=32) + wrf.getvar(nc2, 'PB', timeidx=32)   # pressure in Pa
+pressure2 = wrf.getvar(nc2, 'P', timeidx=time_index) + wrf.getvar(nc2, 'PB', timeidx=time_index)   # pressure in Pa
 pressure2.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)

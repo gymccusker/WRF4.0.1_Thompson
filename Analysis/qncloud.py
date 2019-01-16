@@ -50,10 +50,10 @@ box = np.where(np.logical_and(xlon >=-29.5, xlon<=-26.5))
 ###################################
 #####	FILE #1
 ###################################
-theta1 = wrf.getvar(nc1, 'T', timeidx=32) + 300 # potential temperature in K
+theta1 = wrf.getvar(nc1, 'T', timeidx=time_index) + 300 # potential temperature in K
 theta1.name = 'Potential temperature, K'
 
-pressure1 = wrf.getvar(nc1, 'P', timeidx=32) + wrf.getvar(nc1, 'PB', timeidx=32)   # pressure in Pa
+pressure1 = wrf.getvar(nc1, 'P', timeidx=time_index) + wrf.getvar(nc1, 'PB', timeidx=time_index)   # pressure in Pa
 pressure1.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
@@ -70,10 +70,10 @@ qncloud1.name = 'Cloud droplet number conc, cm-3'
 ###################################
 #####	FILE #2
 ###################################
-theta2 = wrf.getvar(nc2, 'T', timeidx=32) + 300 # potential temperature in K
+theta2 = wrf.getvar(nc2, 'T', timeidx=time_index) + 300 # potential temperature in K
 theta2.name = 'Potential temperature, K'
 
-pressure2 = wrf.getvar(nc2, 'P', timeidx=32) + wrf.getvar(nc2, 'PB', timeidx=32)   # pressure in Pa
+pressure2 = wrf.getvar(nc2, 'P', timeidx=time_index) + wrf.getvar(nc2, 'PB', timeidx=time_index)   # pressure in Pa
 pressure2.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
