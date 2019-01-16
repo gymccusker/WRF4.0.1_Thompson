@@ -22,10 +22,10 @@ root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
 time_index = 32
 
-nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
+nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 qncloud1 = wrf.getvar(nc1, 'QNCLOUD', timeidx=time_index)
 
-nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
+nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
 qncloud2 = wrf.getvar(nc2, 'QNCLOUD', timeidx=time_index)
 
 ## Quick Plot to check all is well
@@ -170,5 +170,16 @@ plt.plot(datax1,datay1)
 plt.plot(datax2,datay2)
 plt.ylim([0,2000])
 plt.xlabel(qncloud1.name)
+plt.ylabel(z1.description)
+plt.show()
+
+###################################
+## VERTICAL PROFILE @ HALLEY
+###################################
+
+plt.plot(np.squeeze(qncloud1[:,137,183]),z1[:,137,183],label = 'Default')
+plt.plot(np.squeeze(qncloud1[:,137,183]),z2[:,137,183],label = 'AeroClim')
+plt.ylim([0,2000])
+plt.title(qncloud1.name+'\n'+str(qncloud1.Time.values))
 plt.ylabel(z1.description)
 plt.show()
