@@ -61,7 +61,7 @@ rho1 = pressure1/(float(287.05) * temperature1)
 rho1.name = 'Air density, kg m-3'
 
 qnisg801 = (qnisg801 * rho1) / float(1e3)
-qnisg801.name = 'Number of ice+snow+graupel greater than 80 micron, L-1'
+qnisg801.name = 'Nisg80, L-1'
 
 ###################################
 #####	FILE #2
@@ -81,7 +81,7 @@ rho2 = pressure2/(float(287.05) * temperature2)
 rho2.name = 'Air density, kg m-3'
 
 qnisg802 = (qnisg802 * rho2) / float(1e3)
-qnisg802.name = 'ice-friendly aerosol number con, L-1'
+qnisg802.name = 'Nisg80, L-1'
 
 ###################################
 ## MAP
