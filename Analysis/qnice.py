@@ -149,6 +149,26 @@ plt.title(qnice2.name+'\n'+str(qnice2.Time.values))
 plt.show()
 
 ###################################
+## PROFILE
+###################################
+
+# Extract the model height 
+z1 = wrf.getvar(nc1, "z")
+z2 = wrf.getvar(nc2, "z")
+
+datax1 = np.nanmean(np.nanmean(qnice1[:,190:340,np.unique(box[1])],1),1)
+datax2 = np.nanmean(np.nanmean(qnice2[:,190:340,np.unique(box[1])],1),1)
+datay1 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+datay2 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+
+plt.plot(datax1,datay1)
+plt.plot(datax2,datay2)
+plt.ylim([0,2000])
+plt.xlabel(qnice1.name)
+plt.ylabel(z1.description)
+plt.show()
+
+###################################
 ## VERTICAL PROFILE @ HALLEY
 ###################################
 
