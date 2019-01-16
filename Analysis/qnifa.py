@@ -20,11 +20,13 @@ file_dir2 = '3_Nisg80_ThompsonAeroClim/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
-nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
-qnifa1 = wrf.getvar(nc1, 'QNIFA', timeidx=32)
+time_index = 32
 
-nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
-qnifa2 = wrf.getvar(nc2, 'QNIFA', timeidx=32)
+nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
+qnifa1 = wrf.getvar(nc1, 'QNIFA', timeidx=time_index)
+
+nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
+qnifa2 = wrf.getvar(nc2, 'QNIFA', timeidx=time_index)
 
 ## Quick Plot to check all is well
 # qnifa.plot()
@@ -44,10 +46,10 @@ cart_proj = wrf.get_cartopy(qnifa1)
 ###################################
 #####	FILE #1
 ###################################
-theta1 = wrf.getvar(nc1, 'T', timeidx=32) + 300 # potential temperature in K
+theta1 = wrf.getvar(nc1, 'T', timeidx=time_index) + 300 # potential temperature in K
 theta1.name = 'Potential temperature, K'
 
-pressure1 = wrf.getvar(nc1, 'P', timeidx=32) + wrf.getvar(nc1, 'PB', timeidx=32)   # pressure in Pa
+pressure1 = wrf.getvar(nc1, 'P', timeidx=time_index) + wrf.getvar(nc1, 'PB', timeidx=time_index)   # pressure in Pa
 pressure1.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
@@ -58,16 +60,16 @@ temperature1.name = 'Air Temperature, K'
 rho1 = pressure1/(float(287.05) * temperature1)
 rho1.name = 'Air density, kg m-3'
 
-qnifa1 = (qnifa1 * rho1) / float(1e6)
-qnifa1.name = 'ice-friendly aerosol number con, cm-3'
+qnifa1 = (qnifa1 * rho1) / float(1e3)
+qnifa1.name = 'ice-friendly aerosol number con, L-1'
 
 ###################################
 #####	FILE #2
 ###################################
-theta2 = wrf.getvar(nc2, 'T', timeidx=32) + 300 # potential temperature in K
+theta2 = wrf.getvar(nc2, 'T', timeidx=time_index) + 300 # potential temperature in K
 theta2.name = 'Potential temperature, K'
 
-pressure2 = wrf.getvar(nc2, 'P', timeidx=32) + wrf.getvar(nc2, 'PB', timeidx=32)   # pressure in Pa
+pressure2 = wrf.getvar(nc2, 'P', timeidx=time_index) + wrf.getvar(nc2, 'PB', timeidx=time_index)   # pressure in Pa
 pressure2.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
@@ -78,8 +80,8 @@ temperature2.name = 'Air Temperature, K'
 rho2 = pressure2/(float(287.05) * temperature2)
 rho2.name = 'Air density, kg m-3'
 
-qnifa2 = (qnifa2 * rho2) / float(1e6)
-qnifa2.name = 'ice-friendly aerosol number con, cm-3'
+qnifa2 = (qnifa2 * rho2) / float(1e3)
+qnifa2.name = 'ice-friendly aerosol number con, L-1'
 
 ###################################
 ## MAP
@@ -144,4 +146,19 @@ ax.gridlines(color="black", linestyle="dotted")
 
 plt.title(qnifa2.name+'\n'+str(qnifa2.Time.values))
 
+plt.show()
+
+###################################
+## VERTICAL PROFILE @ HALLEY
+###################################
+
+# Extract the model height 
+z1 = wrf.getvar(nc1, "z")
+z2 = wrf.getvar(nc2, "z")
+
+plt.plot(np.squeeze(qnifa1[:,137,183]),z1[:,137,183],label = 'Default')
+plt.plot(np.squeeze(qnifa2[:,137,183]),z2[:,137,183],label = 'AeroClim')
+plt.ylim([0,2000])
+plt.title(qnifa1.name+'\n'+str(qnifa1.Time.values))
+plt.ylabel(z1.description)
 plt.show()
