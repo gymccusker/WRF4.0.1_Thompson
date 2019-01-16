@@ -37,6 +37,11 @@ lats, lons = wrf.latlon_coords(qnisg801)
 ## Get the cartopy mapping object
 cart_proj = wrf.get_cartopy(qnisg801)
 
+#### 	Define near-aircraft cloud box
+xlon = wrf.getvar(nc2, 'XLONG', timeidx=time_index)
+box = np.where(np.logical_and(xlon >=-29.5, xlon<=-26.5))
+
+
 ###################################
 ###################################
 ## WRF data processing
@@ -147,6 +152,27 @@ ax.gridlines(color="black", linestyle="dotted")
 plt.title(qnisg802.name+'\n'+str(qnisg802.Time.values))
 
 plt.show()
+
+###################################
+## PROFILE
+###################################
+
+# Extract the model height 
+z1 = wrf.getvar(nc1, "z")
+z2 = wrf.getvar(nc2, "z")
+
+datax1 = np.nanmean(np.nanmean(qnisg801[:,190:340,np.unique(box[1])],1),1)
+datax2 = np.nanmean(np.nanmean(qnisg802[:,190:340,np.unique(box[1])],1),1)
+datay1 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+datay2 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+
+plt.plot(datax1,datay1)
+plt.plot(datax2,datay2)
+plt.ylim([0,2000])
+plt.xlabel(qnisg801.name)
+plt.ylabel(z1.description)
+plt.show()
+
 
 ###################################
 ## VERTICAL PROFILE @ HALLEY
