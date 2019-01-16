@@ -178,7 +178,7 @@ plt.show()
 ###################################
 
 plt.plot(np.squeeze(qncloud1[:,137,183]),z1[:,137,183],label = 'Default')
-plt.plot(np.squeeze(qncloud1[:,137,183]),z2[:,137,183],label = 'AeroClim')
+plt.plot(np.squeeze(qncloud2[:,137,183]),z2[:,137,183],label = 'AeroClim')
 plt.ylim([0,2000])
 plt.title(qncloud1.name+'\n'+str(qncloud1.Time.values))
 plt.ylabel(z1.description)
