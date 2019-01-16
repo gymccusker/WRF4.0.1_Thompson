@@ -22,10 +22,10 @@ root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
 time_index = 32
 
-nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
+nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 qnifa1 = wrf.getvar(nc1, 'QNIFA', timeidx=time_index)
 
-nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
+nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
 qnifa2 = wrf.getvar(nc2, 'QNIFA', timeidx=time_index)
 
 ## Quick Plot to check all is well
