@@ -60,8 +60,8 @@ temperature1.name = 'Air Temperature, K'
 rho1 = pressure1/(float(287.05) * temperature1)
 rho1.name = 'Air density, kg m-3'
 
-qnifa1 = (qnifa1 * rho1) / float(1e6)
-qnifa1.name = 'ice-friendly aerosol number con, cm-3'
+qnifa1 = (qnifa1 * rho1) / float(1e3)
+qnifa1.name = 'ice-friendly aerosol number con, L-1'
 
 ###################################
 #####	FILE #2
@@ -80,8 +80,8 @@ temperature2.name = 'Air Temperature, K'
 rho2 = pressure2/(float(287.05) * temperature2)
 rho2.name = 'Air density, kg m-3'
 
-qnifa2 = (qnifa2 * rho2) / float(1e6)
-qnifa2.name = 'ice-friendly aerosol number con, cm-3'
+qnifa2 = (qnifa2 * rho2) / float(1e3)
+qnifa2.name = 'ice-friendly aerosol number con, L-1'
 
 ###################################
 ## MAP
