@@ -22,10 +22,10 @@ root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
 time_index = 32
 
-nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
+nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 qnwfa1 = wrf.getvar(nc1, 'QNWFA', timeidx=time_index)
 
-nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
+nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
 qnwfa2 = wrf.getvar(nc2, 'QNWFA', timeidx=time_index)
 
 ## Quick Plot to check all is well
@@ -154,47 +154,55 @@ plt.show()
 
 # Extract the model height 
 z1 = wrf.getvar(nc1, "z")
+z2 = wrf.getvar(nc2, "z")
 
-# Create the start point and end point for the cross section
-start_point = wrf.CoordPair(lat=-74.0, lon=-27.0)
-end_point = wrf.CoordPair(lat=-75.0, lon=-27.0)
-
-# Compute the vertical cross-section interpolation.  Also, include the
-# lat/lon points along the cross-section.
-height_range = np.arange(0,26)
-
-qnwfa_cross1 = wrf.vertcross(qnwfa1, z1, wrfin=nc1, start_point=start_point,
-                       end_point=end_point, latlon=True, meta=True)
-
-# Create the figure
-fig = plt.figure(figsize=(7,6.5))
-ax = plt.axes()
-
-# Make the contour plot
-qnwfa_contours1 = ax.contourf(wrf.to_np(qnwfa_cross1), cmap=mpl_cm.viridis)
-# ax.set_ylim([0,25])
-
-# Add the color bar
-plt.colorbar(qnwfa_contours1, ax=ax)
-
-# Set the x-ticks to use latitude and longitude labels.
-coord_pairs = wrf.to_np(qnwfa_cross1.coords["xy_loc"])
-x_ticks = np.arange(coord_pairs.shape[0])
-x_labels = [pair.latlon_str(fmt="{:.2f}, {:.2f}")
-            for pair in wrf.to_np(coord_pairs)]
-ax.set_xticks(x_ticks[::20])
-ax.set_xticklabels(x_labels[::20], rotation=45, fontsize=8)
-
-# Set the y-ticks to be height.
-vert_vals = wrf.to_np(qnwfa_cross1.coords["vertical"])
-v_ticks = np.arange(vert_vals.shape[0])
-ax.set_yticks(v_ticks[::20])
-ax.set_yticklabels(vert_vals[::20], fontsize=8)
-
-# Set the x-axis and  y-axis labels
-ax.set_xlabel("Latitude, Longitude", fontsize=12)
-ax.set_ylabel("Height (m)", fontsize=12)
-
+plt.plot(np.squeeze(qnwfa1[:,137,183]),z1[:,137,183],label = 'Default')
+plt.plot(np.squeeze(qnwfa2[:,137,183]),z2[:,137,183],label = 'AeroClim')
+plt.ylim([0,2000])
 plt.title(qnwfa1.name+'\n'+str(qnwfa1.Time.values))
-
+plt.ylabel(z1.description)
 plt.show()
+
+# # Create the start point and end point for the cross section
+# start_point = wrf.CoordPair(lat=-74.0, lon=-27.0)
+# end_point = wrf.CoordPair(lat=-75.0, lon=-27.0)
+
+# # Compute the vertical cross-section interpolation.  Also, include the
+# # lat/lon points along the cross-section.
+# height_range = np.arange(0,26)
+
+# qnwfa_cross1 = wrf.vertcross(qnwfa1, z1, wrfin=nc1, start_point=start_point,
+#                        end_point=end_point, latlon=True, meta=True)
+
+# # Create the figure
+# fig = plt.figure(figsize=(7,6.5))
+# ax = plt.axes()
+
+# # Make the contour plot
+# qnwfa_contours1 = ax.contourf(wrf.to_np(qnwfa_cross1), cmap=mpl_cm.viridis)
+# # ax.set_ylim([0,25])
+
+# # Add the color bar
+# plt.colorbar(qnwfa_contours1, ax=ax)
+
+# # Set the x-ticks to use latitude and longitude labels.
+# coord_pairs = wrf.to_np(qnwfa_cross1.coords["xy_loc"])
+# x_ticks = np.arange(coord_pairs.shape[0])
+# x_labels = [pair.latlon_str(fmt="{:.2f}, {:.2f}")
+#             for pair in wrf.to_np(coord_pairs)]
+# ax.set_xticks(x_ticks[::20])
+# ax.set_xticklabels(x_labels[::20], rotation=45, fontsize=8)
+
+# # Set the y-ticks to be height.
+# vert_vals = wrf.to_np(qnwfa_cross1.coords["vertical"])
+# v_ticks = np.arange(vert_vals.shape[0])
+# ax.set_yticks(v_ticks[::20])
+# ax.set_yticklabels(vert_vals[::20], fontsize=8)
+
+# # Set the x-axis and  y-axis labels
+# ax.set_xlabel("Latitude, Longitude", fontsize=12)
+# ax.set_ylabel("Height (m)", fontsize=12)
+
+# plt.title(qnwfa1.name+'\n'+str(qnwfa1.Time.values))
+
+# plt.show()
