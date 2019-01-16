@@ -37,6 +37,11 @@ lats, lons = wrf.latlon_coords(qnice1)
 ## Get the cartopy mapping object
 cart_proj = wrf.get_cartopy(qnice1)
 
+#### 	Define near-aircraft cloud box
+xlon = wrf.getvar(nc2, 'XLONG', timeidx=time_index)
+box = np.where(np.logical_and(xlon >=-29.5, xlon<=-26.5))
+
+
 ###################################
 ###################################
 ## WRF data processing
