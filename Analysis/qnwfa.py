@@ -16,7 +16,8 @@ import cartopy.feature as cfe
 ###################################
 ## 2_Nisg80_ThompsonDefault/
 file_dir1 = '2_Nisg80_ThompsonDefault/'
-file_dir2 = '3_Nisg80_ThompsonAeroClim/'
+# file_dir2 = '3_Nisg80_ThompsonAeroClim/'
+file_dir2 = '4_Nisg80_Thompson_naCCN0-408_naCCN1-100/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
@@ -157,7 +158,7 @@ z1 = wrf.getvar(nc1, "z")
 z2 = wrf.getvar(nc2, "z")
 
 plt.plot(np.squeeze(qnwfa1[:,137,183]),z1[:,137,183],label = 'Default')
-plt.plot(np.squeeze(qnwfa2[:,137,183]),z2[:,137,183],label = 'AeroClim')
+plt.plot(np.squeeze(qnwfa2[:,137,183]),z2[:,137,183],label = '408')
 plt.ylim([0,2000])
 plt.title(qnwfa1.name+'\n'+str(qnwfa1.Time.values))
 plt.ylabel(z1.description)
