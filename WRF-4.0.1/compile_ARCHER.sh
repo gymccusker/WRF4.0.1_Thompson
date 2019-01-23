@@ -17,9 +17,9 @@ module load cray-hdf5/1.8.14
 export TMPDIR=/home/n02/n02/mbexkgy2/tmp
 
 export WRFIO_NCD_LARGE_FILE_SUPPORT=1
-export WRF_CHEM=1
-export WRF_EM_CORE=1
-export WRF_NMM_CORE=0
+#export WRF_CHEM=1
+#export WRF_EM_CORE=1
+#export WRF_NMM_CORE=0
 
 ulimit -s unlimited
 
