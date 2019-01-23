@@ -1346,6 +1346,8 @@ state    real    rhopo3d        ikj     misc        1         -     hdu       "r
 state    real    vmi3d_2          ikj     misc        1         -     hdu     "v_ice2"                 "Mass-weighted ice fallspeed cat 2"  "m s-1"
 state    real    di3d_2           ikj     misc        1         -     hdu     "d_ice2"                 "Mass-weighted mean ice size cat 2"  "m"
 state    real    rhopo3d_2        ikj     misc        1         -     hdu     "rho_ice2"               "Mass-weighted mean ice density cat 2"  "kg m-3"
+state	 real  nisg80       	ikj  	misc    	1     	  -  	 h  	  "NISG80"           	  "Number of ice+snow+graupel greater than 80 micron"       "kg-1"
+state	 real  qisg80       	ikj  	misc    	1     	  -  	 h  	  "QISG80"           	  "Mass of ice+snow+graupel greater than 80 micron"       	"kg/kg"
 # LIGHTNING NUDGING
 #state    real    ltg_dat        ij      misc        1         -      r         "ltg_dat"               "gridded lightning data"  "Flash per xkm x xkm per LAD_INT sec"
 # END LIGHTNING NUDGING
