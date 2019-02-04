@@ -13,4 +13,6 @@ Trialing on Archer. (3-Jan-2019)
               
 Successful compilation and runs without segmentation faults when chem/ code compiled (7-Jan-2019)
   
--- Model grinds to a halt at d02 2015-11-26_00:00:00 calling inc/HALO_EM_SBM_inline.inc. Does not abort with error message, continues to run. No change in filesize over ~30minutes, so definitely not doing anything (might have been an issue with the rsl.error output).
+-- Model grinds to a halt at d02 2015-11-26_00:00:00 calling inc/HALO_EM_SBM_inline.inc. Does not abort with error message, continues to run. No change in filesize over ~30minutes, so definitely not doing anything (might have been an issue with the rsl.error output). Likely a memory error
+
+4-Feb-2019: Decide to revert back to standard version of the model (without Nisg80 diagnostics). No graupel or snow number concentrations output from Thompson-Eidhammer scheme as default, so no validation checks possible without the extra work of outputting these. For ease (and to allow study to be conducted on ARCHER), revert back to default.
