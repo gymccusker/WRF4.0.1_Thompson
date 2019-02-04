@@ -3,11 +3,11 @@
 # set -v      # Print script lines as they are read.
 # set -x      # Print commands and their arguments as they are executed.
 # PBS job options (name, compute nodes, job time)
-#PBS -N wrf_exe
+#PBS -N wrf_ARCHER
 #PBS -l select=9
 #PBS -l walltime=24:00:00
 #PBS -A n02-NEK01482X
-#PBS -M giyoung@bas.ac.uk
+#PBS -M g.young1@leeds.ac.uk
 #PBS -m b
 #PBS -m e
 module load cray-netcdf/4.3.2
@@ -16,9 +16,6 @@ module load cray-hdf5/1.8.14          # for WRFV3.5.1 and above
 export TMPDIR=/home/n02/n02/mbexkgy2/tmp
 
 export WRFIO_NCD_LARGE_FILE_SUPPORT=1
-export WRF_CHEM=1
-export WRF_EM_CORE=1
-export WRF_NMM_CORE=0
 
 export NETCDF=/opt/cray/netcdf/4.3.2/intel/140
 
