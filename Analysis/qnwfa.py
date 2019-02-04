@@ -17,7 +17,7 @@ import cartopy.feature as cfe
 ## 2_Nisg80_ThompsonDefault/
 file_dir1 = '2_Nisg80_ThompsonDefault/'
 # file_dir2 = '3_Nisg80_ThompsonAeroClim/'
-file_dir2 = '4_Nisg80_Thompson_naCCN0-408_naCCN1-100/'
+file_dir2 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
