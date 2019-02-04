@@ -4,7 +4,7 @@
 #PBS -l walltime=04:00:00
 #PBS -A n02-NEK01482X
 
-#PBS -M giyoung@bas.ac.uk
+#PBS -M g.young1@leeds.ac.uk
 #PBS -m b
 #PBS -m e
 module swap PrgEnv-cray PrgEnv-intel  # for WRFV3.5.1 and above
@@ -17,11 +17,6 @@ module load cray-hdf5/1.8.14
 export TMPDIR=/home/n02/n02/mbexkgy2/tmp
 
 export WRFIO_NCD_LARGE_FILE_SUPPORT=1
-#export WRF_CHEM=1
-#export WRF_EM_CORE=1
-#export WRF_NMM_CORE=0
-
-ulimit -s unlimited
 
 export NETCDF=/opt/cray/netcdf/4.3.2/intel/140
 # Make sure any symbolic links are resolved to absolute path
