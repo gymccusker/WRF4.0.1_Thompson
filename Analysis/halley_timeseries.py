@@ -51,7 +51,7 @@ import pandas as pd
 ## 
 file1_dir = '2_Nisg80_ThompsonDefault/'
 file2_dir = '3_Nisg80_ThompsonAeroClim/'
-index = 't'
+index = 'psfc'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
@@ -91,9 +91,10 @@ df2.columns = ['id','ts_hour','id_tsloc','ix','iy','t','q','u','v','psfc','glw',
 ## Ignore 1st 24 hours (spin up)
 ###################################
 
-plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label='01')
-plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label='02')
+plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label='d01')
+plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label='d02')
 plt.xlabel('Time, h [27-Nov-2018]')
 plt.ylabel(index)
+plt.xlim([0,24])
 plt.legend()
 plt.show()

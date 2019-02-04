@@ -472,11 +472,6 @@
          CALL wrf_debug(100, mp_debug)
          write(mp_debug,*) '   column sum at point (i,j) = ', its,jts, SUM(nwfa(its,:,jts))
          CALL wrf_debug(100, mp_debug)
-         do j = jts, min(jde-1,jte)
-            do i = its, min(ide-1,ite)         
-               nwfa2d(i,j) = nwfa2d(i,j) + 100e6
-            enddo
-         enddo
       endif
 
 

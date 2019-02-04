@@ -34,6 +34,8 @@ from wrf import to_np, getvar, CoordPair, vertcross
 ## 2_Nisg80_ThompsonDefault/
 
 file_dir = '3_Nisg80_ThompsonAeroClim/'
+file_dir2 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
+
 param = 'QV'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
@@ -42,16 +44,31 @@ obs_dir = '/data/scihub-users/giyoung/MAC/'
 ###################################
 ## d01
 ###################################
-filename1 = "".join(root_dir+file_dir+'hal.d01.'+param)
-file1 = np.loadtxt(filename1,skiprows=1)
-df1 = pd.DataFrame(file1, dtype='float')
+filename1_1 = "".join(root_dir+file_dir+'hal.d01.'+param)
+file1_1 = np.loadtxt(filename1_1,skiprows=1)
+df1_1 = pd.DataFrame(file1_1, dtype='float')
 
 ###################################
 ## d02
 ###################################
-filename2 = "".join(root_dir+file_dir+'hal.d02.'+param)
-file2 = np.loadtxt(filename2,skiprows=1)
-df2 = pd.DataFrame(file2, dtype='float')
+filename2_1 = "".join(root_dir+file_dir+'hal.d02.'+param)
+file2_1 = np.loadtxt(filename2_1,skiprows=1)
+df2_1 = pd.DataFrame(file2_1, dtype='float')
+
+
+###################################
+## d01
+###################################
+filename1_2 = "".join(root_dir+file_dir2+'hal.d01.'+param)
+file1_2 = np.loadtxt(filename1_2,skiprows=1)
+df1_2 = pd.DataFrame(file1_2, dtype='float')
+
+###################################
+## d02
+###################################
+filename2_2 = "".join(root_dir+file_dir2+'hal.d02.'+param)
+file2_2 = np.loadtxt(filename2_2,skiprows=1)
+df2_2 = pd.DataFrame(file2_2, dtype='float')
 
 ###################################
 ## Obs
@@ -63,32 +80,50 @@ dfObs = pd.read_table(filenameObs)
 ## WRF (vertical levels)
 ###################################
 # Open the NetCDF file
-nc1 = Dataset(root_dir+file_dir+'wrfout_d01_2015-11-27_00:00:00')
+nc1_1 = Dataset(root_dir+file_dir+'wrfout_d01_2015-11-27_00:00:00')
 
 # Extract the model height and wind speed
-Z1 = getvar(nc1, "z")
-nc1.close()
+Z1_1 = getvar(nc1_1, "z")
+nc1_1.close()
 
 # Open the NetCDF file
-nc2 = Dataset(root_dir+file_dir+'wrfout_d02_2015-11-27_00:00:00')
+nc2_1 = Dataset(root_dir+file_dir+'wrfout_d02_2015-11-27_00:00:00')
 
 # Extract the model height and wind speed
-Z2 = getvar(nc2, "z")
-nc2.close()
+Z2_1 = getvar(nc2_1, "z")
+nc2_1.close()
+
+
+###################################
+## WRF (vertical levels)
+###################################
+# Open the NetCDF file
+nc1_2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
+
+# Extract the model height and wind speed
+Z1_2 = getvar(nc1_2, "z")
+nc1_2.close()
+
+# Open the NetCDF file
+nc2_2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
+
+# Extract the model height and wind speed
+Z2_2 = getvar(nc2_2, "z")
+nc2_2.close()
 
 ###################################
 ## Quick check
 ###################################
  
-# df1.iloc[0,:] # prints first row of data
-# df1.head()
+# df1_1.iloc[0,:] # prints first row of data
+# df1_1.head()
 
 ###################################
 ## Set column names
 ###################################
 
-df1.columns = ['ts_hour','z1','z2','z3','z4','z5','z6','z7','z8','z9','z10','z11','z12','z13','z14','z15']
-df2.columns = ['ts_hour','z1','z2','z3','z4','z5','z6','z7','z8','z9','z10','z11','z12','z13','z14','z15']
+df1_1.columns = ['ts_hour','z1','z2','z3','z4','z5','z6','z7','z8','z9','z10','z11','z12','z13','z14','z15']
+df2_1.columns = ['ts_hour','z1','z2','z3','z4','z5','z6','z7','z8','z9','z10','z11','z12','z13','z14','z15']
 dfObs.columns = ['Obtime','pres','z','temp','dewpt','U','V','RH']
 
 ###################################
@@ -105,13 +140,6 @@ dfObs.loc[:,'RH'][dfObs.loc[:,'RH'] == 'null'] = np.nan
 ## Convert temp to theta
 ###################################
 
-# data1['theta'] = nc1.variables['T'][time_sci]+300 # potential temperature in K
-# data1['p'] = (nc1.variables['P'][time_sci[0]]+nc1.variables['PB'][time_sci[0]])   # pressure in Pa
-# tempvar = constants.R/float(1005)
-# tempvar0 = (data1['p']/100000)**tempvar       
-# data1['Tk'] = tempvar0*data1['theta']
-# data1['rho'] = data1['p']/(constants.R*data1['Tk'])
-
 kap = float(287.05)/float(1005)
 tempvar = (pd.to_numeric(dfObs.loc[:,'pres'])/1000)**kap
 theta = (pd.to_numeric(dfObs.loc[:,'temp'])+273.16)/tempvar
@@ -120,19 +148,21 @@ theta = (pd.to_numeric(dfObs.loc[:,'temp'])+273.16)/tempvar
 ## Ignore 1st 24 hours (spin up)
 ###################################
 
-time = np.where(df1.loc[:,'ts_hour']==(24.0+12.0))
+time = np.where(df1_1.loc[:,'ts_hour']==(24.0+12.0))
 ztemp = np.arange(0,15)
 
 ##### HALLEY POSITION IN MODEL - NEAREST GRID POINT (LAT/LON)
 ### D01 = 118,  71 -> Z1[:,71,118]
 ### D02 = 183, 137 -> Z2[:,137,183]
 
-plt.plot(np.squeeze(df1.values[time,1:]),Z1[0:15,71,118],label = 'd01')
-plt.plot(np.squeeze(df2.values[time,1:]),Z2[0:15,137,183],label = 'd02')
+plt.plot(np.squeeze(df1_1.values[time,1:]),Z1_1[0:15,71,118],label = 'd01')
+plt.plot(np.squeeze(df2_1.values[time,1:]),Z2_1[0:15,137,183],label = 'd02')
+plt.plot(np.squeeze(df1_2.values[time,1:]),Z1_2[0:15,71,118],'--',label = 'd01')
+plt.plot(np.squeeze(df2_2.values[time,1:]),Z2_2[0:15,137,183],'--',label = 'd02')
 # plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
 plt.xlabel(param)
 plt.ylabel('Z [m]')
-plt.ylim([0,1000])
+plt.ylim([0,1200])
 # plt.xlim([270,290])
 plt.legend()
 plt.show()
