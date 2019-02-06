@@ -474,7 +474,7 @@
          CALL wrf_debug(100, mp_debug)
          do j = jts, min(jde-1,jte)
             do i = its, min(ide-1,ite)         
-               nwfa2d(i,j) = nwfa2d(i,j) + 100e6
+               nwfa2d(i,j) = nwfa2d(i,j) + 100.0
             enddo
          enddo
       endif
