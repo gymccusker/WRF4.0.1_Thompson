@@ -27,10 +27,10 @@ root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
 time_index = 32
 
-nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
+nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
 qnifa1 = wrf.getvar(nc1, 'QNIFA', timeidx=time_index)
 
-nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
+nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
 qnifa2 = wrf.getvar(nc2, 'QNIFA', timeidx=time_index)
 
 ## Quick Plot to check all is well
@@ -161,8 +161,12 @@ plt.show()
 z1 = wrf.getvar(nc1, "z")
 z2 = wrf.getvar(nc2, "z")
 
-plt.plot(np.squeeze(qnifa1[:,137,183]),z1[:,137,183],label = 'Default')
-plt.plot(np.squeeze(qnifa2[:,137,183]),z2[:,137,183],label = 'AeroClim')
+##### HALLEY POSITION IN MODEL - NEAREST GRID POINT (LAT/LON)
+### D01 = 118,  71 -> Z1[:,71,118]
+### D02 = 183, 137 -> Z2[:,137,183]
+
+plt.plot(np.squeeze(qnifa1[:,71,118]),z1[:,71,118],label = 'Default')
+plt.plot(np.squeeze(qnifa2[:,71,118]),z2[:,71,118],label = 'Plus100e6')
 plt.ylim([0,2000])
 plt.legend()
 plt.title(qnifa1.name+'\n'+str(qnifa1.Time.values))
