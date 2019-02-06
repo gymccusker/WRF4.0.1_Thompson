@@ -57,7 +57,7 @@ import pandas as pd
 file_dir1 = '5_Archer_Default_AeroClim/'
 file_dir2 = '6_Archer_NWFApl100_AeroClim/'
 
-index = 'psfc'
+index = 'gsw'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
