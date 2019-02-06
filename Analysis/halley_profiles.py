@@ -1,6 +1,6 @@
 ##-----------------------------------------------------------------------------------------------------------------------
 ##-----------------------------------------------------------------------------------------------------------------------
-# Given a tslist file, for each location inside a model domain (either coarse 
+# Given a tslist file, for each location inside a model domain (either coarse
 # or nested), below files are created:
 
 # 1. pfx*.dNN.TS containing the regular time series output of surface variables.
@@ -32,11 +32,15 @@ from wrf import to_np, getvar, CoordPair, vertcross
 ###################################
 
 ## 2_Nisg80_ThompsonDefault/
+## 3_Nisg80_ThompsonAeroClim/
+## 4_Nisg80_Thompson_naCCN0408_naCCN1100/
+## 5_Archer_Default_AeroClim/
+## 6_Archer_NWFApl100_AeroClim/
 
-file_dir = '3_Nisg80_ThompsonAeroClim/'
-file_dir2 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
+file_dir1 = '5_Archer_Default_AeroClim/'
+file_dir2 = '6_Archer_NWFApl100_AeroClim/'
 
-param = 'QV'
+param = 'TH'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 obs_dir = '/data/scihub-users/giyoung/MAC/'
@@ -44,14 +48,14 @@ obs_dir = '/data/scihub-users/giyoung/MAC/'
 ###################################
 ## d01
 ###################################
-filename1_1 = "".join(root_dir+file_dir+'hal.d01.'+param)
+filename1_1 = "".join(root_dir+file_dir1+'hal.d01.'+param)
 file1_1 = np.loadtxt(filename1_1,skiprows=1)
 df1_1 = pd.DataFrame(file1_1, dtype='float')
 
 ###################################
 ## d02
 ###################################
-filename2_1 = "".join(root_dir+file_dir+'hal.d02.'+param)
+filename2_1 = "".join(root_dir+file_dir1+'hal.d02.'+param)
 file2_1 = np.loadtxt(filename2_1,skiprows=1)
 df2_1 = pd.DataFrame(file2_1, dtype='float')
 
@@ -114,7 +118,7 @@ nc2_2.close()
 ###################################
 ## Quick check
 ###################################
- 
+
 # df1_1.iloc[0,:] # prints first row of data
 # df1_1.head()
 
@@ -159,10 +163,10 @@ plt.plot(np.squeeze(df1_1.values[time,1:]),Z1_1[0:15,71,118],label = 'd01')
 plt.plot(np.squeeze(df2_1.values[time,1:]),Z2_1[0:15,137,183],label = 'd02')
 plt.plot(np.squeeze(df1_2.values[time,1:]),Z1_2[0:15,71,118],'--',label = 'd01')
 plt.plot(np.squeeze(df2_2.values[time,1:]),Z2_2[0:15,137,183],'--',label = 'd02')
-# plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
+plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
 plt.xlabel(param)
 plt.ylabel('Z [m]')
 plt.ylim([0,1200])
-# plt.xlim([270,290])
+plt.xlim([270,290])
 plt.legend()
 plt.show()
