@@ -64,14 +64,14 @@ root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 ###################################
 ## d01
 ###################################
-filename1 = "".join(root_dir+file1_dir+'hal.d02.TS')
+filename1 = "".join(root_dir+file_dir1+'hal.d02.TS')
 file1 = np.loadtxt(filename1,skiprows=1)
 df1 = pd.DataFrame(file1)
 
 ###################################
 ## d02
 ###################################
-filename2 = "".join(root_dir+file2_dir+'hal.d02.TS')
+filename2 = "".join(root_dir+file_dir2+'hal.d02.TS')
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
 
