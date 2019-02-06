@@ -1,16 +1,16 @@
 ##-----------------------------------------------------------------------------------------------------------------------
 ##-----------------------------------------------------------------------------------------------------------------------
 # The first line in a time-series output looks like this:
-# 	
+#
 # 	NZCM McMurdo               2  7 mcm   (-77.850, 166.710) ( 153, 207) (-77.768, 166.500)   81.8 meters
-# 	
+#
 # 	Those are name of the station, grid ID, time-series ID, station lat/lon, grid indices (nearest grid point to
 # 	the station location), grid lat/lon, elevation.
-# 	
+#
 # 	The variables from the time series output are:
-# 	
+#
 # 	id, ts_hour, id_tsloc, ix, iy, t, q, u, v, psfc, glw, gsw, hfx, lh, tsk, tslb(1), rainc, rainnc, clw
-# 	
+#
 # 	id:             grid ID
 # 	ts_hour:        forecast time in hours
 # 	id_tsloc:       time series ID
@@ -48,31 +48,37 @@ import pandas as pd
 ## Load in data
 ###################################
 
-## 
-file1_dir = '2_Nisg80_ThompsonDefault/'
-file2_dir = '3_Nisg80_ThompsonAeroClim/'
-index = 'psfc'
+## 2_Nisg80_ThompsonDefault/
+## 3_Nisg80_ThompsonAeroClim/
+## 4_Nisg80_Thompson_naCCN0408_naCCN1100/
+## 5_Archer_Default_AeroClim/
+## 6_Archer_NWFApl100_AeroClim/
+
+file_dir1 = '5_Archer_Default_AeroClim/'
+file_dir2 = '6_Archer_NWFApl100_AeroClim/'
+
+index = 'gsw'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
 ###################################
 ## d01
 ###################################
-filename1 = "".join(root_dir+file1_dir+'hal.d02.TS')
+filename1 = "".join(root_dir+file_dir1+'hal.d02.TS')
 file1 = np.loadtxt(filename1,skiprows=1)
 df1 = pd.DataFrame(file1)
 
 ###################################
 ## d02
 ###################################
-filename2 = "".join(root_dir+file2_dir+'hal.d02.TS')
+filename2 = "".join(root_dir+file_dir2+'hal.d02.TS')
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
 
 ###################################
 ## Quick check
 ###################################
- 
+
 df1.iloc[0,:] # prints first row of data
 df1.head()
 
