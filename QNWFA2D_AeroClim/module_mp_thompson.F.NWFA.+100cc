@@ -1135,7 +1135,10 @@
                nwfa1d(k) = nwfa(i,k,j)
                nifa1d(k) = nifa(i,k,j)
             enddo
-            nwfa1 = nwfa2d(i,j) !! POTENTIALLY ADD NWFA SURFACE SOURCE HERE - GYOUNG
+            nwfa1 = nwfa2d(i,j)
+            !! POTENTIALLY ADD NWFA SURFACE SOURCE HERE. SURFACE NWFA VALUES
+            !! RESET TO NWFA2D AFTER MP_THOMPSON IS CALLED, SO MIGHT NOT BE
+            !! NEEDED
          else
             do k = kts, kte
                rho(k) = 0.622*p1d(k)/(R*t1d(k)*(qv1d(k)+0.622))
