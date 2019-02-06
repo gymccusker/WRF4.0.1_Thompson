@@ -21,7 +21,7 @@ import cartopy.feature as cfe
 ## 6_Archer_NWFApl100_AeroClim
 
 file_dir1 = '5_Archer_Default_AeroClim/'
-file_dir2 = '6_Archer_NWFApl100_AeroClim/'
+file_dir2 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
@@ -165,10 +165,11 @@ z2 = wrf.getvar(nc2, "z")
 ### D01 = 118,  71 -> Z1[:,71,118]
 ### D02 = 183, 137 -> Z2[:,137,183]
 
-plt.plot(np.squeeze(qnwfa1[:,71,118]),z1[:,71,118],label = 'WS8')
-plt.plot(np.squeeze(qnwfa2[:,71,118]),z2[:,71,118],label = 'Archer')
+plt.plot(np.squeeze(qnwfa1[:,71,118]),z1[:,71,118],label = 'Default')
+plt.plot(np.squeeze(qnwfa2[:,71,118]),z2[:,71,118],label = 'CCN408')
 plt.ylim([0,2000])
 plt.title(qnwfa1.name+'\n'+str(qnwfa1.Time.values))
+plt.legend()
 plt.ylabel(z1.description)
 plt.show()
 
