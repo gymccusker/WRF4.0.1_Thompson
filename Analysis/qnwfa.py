@@ -20,8 +20,8 @@ import cartopy.feature as cfe
 ## 5_Archer_Default_AeroClim
 ## 6_Archer_NWFApl100_AeroClim
 
-file_dir1 = '3_Nisg80_ThompsonAeroClim/'
-file_dir2 = '5_Archer_Default_AeroClim/'
+file_dir1 = '5_Archer_Default_AeroClim/'
+file_dir2 = '6_Archer_NWFApl100_AeroClim'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
