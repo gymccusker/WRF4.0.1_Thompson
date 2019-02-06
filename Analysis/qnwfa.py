@@ -58,7 +58,7 @@ pressure1 = wrf.getvar(nc1, 'P', timeidx=time_index) + wrf.getvar(nc1, 'PB', tim
 pressure1.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
-tempvar0 = (pressure1/100000)**tempvar    
+tempvar0 = (pressure1/100000)**tempvar
 temperature1 = tempvar0 * theta1
 temperature1.name = 'Air Temperature, K'
 
@@ -78,7 +78,7 @@ pressure2 = wrf.getvar(nc2, 'P', timeidx=time_index) + wrf.getvar(nc2, 'PB', tim
 pressure2.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
-tempvar0 = (pressure2/100000)**tempvar    
+tempvar0 = (pressure2/100000)**tempvar
 temperature2 = tempvar0 * theta2
 temperature2.name = 'Air Temperature, K'
 
@@ -92,8 +92,8 @@ qnwfa2.name = 'water-friendly aerosol number con, cm-3'
 ## MAP
 ###################################
 
-data1 = wrf.to_np(qnwfa1[0,:,:])
-data2 = wrf.to_np(qnwfa2[0,:,:])
+data1 = wrf.to_np(qnwfa1[10,:,:])
+data2 = wrf.to_np(qnwfa2[10,:,:])
 
 # Create a figure
 fig = plt.figure(figsize=(8,4))
@@ -104,11 +104,11 @@ ax = fig.add_axes([0.1,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, width
 
 # Add coastlines
 ax.coastlines('50m', linewidth=0.8)
-ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines', 
+ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines',
                                        '50m', linewidth=1.0, edgecolor='k', facecolor='none') )
 
 # Plot contours
-plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data1, 10, 
+plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data1, 10,
                 transform=crs.PlateCarree(), cmap = mpl_cm.Reds)
 
 # Add a color bar
@@ -131,11 +131,11 @@ ax = fig.add_axes([0.55,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, widt
 
 # Add coastlines
 ax.coastlines('50m', linewidth=0.8)
-ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines', 
+ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines',
                                        '50m', linewidth=1.0, edgecolor='k', facecolor='none') )
 
 # Plot contours
-plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data2, 10, 
+plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data2, 10,
                 transform=crs.PlateCarree(), cmap = mpl_cm.Reds)
 
 # Add a color bar
@@ -157,7 +157,7 @@ plt.show()
 ## VERTICAL CROSS-SECTION
 ###################################
 
-# Extract the model height 
+# Extract the model height
 z1 = wrf.getvar(nc1, "z")
 z2 = wrf.getvar(nc2, "z")
 
