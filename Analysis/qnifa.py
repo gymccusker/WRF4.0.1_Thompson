@@ -15,8 +15,13 @@ import cartopy.feature as cfe
 ## Load in WRF data
 ###################################
 ## 2_Nisg80_ThompsonDefault/
-file_dir1 = '2_Nisg80_ThompsonDefault/'
-file_dir2 = '3_Nisg80_ThompsonAeroClim/'
+## 3_Nisg80_ThompsonAeroClim/
+## 4_Nisg80_Thompson_naCCN0408_naCCN1100/
+## 5_Archer_Default_AeroClim/
+## 6_Archer_NWFApl100_AeroClim/
+
+file_dir1 = '5_Archer_Default_AeroClim/'
+file_dir2 = '6_Archer_NWFApl100_AeroClim/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
@@ -53,7 +58,7 @@ pressure1 = wrf.getvar(nc1, 'P', timeidx=time_index) + wrf.getvar(nc1, 'PB', tim
 pressure1.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
-tempvar0 = (pressure1/100000)**tempvar    
+tempvar0 = (pressure1/100000)**tempvar
 temperature1 = tempvar0 * theta1
 temperature1.name = 'Air Temperature, K'
 
@@ -73,7 +78,7 @@ pressure2 = wrf.getvar(nc2, 'P', timeidx=time_index) + wrf.getvar(nc2, 'PB', tim
 pressure2.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
-tempvar0 = (pressure2/100000)**tempvar    
+tempvar0 = (pressure2/100000)**tempvar
 temperature2 = tempvar0 * theta2
 temperature2.name = 'Air Temperature, K'
 
@@ -99,11 +104,11 @@ ax = fig.add_axes([0.1,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, width
 
 # Add coastlines
 ax.coastlines('50m', linewidth=0.8)
-ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines', 
+ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines',
                                        '50m', linewidth=1.0, edgecolor='k', facecolor='none') )
 
 # Plot contours
-plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data1, 10, 
+plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data1, 10,
                 transform=crs.PlateCarree(), cmap = mpl_cm.Reds)
 
 # Add a color bar
@@ -126,11 +131,11 @@ ax = fig.add_axes([0.55,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, widt
 
 # Add coastlines
 ax.coastlines('50m', linewidth=0.8)
-ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines', 
+ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines',
                                        '50m', linewidth=1.0, edgecolor='k', facecolor='none') )
 
 # Plot contours
-plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data2, 10, 
+plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data2, 10,
                 transform=crs.PlateCarree(), cmap = mpl_cm.Reds)
 
 # Add a color bar
@@ -152,7 +157,7 @@ plt.show()
 ## VERTICAL PROFILE @ HALLEY
 ###################################
 
-# Extract the model height 
+# Extract the model height
 z1 = wrf.getvar(nc1, "z")
 z2 = wrf.getvar(nc2, "z")
 
