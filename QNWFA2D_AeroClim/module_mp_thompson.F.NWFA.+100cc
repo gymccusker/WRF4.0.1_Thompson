@@ -472,11 +472,6 @@
          CALL wrf_debug(100, mp_debug)
          write(mp_debug,*) '   column sum at point (i,j) = ', its,jts, SUM(nwfa(its,:,jts))
          CALL wrf_debug(100, mp_debug)
-         do j = jts, min(jde-1,jte)
-            do i = its, min(ide-1,ite)
-               nwfa2d(i,j) = nwfa2d(i,j) + 100.0
-            enddo
-         enddo
       endif
 
 
@@ -1132,13 +1127,10 @@
          if (is_aerosol_aware) then
             do k = kts, kte
                nc1d(k) = nc(i,k,j)
-               nwfa1d(k) = nwfa(i,k,j)
+               nwfa1d(k) = nwfa(i,k,j) + 100E6    ! ADD 100/cc AT EACH K
                nifa1d(k) = nifa(i,k,j)
             enddo
-            nwfa1 = nwfa2d(i,j) + 100.0
-            !! ADD NWFA SURFACE SOURCE HERE. SURFACE NWFA VALUES
-            !! RESET TO NWFA2D AFTER MP_THOMPSON IS CALLED, SO ACTIVATED 
-            !! REPLENISHED. 
+            nwfa1 = nwfa2d(i,j)
          else
             do k = kts, kte
                rho(k) = 0.622*p1d(k)/(R*t1d(k)*(qv1d(k)+0.622))

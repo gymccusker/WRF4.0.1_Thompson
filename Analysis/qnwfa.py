@@ -22,16 +22,16 @@ import cartopy.feature as cfe
 ## 7_Archer_NWFApl100_AeroClim/
 
 file_dir1 = '5_Archer_Default_AeroClim/'
-file_dir2 = '7_Archer_NWFApl100_AeroClim/'
+file_dir2 = '8_Archer_NWFApl100_DRIVERpl100_AeroClim/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
 time_index = 32
 
-nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
+nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 qnwfa1 = wrf.getvar(nc1, 'QNWFA', timeidx=time_index)
 
-nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
+nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
 qnwfa2 = wrf.getvar(nc2, 'QNWFA', timeidx=time_index)
 
 ## Quick Plot to check all is well
@@ -166,8 +166,8 @@ z2 = wrf.getvar(nc2, "z")
 ### D01 = 118,  71 -> Z1[:,71,118]
 ### D02 = 183, 137 -> Z2[:,137,183]
 
-plt.plot(np.squeeze(qnwfa1[:,71,118]),z1[:,71,118],label = 'Default')
-plt.plot(np.squeeze(qnwfa2[:,71,118]),z2[:,71,118],label = 'CCN408')
+plt.plot(np.squeeze(qnwfa1[:,137,183]),z1[:,137,183],label = file_dir1[0])
+plt.plot(np.squeeze(qnwfa2[:,137,183]),z2[:,137,183],label = file_dir2[0])
 plt.ylim([0,2000])
 plt.title(qnwfa1.name+'\n'+str(qnwfa1.Time.values))
 plt.legend()
