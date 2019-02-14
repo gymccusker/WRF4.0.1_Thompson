@@ -1127,7 +1127,7 @@
          if (is_aerosol_aware) then
             do k = kts, kte
                nc1d(k) = nc(i,k,j)
-               nwfa1d(k) = nwfa(i,k,j) + 100    ! ADD 100/cc AT EACH K
+               nwfa1d(k) = nwfa(i,k,j) + 100e3    ! ADD 100/cc AT EACH K
                nifa1d(k) = nifa(i,k,j)
             enddo
             nwfa1 = nwfa2d(i,j)
