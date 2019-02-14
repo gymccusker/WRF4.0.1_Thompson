@@ -22,6 +22,7 @@ import cartopy.feature as cfe
 ## 7_Archer_INITpl100/
 ## 8_Archer_INITpl100_DRIVERpl100/
 ## 9_Archer_DRIVER_NWFA1D_100e6/
+## 10_Archer_DRIVER_NWFA1D_100/
 
 file_dir1 = '5_Archer_Default_AeroClim/'
 file_dir2 = '9_Archer_DRIVER_NWFA1D_100e6/'
