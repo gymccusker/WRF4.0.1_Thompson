@@ -28,7 +28,7 @@ import cartopy.feature as cfe
 ## 13_Archer_DRIVER_NWFA1D_x05/
 
 file_dir1 = '5_Archer_Default_AeroClim/'
-file_dir2 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
+file_dir2 = '11_Archer_DRIVER_NWFA1D_100e3/'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
