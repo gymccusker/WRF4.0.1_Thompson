@@ -28,7 +28,7 @@ import cartopy.feature as cfe
 ## 13_Archer_DRIVER_NWFA1D_x05/
 
 file_dir1 = '5_Archer_Default_AeroClim/'
-file_dir2 = '10_Archer_DRIVER_NWFA1D_100/'
+file_dir2 = '11_Archer_DRIVER_NWFA1D_100e3/'
 
 root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 
