@@ -28,8 +28,8 @@ import cartopy.feature as cfe
 ## 13_Archer_DRIVER_NWFA1D_x05/
 ## 14_Archer_DRIVER_NWFA1D_150e3/
 
-file_dir1 = '5_Archer_Default_AeroClim/'
-file_dir2 = '14_Archer_DRIVER_NWFA1D_150e3/' 
+file_dir1 = '11_Archer_DRIVER_NWFA1D_100e3/'
+file_dir2 = '14_Archer_DRIVER_NWFA1D_150e3/'
 
 root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 
@@ -173,8 +173,8 @@ z2 = wrf.getvar(nc2, "z")
 ### D01 = 118,  71 -> Z1[:,71,118]
 ### D02 = 183, 137 -> Z2[:,137,183]
 
-plt.plot(np.squeeze(qnwfa1[:,71,118]),z1[:,71,118],label = file_dir1[0])
-plt.plot(np.squeeze(qnwfa2[:,71,118]),z2[:,71,118],label = file_dir2[0:1])
+plt.plot(np.squeeze(qnwfa1[:,71,118]),z1[:,71,118],label = file_dir1[0:2])
+plt.plot(np.squeeze(qnwfa2[:,71,118]),z2[:,71,118],label = file_dir2[0:2])
 plt.ylim([0,2000])
 plt.title(qnwfa1.name+'\n'+str(qnwfa1.Time.values))
 plt.legend()
