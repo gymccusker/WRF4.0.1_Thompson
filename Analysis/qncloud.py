@@ -26,18 +26,20 @@ import cartopy.feature as cfe
 ## 11_Archer_DRIVER_NWFA1D_100e3/
 ## 12_Archer_DRIVER_NWFA1D_x2/
 ## 13_Archer_DRIVER_NWFA1D_x05/
+## 14_Archer_DRIVER_NWFA1D_150e3/
+## 15_Archer_DRIVER_NWFA1D_150e3_K1/
 
-file_dir1 = '5_Archer_Default_AeroClim/'
-file_dir2 = '11_Archer_DRIVER_NWFA1D_100e3/'
+file_dir1 = '11_Archer_DRIVER_NWFA1D_100e3/'
+file_dir2 = '14_Archer_DRIVER_NWFA1D_150e3/'
 
 root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 
 time_index = 32
 
-nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
+nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 qncloud1 = wrf.getvar(nc1, 'QNCLOUD', timeidx=time_index)
 
-nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
+nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
 qncloud2 = wrf.getvar(nc2, 'QNCLOUD', timeidx=time_index)
 
 ## Quick Plot to check all is well
@@ -69,7 +71,7 @@ pressure1 = wrf.getvar(nc1, 'P', timeidx=time_index) + wrf.getvar(nc1, 'PB', tim
 pressure1.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
-tempvar0 = (pressure1/100000)**tempvar    
+tempvar0 = (pressure1/100000)**tempvar
 temperature1 = tempvar0 * theta1
 temperature1.name = 'Air Temperature, K'
 
@@ -89,7 +91,7 @@ pressure2 = wrf.getvar(nc2, 'P', timeidx=time_index) + wrf.getvar(nc2, 'PB', tim
 pressure2.name = 'Air pressure, Pa'
 
 tempvar = float(287.05)/float(1005)
-tempvar0 = (pressure2/100000)**tempvar    
+tempvar0 = (pressure2/100000)**tempvar
 temperature2 = tempvar0 * theta2
 temperature2.name = 'Air Temperature, K'
 
@@ -115,11 +117,11 @@ ax = fig.add_axes([0.1,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, width
 
 # Add coastlines
 ax.coastlines('50m', linewidth=0.8)
-ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines', 
+ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines',
                                        '50m', linewidth=1.0, edgecolor='k', facecolor='none') )
 
 # Plot contours
-plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data1, 10, 
+plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data1, 10,
                 transform=crs.PlateCarree(), cmap = mpl_cm.Reds)
 
 # Add a color bar
@@ -142,11 +144,11 @@ ax = fig.add_axes([0.55,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, widt
 
 # Add coastlines
 ax.coastlines('50m', linewidth=0.8)
-ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines', 
+ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines',
                                        '50m', linewidth=1.0, edgecolor='k', facecolor='none') )
 
 # Plot contours
-plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data2, 10, 
+plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data2, 10,
                 transform=crs.PlateCarree(), cmap = mpl_cm.Reds)
 
 # Add a color bar
@@ -169,7 +171,7 @@ plt.show()
 ## PROFILE
 ###################################
 
-# Extract the model height 
+# Extract the model height
 z1 = wrf.getvar(nc1, "z")
 z2 = wrf.getvar(nc2, "z")
 
@@ -193,8 +195,8 @@ plt.show()
 ### D01 = 118,  71 -> Z1[:,71,118]
 ### D02 = 183, 137 -> Z2[:,137,183]
 
-plt.plot(np.squeeze(qncloud1[:,71,118]),z1[:,71,118],label = 'Default')
-plt.plot(np.squeeze(qncloud2[:,71,118]),z2[:,71,118],label = 'AeroClim')
+plt.plot(np.squeeze(qncloud1[:,137,183]),z1[:,137,183],label = file_dir1[0:2])
+plt.plot(np.squeeze(qncloud2[:,137,183]),z2[:,137,183],label = file_dir1[0:2])
 plt.ylim([0,2000])
 plt.title(qncloud1.name+'\n'+str(qncloud1.Time.values))
 plt.ylabel(z1.description)
