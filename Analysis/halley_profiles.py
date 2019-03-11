@@ -92,14 +92,14 @@ dfObs = pd.read_table(filenameObs)
 ## WRF (vertical levels)
 ###################################
 # Open the NetCDF file
-nc1_1 = Dataset(root_dir+file_dir+'wrfout_d01_2015-11-27_00:00:00')
+nc1_1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
 
 # Extract the model height and wind speed
 Z1_1 = getvar(nc1_1, "z")
 nc1_1.close()
 
 # Open the NetCDF file
-nc2_1 = Dataset(root_dir+file_dir+'wrfout_d02_2015-11-27_00:00:00')
+nc2_1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 
 # Extract the model height and wind speed
 Z2_1 = getvar(nc2_1, "z")
