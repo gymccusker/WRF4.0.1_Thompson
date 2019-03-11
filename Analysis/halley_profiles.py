@@ -35,15 +35,24 @@ from wrf import to_np, getvar, CoordPair, vertcross
 ## 3_Nisg80_ThompsonAeroClim/
 ## 4_Nisg80_Thompson_naCCN0408_naCCN1100/
 ## 5_Archer_Default_AeroClim/
-## 6_Archer_NWFApl100_AeroClim/
+## 6_Archer_INITpl100e6/
+## 7_Archer_INITpl100/
+## 8_Archer_INITpl100_DRIVERpl100/
+## 9_Archer_DRIVER_NWFA1D_100e6/
+## 10_Archer_DRIVER_NWFA1D_100/
+## 11_Archer_DRIVER_NWFA1D_100e3/
+## 12_Archer_DRIVER_NWFA1D_x2/	# FAILED JOB - ERROR
+## 13_Archer_DRIVER_NWFA1D_x05/
+## 14_Archer_DRIVER_NWFA1D_150e3/
 
 file_dir1 = '5_Archer_Default_AeroClim/'
-file_dir2 = '6_Archer_NWFApl100_AeroClim/'
+file_dir2 = '11_Archer_DRIVER_NWFA1D_100e3/'
 
 param = 'TH'
 
-root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
-obs_dir = '/data/scihub-users/giyoung/MAC/'
+# root_dir = '/data/mac/giyoung/MAC_WRFThompson/' # BAS SCIHUB
+root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+obs_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/FlightData/Halley/'
 
 ###################################
 ## d01
@@ -58,7 +67,6 @@ df1_1 = pd.DataFrame(file1_1, dtype='float')
 filename2_1 = "".join(root_dir+file_dir1+'hal.d02.'+param)
 file2_1 = np.loadtxt(filename2_1,skiprows=1)
 df2_1 = pd.DataFrame(file2_1, dtype='float')
-
 
 ###################################
 ## d01
