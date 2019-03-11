@@ -36,10 +36,10 @@ root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 
 time_index = 32
 
-nc1 = Dataset(root_dir+file_dir1+'wrfout_d01_2015-11-27_00:00:00')
+nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 qncloud1 = wrf.getvar(nc1, 'QNCLOUD', timeidx=time_index)
 
-nc2 = Dataset(root_dir+file_dir2+'wrfout_d01_2015-11-27_00:00:00')
+nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
 qncloud2 = wrf.getvar(nc2, 'QNCLOUD', timeidx=time_index)
 
 ## Quick Plot to check all is well
@@ -195,8 +195,8 @@ plt.show()
 ### D01 = 118,  71 -> Z1[:,71,118]
 ### D02 = 183, 137 -> Z2[:,137,183]
 
-plt.plot(np.squeeze(qncloud1[:,71,118]),z1[:,71,118],label = 'Default')
-plt.plot(np.squeeze(qncloud2[:,71,118]),z2[:,71,118],label = 'AeroClim')
+plt.plot(np.squeeze(qncloud1[:,137,183]),z1[:,137,183],label = file_dir1[0:2])
+plt.plot(np.squeeze(qncloud2[:,137,183]),z2[:,137,183],label = file_dir1[0:2])
 plt.ylim([0,2000])
 plt.title(qncloud1.name+'\n'+str(qncloud1.Time.values))
 plt.ylabel(z1.description)
