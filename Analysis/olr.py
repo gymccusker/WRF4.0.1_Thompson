@@ -107,7 +107,7 @@ ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines'
 
 # Plot contours
 plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data1, 10,
-                transform=crs.PlateCarree(), cmap = mpl_cm.Reds)
+                transform=crs.PlateCarree(), cmap = mpl_cm.Reds_r)
 
 # Add a color bar
 cbar = plt.colorbar(ax=ax, shrink=.62)
@@ -134,7 +134,7 @@ ax.add_feature(cfe.NaturalEarthFeature('physical', 'antarctic_ice_shelves_lines'
 
 # Plot contours
 plt.contourf(wrf.to_np(lons), wrf.to_np(lats), data2, 10,
-                transform=crs.PlateCarree(), cmap = mpl_cm.Reds)
+                transform=crs.PlateCarree(), cmap = mpl_cm.Reds_r)
 
 # Add a color bar
 cbar = plt.colorbar(ax=ax, shrink=.62)
