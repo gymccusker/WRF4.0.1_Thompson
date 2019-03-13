@@ -176,6 +176,6 @@ plt.plot(np.squeeze(df2_2.values[time,1:]),Z2_2[0:15,137,183],'--',label = 'd02'
 plt.xlabel(param)
 plt.ylabel('Z [m]')
 plt.ylim([0,1200])
-plt.xlim([270,290])
+#plt.xlim([270,290])
 plt.legend()
 plt.show()
