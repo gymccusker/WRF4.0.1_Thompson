@@ -28,6 +28,7 @@ import cartopy.feature as cfe
 ## 13_Archer_DRIVER_NWFA1D_x05/
 ## 14_Archer_DRIVER_NWFA1D_150e3/
 ## 15_Archer_DRIVER_NWFA1D_150e3_K1/
+## 16_Archer_DRIVER_NWFA1D_100e3_K1/
 
 file_dir1 = '3_Nisg80_ThompsonAeroClim/'
 file_dir2 = '10_Archer_DRIVER_NWFA1D_100/'
