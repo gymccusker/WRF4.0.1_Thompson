@@ -35,7 +35,7 @@ file_dir2 = '10_Archer_DRIVER_NWFA1D_100/'
 
 root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 
-time_index = 0
+time_index = 32
 
 nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 olr1 = wrf.getvar(nc1, 'OLR', timeidx=time_index)
