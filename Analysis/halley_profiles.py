@@ -49,7 +49,7 @@ from wrf import to_np, getvar, CoordPair, vertcross
 file_dir1 = '3_Nisg80_ThompsonAeroClim/'
 file_dir2 = '10_Archer_DRIVER_NWFA1D_100/'
 
-param = 'TH'
+param = 'QV'
 
 # root_dir = '/data/mac/giyoung/MAC_WRFThompson/' # BAS SCIHUB
 root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
@@ -172,7 +172,7 @@ plt.plot(np.squeeze(df1_1.values[time,1:]),Z1_1[0:15,71,118],label = 'd01')
 plt.plot(np.squeeze(df2_1.values[time,1:]),Z2_1[0:15,137,183],label = 'd02')
 plt.plot(np.squeeze(df1_2.values[time,1:]),Z1_2[0:15,71,118],'--',label = 'd01')
 plt.plot(np.squeeze(df2_2.values[time,1:]),Z2_2[0:15,137,183],'--',label = 'd02')
-plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
+#plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
 plt.xlabel(param)
 plt.ylabel('Z [m]')
 plt.ylim([0,1200])
