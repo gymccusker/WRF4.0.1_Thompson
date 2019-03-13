@@ -107,8 +107,8 @@ df2.columns = ['id','ts_hour','id_tsloc','ix','iy','t','q','u','v','psfc','glw',
 ## Ignore 1st 24 hours (spin up)
 ###################################
 
-plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label='d01')
-plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label='d02')
+plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label=file_dir[0:2])
+plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label=file_dir2[0:2])
 plt.xlabel('Time, h [27-Nov-2018]')
 plt.ylabel(index)
 plt.xlim([0,24])
