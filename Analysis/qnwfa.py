@@ -29,9 +29,10 @@ import cartopy.feature as cfe
 ## 14_Archer_DRIVER_NWFA1D_150e3/
 ## 15_Archer_DRIVER_NWFA1D_150e3_K1/
 ## 16_Archer_DRIVER_NWFA1D_100e3_K1/
+## 17_Archer_initialise_real_qnwfanow_x2/
 
 file_dir1 = '3_Nisg80_ThompsonAeroClim/'
-file_dir2 = '10_Archer_DRIVER_NWFA1D_100/'
+file_dir2 = '17_Archer_initialise_real_qnwfanow_x2/'
 
 root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 
@@ -102,8 +103,8 @@ qnwfa2.name = 'water-friendly aerosol number con, cm-3'
 ## MAP
 ###################################
 
-data1 = wrf.to_np(qnwfa1[16,:,:])
-data2 = wrf.to_np(qnwfa2[16,:,:])
+data1 = wrf.to_np(qnwfa1[0,:,:])
+data2 = wrf.to_np(qnwfa2[0,:,:])
 
 # Create a figure
 fig = plt.figure(figsize=(8,4))
