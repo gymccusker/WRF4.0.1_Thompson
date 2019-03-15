@@ -36,7 +36,7 @@ file_dir2 = '17_Archer_initialise_real_qnwfanow_x2/'
 
 root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 
-time_index = 0
+time_index = 32
 
 nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 qnwfa1 = wrf.getvar(nc1, 'QNWFA', timeidx=time_index)
