@@ -23,13 +23,13 @@ import cartopy.feature as cfe
 ## 8_Archer_INITpl100_DRIVERpl100/
 ## 9_Archer_DRIVER_NWFA1D_100e6/
 ## 10_Archer_DRIVER_NWFA1D_100/
-## 11_Archer_DRIVER_NWFA1D_100e3/
-## 12_Archer_DRIVER_NWFA1D_x2/
-## 13_Archer_DRIVER_NWFA1D_x05/
-## 14_Archer_DRIVER_NWFA1D_150e3/
-## 15_Archer_DRIVER_NWFA1D_150e3_K1/
-## 16_Archer_DRIVER_NWFA1D_100e3_K1/
-## 17_Archer_initialise_real_qnwfanow_x2/
+## 11_Archer_DRIVER_NWFA1D_100e3/       ## WRONG NAMELIST
+## 12_Archer_DRIVER_NWFA1D_x2/       ## WRONG NAMELIST
+## 13_Archer_DRIVER_NWFA1D_x05/       ## WRONG NAMELIST
+## 14_Archer_DRIVER_NWFA1D_150e3/       ## WRONG NAMELIST
+## 15_Archer_DRIVER_NWFA1D_150e3_K1/       ## WRONG NAMELIST
+## 16_Archer_DRIVER_NWFA1D_100e3_K1/       ## WRONG NAMELIST
+## 17_Archer_initialise_real_qnwfanow_x2/       ## WRONG NAMELIST
 
 file_dir1 = '3_Nisg80_ThompsonAeroClim/'
 file_dir2 = '17_Archer_initialise_real_qnwfanow_x2/'
