@@ -57,10 +57,10 @@ root_dir2 = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 
 time_index = 32
 
-nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
+nc1 = Dataset(root_dir1+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 qcloud1 = wrf.getvar(nc1, 'QCLOUD', timeidx=time_index)
 
-nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
+nc2 = Dataset(root_dir2+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
 qcloud2 = wrf.getvar(nc2, 'QCLOUD', timeidx=time_index)
 
 ## Quick Plot to check all is well
