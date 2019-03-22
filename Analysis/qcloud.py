@@ -49,7 +49,7 @@ import cartopy.feature as cfe
 ## 18_Archer_initialise_real_qnwfanow_K1_100e6/
 ## 19_Archer_initialise_real_qnwfanow_K1_x2/
 
-file_dir1 = '31_DeMott_WATSAT_eta70_MYNN'
+file_dir1 = '31_DeMott_WATSAT_eta70_MYNN/'
 file_dir2 = '5_Archer_Default_AeroClim/'
 
 root_dir1 = '/gws/nopw/j04/ncas_weather/gyoung/MAC/PWRF_V3.6.1/RUNS/'
