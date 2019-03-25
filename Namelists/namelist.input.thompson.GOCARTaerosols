@@ -25,7 +25,7 @@
  io_form_restart                     = 2
  io_form_input                       = 2
  io_form_boundary                    = 2
- debug_level                         = 0
+ debug_level                         = 1000
  /
 
  &domains
@@ -36,7 +36,7 @@
  e_we                                = 201,    326,   94,
  e_sn                                = 201,    406,    91,
  e_vert                              = 70,    70,    70,
- eta_levels                          = 1.000, 0.996, 0.992, 0.987, 0.982, 0.976, 
+ eta_levels                          = 1.000, 0.996, 0.992, 0.987, 0.982, 0.976,
                                        0.969, 0.961, 0.953, 0.943, 0.935, 0.920,
                                        0.908, 0.895, 0.883, 0.873, 0.863, 0.854,
                                        0.845, 0.837, 0.828, 0.818, 0.807, 0.793,
@@ -47,7 +47,7 @@
                                        0.362, 0.345, 0.327, 0.310, 0.292, 0.275,
                                        0.257, 0.240, 0.222, 0.205, 0.187, 0.170,
                                        0.152, 0.135, 0.117, 0.100, 0.082, 0.065,
-                                       0.047, 0.030, 0.012, 0.000, 
+                                       0.047, 0.030, 0.012, 0.000,
  p_top_requested                     = 5000,
  num_metgrid_levels                  = 38,
  num_metgrid_soil_levels             = 4,
@@ -62,7 +62,7 @@
  feedback                            = 0,
  smooth_option                       = 0,
  wif_input_opt                       = 1,
- num_wif_levels                      = 30 
+ num_wif_levels                      = 30
  /
 
  &physics
@@ -84,7 +84,7 @@
  num_soil_layers                     = 4,
  sf_urban_physics                    = 0,     0,     0,
  fractional_seaice                   = 1,
- seaice_threshold                    = 0, 
+ seaice_threshold                    = 0,
  seaice_thickness_default            = 3.,
  seaice_snowdepth_opt                = 0,
  seaice_snowdepth_max                = 1.0,

@@ -23,19 +23,22 @@ import cartopy.feature as cfe
 ## 8_Archer_INITpl100_DRIVERpl100/
 ## 9_Archer_DRIVER_NWFA1D_100e6/
 ## 10_Archer_DRIVER_NWFA1D_100/
-## 11_Archer_DRIVER_NWFA1D_100e3/
-## 12_Archer_DRIVER_NWFA1D_x2/
-## 13_Archer_DRIVER_NWFA1D_x05/
-## 14_Archer_DRIVER_NWFA1D_150e3/
-## 15_Archer_DRIVER_NWFA1D_150e3_K1/
-## 16_Archer_DRIVER_NWFA1D_100e3_K1/
+## 11_Archer_DRIVER_NWFA1D_100e3/       ## WRONG NAMELIST
+## 12_Archer_DRIVER_NWFA1D_x2/       ## WRONG NAMELIST
+## 13_Archer_DRIVER_NWFA1D_x05/       ## WRONG NAMELIST
+## 14_Archer_DRIVER_NWFA1D_150e3/       ## WRONG NAMELIST
+## 15_Archer_DRIVER_NWFA1D_150e3_K1/       ## WRONG NAMELIST
+## 16_Archer_DRIVER_NWFA1D_100e3_K1/       ## WRONG NAMELIST
+## 17_Archer_initialise_real_qnwfanow_x2/       ## WRONG NAMELIST
+## 18_Archer_initialise_real_qnwfanow_K1_100e6/
+## 19_Archer_initialise_real_qnwfanow_K1_x2/
 
 file_dir1 = '3_Nisg80_ThompsonAeroClim/'
-file_dir2 = '10_Archer_DRIVER_NWFA1D_100/'
+file_dir2 = '19_Archer_initialise_real_qnwfanow_K1_x2/'
 
 root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 
-time_index = 0
+time_index = 32
 
 nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
 qncloud1 = wrf.getvar(nc1, 'QNCLOUD', timeidx=time_index)
@@ -169,7 +172,7 @@ plt.show()
 
 
 ###################################
-## PROFILE
+## PROFILE OVER NEST SUBSET
 ###################################
 
 # Extract the model height
