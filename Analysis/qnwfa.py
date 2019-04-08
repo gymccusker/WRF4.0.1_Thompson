@@ -35,7 +35,7 @@ import cartopy.feature as cfe
 ## 20_Archer_initialise_real_qnwfanow_K1_x10/
 ## 21_Archer_initialise_real_qnwfanow_i1j_x10/
 
-file_dir1 = '3_Nisg80_ThompsonAeroClim/'
+file_dir1 = '5_Archer_Default_AeroClim/'
 file_dir2 = '5_Archer_Default_AeroClim/'
 
 root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
