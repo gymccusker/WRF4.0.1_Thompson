@@ -33,10 +33,12 @@ import cartopy.feature as cfe
 ## 18_Archer_initialise_real_qnwfanow_K1_100e6/
 ## 19_Archer_initialise_real_qnwfanow_K1_x2/
 
-file_dir1 = '3_Nisg80_ThompsonAeroClim/'
-file_dir2 = '19_Archer_initialise_real_qnwfanow_K1_x2/'
+file_dir1 = '2_Nisg80_ThompsonDefault/'
+file_dir2 = '3_Nisg80_ThompsonAeroClim/'
+file_dir3 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
 
-root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+# root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
 time_index = 32
 
