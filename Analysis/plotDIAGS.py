@@ -135,7 +135,7 @@ def TDtrans(data, nc, var, time_index):
     rho = pressure/(float(287.05) * temperature)
     rho.name = 'Air density, kg m-3'
 
-    if var == 'QCLOUD': data = (data * rho) / float(1e6)
+    if var == 'QNCLOUD': data = (data * rho) / float(1e6)
     if var == 'QNWFA': data = (data * rho) / float(1e6)
 
     return data
