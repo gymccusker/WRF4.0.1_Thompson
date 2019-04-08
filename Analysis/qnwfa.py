@@ -30,13 +30,13 @@ import cartopy.feature as cfe
 ## 15_Archer_DRIVER_NWFA1D_150e3_K1/       ## WRONG NAMELIST
 ## 16_Archer_DRIVER_NWFA1D_100e3_K1/       ## WRONG NAMELIST
 ## 17_Archer_initialise_real_qnwfanow_x2/       ## WRONG NAMELIST
-## 18_Archer_initialise_real_qnwfanow_K1_100e6/
+## 18_Archer_initialise_real_qnwfanow_K1_100e6/             ## GIVES THE SAME AS #5...?
 ## 19_Archer_initialise_real_qnwfanow_K1_x2/
 ## 20_Archer_initialise_real_qnwfanow_K1_x10/
 ## 21_Archer_initialise_real_qnwfanow_i1j_x10/
 ## 22_Archer_initialise_real_qnwfanow_x2_17redo/            ## GIVES THE SAME AS #5...?
 
-file_dir1 = '5_Archer_Default_AeroClim/'
+file_dir1 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
 file_dir2 = '3_Nisg80_ThompsonAeroClim/'
 
 # root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
