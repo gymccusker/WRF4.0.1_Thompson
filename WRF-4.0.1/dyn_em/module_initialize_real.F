@@ -4420,7 +4420,9 @@ endif
          do i = its, min(ide-1,ite)
             z1 = (grid%phb(i,2,j)-grid%phb(i,1,j))/g
             airmass = 1./grid%alt(i,1,j) * z1 * config_flags%dx*config_flags%dy          ! kg
-            grid%QNWFA_now(i,k,j) = grid%QNWFA_now(i,k,j)*10.  ! GYoung
+		     do k = kts, kte-1
+			        grid%QNWFA_now(i,k,j) = grid%QNWFA_now(i,k,j)*2.
+		     enddo
             grid%qnwfa2d(i,j) = grid%QNWFA_now(i,1,j) * 0.000196 * (airmass*2.E-10)
      if(i.eq.its .and. j.eq.jts) then
       write(a_message,*) 'aero_sfc_flux: ', i,j,z1,1./grid%alt(i,1,j),airmass,grid%QNWFA_now(i,1,j),grid%qnwfa2d(i,j)

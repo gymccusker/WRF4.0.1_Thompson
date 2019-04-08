@@ -143,12 +143,12 @@ integer::oops1,oops2
 
       CHARACTER (LEN=256) :: a_message, mminlu
       REAL :: max_mf
-    
+
       !  Excluded middle.
 
       LOGICAL :: any_valid_points
       INTEGER :: i_valid , j_valid
-      
+
       !  Vert interpolation in WRF
 
       INTEGER :: k_max_p , k_min_p
@@ -167,7 +167,7 @@ integer::oops1,oops2
       INTEGER :: j_save
 
       LOGICAL :: wif_upside_down = .FALSE.
-      
+
       !  Test on consistency between namelist settings and the available data from geogrid.
 
       INTEGER :: geogrid_flag_error
@@ -188,8 +188,8 @@ integer::oops1,oops2
       CALL model_to_grid_config_rec ( grid%id , model_config_rec , config_flags )
 
       !  Check flags from geogrid and the various model settings for any inconsistency.
-      !  The optional data from geogrid mostly started with the v4.0 release. Older 
-      !  WPS data could have the required fields. Assume users know what they are 
+      !  The optional data from geogrid mostly started with the v4.0 release. Older
+      !  WPS data could have the required fields. Assume users know what they are
       !  doing when they bring old data into the newer real program ...
 
       IF ( grid%v4_metgrid ) THEN
@@ -233,13 +233,13 @@ integer::oops1,oops2
             CALL wrf_message ( '----- ERROR: mp=28 AND dust_emis= 1 AND flag_sandfrac   = 0 ' )
             geogrid_flag_error = geogrid_flag_error + 1
          END IF
-        
+
          IF ( geogrid_flag_error .GT. 0 ) THEN
             CALL wrf_error_fatal ('Either modify the namelist settings, or rebuild the geogrid/metgrid data' )
          END IF
 
          !  Geogrid flags that are not yet used: FLAG_FRC_URB2D FLAG_LAI12M FLAG_URB_PARAM
-   
+
       END IF
 
       !  Would the user prefer to forego the use of the level of max winds, or the
@@ -341,7 +341,7 @@ integer::oops1,oops2
       !  To define the base state, we call a USER MODIFIED routine to set the three
       !  necessary constants:  p00 (sea level pressure, Pa), t00 (sea level temperature, K),
       !  and A (temperature difference, from 1000 mb to 300 mb, K).
-   
+
       CALL const_module_initialize ( p00 , t00 , a , tiso , p_strat , a_strat )
 
       !  Save these constants to write out in model output file
@@ -357,7 +357,7 @@ integer::oops1,oops2
       !  holdups would be situations where we need data in the middle of the domain.
       !  FOr example, if this si the first time period, we need the full domain
       !  processed for ICs.  Also, if there is some sort of gridded FDDA turned on, or
-      !  if the SST update is activated, then we can't just blow off the middle of the 
+      !  if the SST update is activated, then we can't just blow off the middle of the
       !  domain all willy-nilly.  Other cases of these hold-ups?  Sure - what if the
       !  user wants to smooth the CG topo, we need several rows and columns available.
       !  What if the lat/lon proj is used, then we need to run a spectral filter on
@@ -535,16 +535,16 @@ integer::oops1,oops2
       ELSE
          we_have_tsk     = .FALSE.
       END IF
-   
+
       IF ( config_flags%use_tavg_for_tsk ) THEN
          IF ( we_have_tsk .OR. we_have_tavgsfc ) THEN
            !  we are OK
          ELSE
             CALL wrf_error_fatal ( 'We either need TSK or TAVGSFC, verify these fields are coming from WPS' )
          END IF
-   
+
          !  Since we require a skin temperature in the model, we can use the average 2-m temperature if provided.
-   
+
          IF ( we_have_tavgsfc ) THEN
             DO j=jts,min(jde,jte)
                DO i=its,min(ide-1,ite)
@@ -567,7 +567,7 @@ integer::oops1,oops2
             !  At the location of maximum pressure in the column, get the temperature and height.  These
             !  will be written out and could be used for vertical interpolation - to avoid extrapolation.
             !  Hey, we can also do minimum values, too.
-   
+
             DO j=jts,jte
                DO i=its,ite
                   IF ( skip_middle_points_t ( ids , ide , jds , jde , i , j , em_width , hold_ups ) ) CYCLE
@@ -582,7 +582,7 @@ integer::oops1,oops2
                   END IF
                   grid%t_max_p(i,j) = grid%t_gc(i,k_max_p,j)
                   grid%ght_max_p(i,j) = grid%ght_gc(i,k_max_p,j)
-   
+
                   grid%min_p(i,j) = grid%p_gc(i,num_metgrid_levels,j)
                   k_min_p = num_metgrid_levels
                   IF      ( grid%p_gc(i,2,j) .LT. grid%min_p(i,j) ) THEN
@@ -669,7 +669,7 @@ integer::oops1,oops2
                   grid%ht(i,j) = grid%ht_smooth(i,j)
                END DO
             END DO
-            
+
          END IF
 
          !  Filter the input topography if this is a global domain.
@@ -893,7 +893,7 @@ integer::oops1,oops2
             END DO
          END IF
 
-         !  For UM data, the "surface" and the "first hybrid" level for the theta-level data fields are the same.  
+         !  For UM data, the "surface" and the "first hybrid" level for the theta-level data fields are the same.
          !  Average the surface (k=1) and the second hybrid level (k=num_metgrid_levels-1) to get the first hybrid
          !  layer.  We only do this for the theta-level data: pressure, temperature, specific humidity, and
          !  geopotential height (i.e. we do not modify u, v, or the rho-based pressure).
@@ -1105,7 +1105,7 @@ integer::oops1,oops2
 
          END IF
 
-         !  Some data sets do not provide a 3d geopotential height field.  
+         !  Some data sets do not provide a 3d geopotential height field.
 
          IF ( grid%ght_gc(i_valid,grid%num_metgrid_levels/2,j_valid) .LT. 1 ) THEN
             DO j = jts, MIN(jte,jde-1)
@@ -1604,47 +1604,47 @@ integer::oops1,oops2
          DO k=1, kde
             grid%c4f(k) = ( grid%znw(k) - grid%c3f(k) ) * ( p1000mb - grid%p_top )
          ENDDO
-      
+
          !  Now on half levels, just add up and divide by 2 (for c3h).  Use (eta-c3)*(p00-pt) for c4 on half levels.
-      
+
          DO k=1, kde-1
             grid%znu(k) = ( grid%znw(k+1) + grid%znw(k) ) * 0.5
             grid%c3h(k) = ( grid%c3f(k+1) + grid%c3f(k) ) * 0.5
             grid%c4h(k) = ( grid%znu(k) - grid%c3h(k) ) * ( p1000mb - grid%p_top )
          ENDDO
-      
+
          !  c1 = d(B)/d(eta).  We define c1f as c1 on FULL levels.  For a vertical difference,
          !  we need to use B and eta on half levels.  The k-loop ends up referring to the
          !  full levels, neglecting the top and bottom.
-      
+
          DO k=kds+1, kde-1
             grid%c1f(k) = ( grid%c3h(k) - grid%c3h(k-1) ) / ( grid%znu(k) - grid%znu(k-1) )
          ENDDO
-      
+
          !  The boundary conditions to get the coefficients:
          !  1) At k=kts: define d(B)/d(eta) = 1.  This gives us the same value of B and d(B)/d(eta)
          !     when doing the sigma-only B=eta.
          !  2) At k=kte: define d(B)/d(eta) = 0.  The curve B SMOOTHLY goes to zero, and at the very
          !     top, B continues to SMOOTHLY go to zero.  Note that for almost all cases of non B=eta,
          !     B is ALREADY=ZERO at the top, so this is a reasonable BC to assume.
-      
+
          grid%c1f(kds) = 1.
          IF ( ( config_flags%hybrid_opt .EQ. 0 ) .OR. ( config_flags%hybrid_opt .EQ. 1 ) ) THEN
             grid%c1f(kde) = 1.
          ELSE
             grid%c1f(kde) = 0.
          END IF
-      
+
          !  c2 = ( 1. - c1(k) ) * (p00 - pt).  There is no vertical differencing, so we can do the
          !  full kds to kde looping.
-      
+
          DO k=kds, kde
             grid%c2f(k) = ( 1. - grid%c1f(k) ) * ( p1000mb - grid%p_top )
          ENDDO
-      
+
          !  Now on half levels for c1 and c2.  The c1h will result from the full level c3 and full
          !  level eta differences.  The c2 value use the half level c1(k).
-      
+
          DO k=1, kde-1
             grid%c1h(k) = ( grid%c3f(k+1) - grid%c3f(k) ) / ( grid%znw(k+1) - grid%znw(k) )
             grid%c2h(k) = ( 1. - grid%c1h(k) ) * ( p1000mb - grid%p_top )
@@ -1817,7 +1817,7 @@ integer::oops1,oops2
                             ims , ime , jms , jme , kms , kme , &
                             its , ite , jts , jte , kts , kte )
          interp_type = grid%interp_type
-     
+
          !  It is better to interpolate pressure in p regardless of the default options
 
          interp_type = 1
@@ -2041,7 +2041,7 @@ integer::oops1,oops2
                END IF
             END DO
          END IF
-    
+
          IF ( flag_qnc .EQ. 1 ) THEN
             DO im = PARAM_FIRST_SCALAR, num_3d_s
                IF ( im .EQ. P_QNC ) THEN
@@ -2061,7 +2061,7 @@ integer::oops1,oops2
                END IF
             END DO
          END IF
-    
+
          IF ( flag_qnr .EQ. 1 ) THEN
             DO im = PARAM_FIRST_SCALAR, num_3d_s
                IF ( im .EQ. P_QNR ) THEN
@@ -2081,7 +2081,7 @@ integer::oops1,oops2
                END IF
             END DO
          END IF
-    
+
          IF ( flag_qns .EQ. 1 ) THEN
             DO im = PARAM_FIRST_SCALAR, num_3d_s
                IF ( im .EQ. P_QNS ) THEN
@@ -2101,7 +2101,7 @@ integer::oops1,oops2
                END IF
             END DO
          END IF
-    
+
          IF ( flag_qng .EQ. 1 ) THEN
             DO im = PARAM_FIRST_SCALAR, num_3d_s
                IF ( im .EQ. P_QNG ) THEN
@@ -2121,7 +2121,7 @@ integer::oops1,oops2
                END IF
             END DO
          END IF
-    
+
          IF ( flag_qnh .EQ. 1 ) THEN
             DO im = PARAM_FIRST_SCALAR, num_3d_s
                IF ( im .EQ. P_QNH ) THEN
@@ -2452,7 +2452,7 @@ integer::oops1,oops2
 
             !  First, get the pressure temporally interpolated to the correct date/time since
             !  this is a hybrid coordinate (not isobaric), and the pressure changes by month.
-            !  NOTE: The input pressure is not vertically interpolated, but the other two input   
+            !  NOTE: The input pressure is not vertically interpolated, but the other two input
             !  fields (QNWFA, QNIFA) are interpolated to the WRF eta coordinate.
 
             IF ( grid%p_wif_jan(its,config_flags%num_wif_levels/2-1,jts) - &
@@ -2815,13 +2815,13 @@ integer::oops1,oops2
       ELSE
           grid%ifndalbsi = 0
       ENDIF
-          
+
       IF ( config_flags%seaice_snowdepth_opt == 1 ) THEN
           grid%ifndsnowsi = flag_snowsi
       ELSE
           grid%ifndsnowsi = 0
       ENDIF
-          
+
       IF ( config_flags%seaice_thickness_opt == 1 ) THEN
           grid%ifndicedepth = flag_icedepth
       ELSE
@@ -3014,7 +3014,7 @@ integer::oops1,oops2
                    (grid%ivgtyp(i,j)==24 .OR. grid%ivgtyp(i,j)==25 .OR. grid%ivgtyp(i,j)==26 .OR. grid%ivgtyp(i,j)==13) ) grid%FRC_URB2D(i,j) = 0.9
                  IF ( MMINLU == 'USGS' .AND. grid%ivgtyp(i,j)==1 ) grid%FRC_URB2D(i,j) = 0.9
               ENDIF
-               IF ( skip_middle_points_t ( ids , ide , jds , jde , i , j , em_width , hold_ups ) ) CYCLE 
+               IF ( skip_middle_points_t ( ids , ide , jds , jde , i , j , em_width , hold_ups ) ) CYCLE
                grid%LP_URB2D(i,j)  = grid%URB_PARAM(i,91,j)
                grid%LB_URB2D(i,j)  = grid%URB_PARAM(i,95,j)
                grid%HGT_URB2D(i,j)  = grid%URB_PARAM(i,94,j)
@@ -3214,7 +3214,7 @@ integer::oops1,oops2
             END IF
          END DO
       END DO
-   
+
 
       !  Minimum soil values, residual, from RUC LSM scheme.  For input from Noah or EC, and using
       !  RUC LSM scheme, this must be subtracted from the input total soil moisture.  For
@@ -3658,7 +3658,7 @@ endif
          DO i = its, MIN(ite,ide-1)
 
             IF ( skip_middle_points_t ( ids , ide , jds , jde , i , j , em_width , hold_ups ) ) CYCLE
-    
+
             !  Base state pressure is a function of eta level and terrain, only, plus
             !  the hand full of constants: p00 (sea level pressure, Pa), t00 (sea level
             !  temperature, K), and A (temperature difference, from 1000 mb to 300 mb, K).
@@ -3897,10 +3897,10 @@ print *,'                  ',k,qvf,grid%al(i,k,j),grid%alb(i,k,j),grid%al(i,k,j)
 endif
 endif
 #endif
-          
-               ENDDO     
+
+               ENDDO
                END IF
-     
+
                !  Compute pressure similarly to how computed within model.
 
                DO k=kts,kte-1
@@ -4013,7 +4013,7 @@ endif
                            ims , ime , jms , jme , kms , kme ,                    &
                            its , ite , jts , jte , kts , kte-1 )
       END IF
-     
+
       !  Compute pressure similarly to how computed within model, with final Qv.
 
       !  Do a re-balance or not?  0 = NOPE
@@ -4093,7 +4093,7 @@ endif
                   !  the model, grid%al (inverse density) is computed from the geopotential.
 
                   IF (grid%hypsometric_opt == 1) THEN
-        
+
                      DO kk  = 2,kte
                         k = kk-1
                         grid%ph_2(i,kk,j) = grid%ph_2(i,kk-1,j) - &
@@ -4142,9 +4142,9 @@ endif
                         phm = grid%c3h(k  )*(grid%MUB(i,j)+grid%MU_2(i,j))+grid%c4h(k  )+grid%p_top
                         grid%al(i,k,j) = (grid%ph_2(i,k+1,j)-grid%ph_2(i,k,j)+grid%phb(i,k+1,j)-grid%phb(i,k,j)) &
                                           /phm/LOG(pfd/pfu)-grid%alb(i,k,j)
-                     ENDDO     
+                     ENDDO
                   END IF
-        
+
                   !  Compute pressure similarly to how computed within model.
 
                   DO k=kts,kte-1
@@ -4314,13 +4314,13 @@ endif
       !  Template for initializing trajectories.  The i, j, and k starting locations
       !  are specified.  Right now, a small plane in the middle of the domain is
       !  selected.
-      
+
       grid%traj_i    = -9999
       grid%traj_j    = -9999
       grid%traj_k    = -9999
       grid%traj_lat  = -9999
       grid%traj_long = -9999
-    
+
       IF (config_flags%num_traj .gt. 0 .and. config_flags%traj_opt .gt. 0) THEN
          icount = 1
          DO j = (jde + jds)/2 - 2, (jde + jds)/2 + 2, 1
@@ -4332,7 +4332,7 @@ endif
                   grid%traj_lat (icount) = grid%xlat(i,j)
                   grid%traj_long(icount) = grid%xlong(i,j)
                END IF
-         
+
 #ifdef DM_PARALLEL
                grid%traj_i   (icount) = wrf_dm_max_real ( grid%traj_i   (icount) )
                grid%traj_j   (icount) = wrf_dm_max_real ( grid%traj_j   (icount) )
@@ -4340,16 +4340,16 @@ endif
                grid%traj_lat (icount) = wrf_dm_max_real ( grid%traj_lat (icount) )
                grid%traj_long(icount) = wrf_dm_max_real ( grid%traj_long(icount) )
 #endif
-                
+
                icount = icount + 1
                IF (icount .GT. config_flags%num_traj) THEN
                   EXIT
                END IF
             END DO
-         END DO  
+         END DO
       END IF
 
-      !  Simple initialization for 3d ocean.  
+      !  Simple initialization for 3d ocean.
 
       IF ( config_flags%sf_ocean_physics .EQ. PWP3DSCHEME ) THEN
 
@@ -4370,14 +4370,14 @@ endif
 
          !  Apparently, the mixed layer is 5 m.
 
-         grid%om_ml = 5    
+         grid%om_ml = 5
 
          !  Keep lat, lon info for the ocean model.
 
          grid%om_lon = grid%xlong
          grid%om_lat = grid%xlat
 
-         !  If we have access to a non-horizontally isotropic SST, let's 
+         !  If we have access to a non-horizontally isotropic SST, let's
          !  use that as a better starting point for the ocean temp.  Note that
          !  we assume if this is an ice point that implies this is a land point
          !  for WRF.  If it is a land point, then we do not have any ocean underneath.
@@ -4390,7 +4390,7 @@ endif
                   END DO
                END DO
             END DO
-   
+
             DO j = jts, min(jde-1,jte)
                DO k = 1,model_config_rec%ocean_levels
                   DO i = its, min(ide-1,ite)
@@ -4407,7 +4407,7 @@ endif
 !+---+-----------------------------------------------------------------+
 !..Scale the lowest level aerosol data into an emissions rate.  This is
 !.. very far from ideal, but need higher emissions where larger amount
-!.. of (climo) existing and lesser emissions where there exists fewer to 
+!.. of (climo) existing and lesser emissions where there exists fewer to
 !.. begin as a first-order simplistic approach.  Later, proper connection to
 !.. emission inventory would be better, but, for now, scale like this:
 !.. where: Nwfa=50 per cc, emit 0.875E4 aerosols per second per grid box unit
@@ -4420,9 +4420,9 @@ endif
          do i = its, min(ide-1,ite)
             z1 = (grid%phb(i,2,j)-grid%phb(i,1,j))/g
             airmass = 1./grid%alt(i,1,j) * z1 * config_flags%dx*config_flags%dy          ! kg
-		do k = kts, kte-1
-			grid%QNWFA_now(i,k,j) = grid%QNWFA_now(i,k,j)*2.
-		enddo
+		     do k = kts, kte-1
+			        grid%QNWFA_now(i,k,j) = grid%QNWFA_now(i,k,j)*2.
+		     enddo
             grid%qnwfa2d(i,j) = grid%QNWFA_now(i,1,j) * 0.000196 * (airmass*2.E-10)
      if(i.eq.its .and. j.eq.jts) then
       write(a_message,*) 'aero_sfc_flux: ', i,j,z1,1./grid%alt(i,1,j),airmass,grid%QNWFA_now(i,1,j),grid%qnwfa2d(i,j)
@@ -4476,7 +4476,7 @@ endif
 
       !  Turn dry potential temperature into moist potential temperature
       !  at the very end of this routine, just before the halo communications.
-      !  This field will be in the model IC and and used to construct the 
+      !  This field will be in the model IC and and used to construct the
       !  BC file.
 
       IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
@@ -4743,7 +4743,7 @@ endif
             IF ( config_flags%use_theta_m .EQ. 1 ) THEN
                grid%alt(i,kk,j) = (r_d/p1000mb)*(grid%t_2(i,kk,j)+t0)* &
                                   (((grid%p(i,kk,j)+grid%pb(i,kk,j))/p1000mb)**cvpm)
-            ELSE 
+            ELSE
                grid%alt(i,kk,j) = (r_d/p1000mb)*(grid%t_2(i,kk,j)+t0)*qvf* &
                                   (((grid%p(i,kk,j)+grid%pb(i,kk,j))/p1000mb)**cvpm)
             END IF
@@ -4833,7 +4833,7 @@ endif
 !  "allow_grid" namelist option when an inactive domain comes before an active
 !  domain in the list, i.e., the domain number of the active domain is greater than
 !  that of an inactive domain at the same level.
-!      
+!
       USE module_domain
 
       TYPE(domain) , POINTER :: grid_ptr_in , grid_ptr_out
@@ -4901,9 +4901,9 @@ endif
 
       ELSE
 
-      !  We drill down and process each nest from this domain.  We don't have to 
+      !  We drill down and process each nest from this domain.  We don't have to
       !  worry about siblings, as we are running over all of the kids for this parent,
-      !  so it amounts to the same set of domains being tested.  
+      !  so it amounts to the same set of domains being tested.
 
          loop_over_all_kids : DO kid = 1 , grid_ptr_in%num_nests
 
@@ -5196,7 +5196,7 @@ end function skip_middle_points_t
       REAL :: p1 , p2 , pn, hold , zap_close_extra_levels
       REAL , DIMENSION(1:generic+flag_maxw+flag_trop) :: ordered_porig , ordered_forig
       REAL , DIMENSION(kts:kte) :: ordered_pnew , ordered_fnew
-    
+
       !  Excluded middle.
 
       LOGICAL :: any_valid_points
@@ -5799,20 +5799,20 @@ end function skip_middle_points_t
                close_by_at_ko : DO
 
                   !  First, is the pressure difference between two neighboring layers too small?
-   
+
                   IF ( ABS(ordered_porig(ko) - ordered_porig(ko+1)) .LT. zap_close_levels ) THEN
-   
+
                      !  Make sure we are vertically located where this difference is meaningful.  For
                      !  example, a 5 hPa zap_close_levels makes sense at 850 hPa.  However, a 5 hPa
                      !  critical thickness is sill when the top few isobaric levels are 1, 2, 3 hPa.
-   
+
                      IF ( ordered_porig(ko) .GT. zap_close_levels * 10 ) THEN
-   
+
                         !  Now we have a grid point that we should remove.  We pull out the pressure
                         !  and field values, then we drop the rest of the array to fill in the
                         !  missing spot, we increment our counter of bad values found in this column,
                         !  and then we reduce the count of the total number of values in the array.
-     
+
                         DO kn = ko+1 , kinterp_end
                            ordered_porig(kn-1) = ordered_porig(kn)
                            ordered_forig(kn-1) = ordered_forig(kn)
@@ -6856,7 +6856,7 @@ print *,'p sfc = ',psfc(i,j)
       !  probably had "missing" RH, and we filled in some values.  This is an
       !  attempt to catch those.  Also, set the minimum value for the entire
       !  domain that is above the selected pressure level.
-     
+
       DO j = jts , MIN ( jde-1 , jte )
          DO k = kts , kte
             DO i = its , MIN (ide-1 , ite )
@@ -7043,7 +7043,7 @@ print *,'p sfc = ',psfc(i,j)
       !  probably had "missing" RH, and we filled in some values.  This is an
       !  attempt to catch those.  Also, set the minimum value for the entire
       !  domain that is above the selected pressure level.
-     
+
       DO j = jts , MIN ( jde-1 , jte )
          DO k = kts , kte
             DO i = its , MIN (ide-1 , ite )
