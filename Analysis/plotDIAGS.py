@@ -167,7 +167,7 @@ def chooseData(nc1, nc2, nc3, var, time_index):
 
     return data1, data2, data3
 
-def plotmap(data1, data2, data3, time_index, z_index):
+def plotmap(nc1, nc2, nc3, time_index, z_index):
 
     import matplotlib
     import matplotlib.cm as mpl_cm
@@ -180,6 +180,9 @@ def plotmap(data1, data2, data3, time_index, z_index):
     ## Plot map (with cartopy)
     ###################################
     ###################################
+
+    ## Load in chosen data
+    data1, data2, data3 = chooseData(nc1, nc2, nc3, var, time_index)
 
     ## Get the latitude and longitude points
     lats, lons = wrf.latlon_coords(data1)
@@ -275,6 +278,38 @@ def plotProfile(nc1, nc2, nc3, var, time_index):
     plt.ylabel(z1.description)
     plt.show()
 
+def plotSubset(nc1, nc2, var, time_index):
+
+    ###################################
+    ## PROFILE OVER NEST SUBSET
+    ###################################
+
+    ## Load in chosen data
+    data1, data2 = chooseData(nc1, nc2, var, time_index)
+
+    data1 = defName(data1, var)
+    data2 = defName(data2, var)
+
+    #### 	Define near-aircraft cloud box
+    xlon = wrf.getvar(nc2, 'XLONG', timeidx=time_index)
+    box = np.where(np.logical_and(xlon >=-29.5, xlon<=-26.5))
+
+    # Extract the model height
+    z1 = wrf.getvar(nc1, "z")
+    z2 = wrf.getvar(nc2, "z")
+
+    datax1 = np.nanmean(np.nanmean(data1[:,190:340,np.unique(box[1])],1),1)
+    datax2 = np.nanmean(np.nanmean(data2[:,190:340,np.unique(box[1])],1),1)
+    datay1 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+    datay2 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+
+    plt.plot(datax1,datay1)
+    plt.plot(datax2,datay2)
+    plt.ylim([0,2000])
+    plt.xlabel(data1.name)
+    plt.ylabel(z1.description)
+    plt.show()
+
 def main():
 
     ###################################
@@ -330,18 +365,14 @@ def main():
     ## Choose variable to plot
     var = 'QNCLOUD'
 
-    ## Load in chosen data
-    data1, data2, data3 = chooseData(nc1, nc2, nc3, var, time_index)
-
-    data1 = defName(data1, var)
-    data2 = defName(data2, var)
-    data3 = defName(data3, var)
-
     ## Plot map (cartopy)
-    map = plotmap(data1, data2, data3, time_index, z_index)
+    # map = plotmap(nc1, nc2, nc3, time_index, z_index)
 
     ## Plot vertical profile at Halley
-    # profile = plotProfile(nc1, nc2, nc3, var, time_index)
+    profile = plotProfile(nc1, nc2, nc3, var, time_index)
+
+    ## Plot average diagnostics over nest subset
+    subset = plotSubset(nc1, nc2, var, time_index)
 
     END_TIME = time.time()
     print ''
