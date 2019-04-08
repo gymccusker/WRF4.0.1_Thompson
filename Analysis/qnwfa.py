@@ -109,8 +109,8 @@ qnwfa2.name = 'water-friendly aerosol number con, cm-3'
 ## MAP
 ###################################
 
-data1 = wrf.to_np(qnwfa1[0,:,:])
-data2 = wrf.to_np(qnwfa2[0,:,:])
+data1 = wrf.to_np(qnwfa1[16,:,:])
+data2 = wrf.to_np(qnwfa2[16,:,:])
 
 # Create a figure
 fig = plt.figure(figsize=(8,4))
