@@ -172,7 +172,7 @@ def plotmap(nc1, nc2, time_index, z_index):
 
     plt.show()
 
-def plotProfile(nc1, nc2, var, time_index, file_dir1, file_dir2):
+def plotProfile(nc1, nc2, var, time_index):
 
     ###################################
     ###################################
@@ -200,8 +200,8 @@ def plotProfile(nc1, nc2, var, time_index, file_dir1, file_dir2):
     ### D01 = 118,  71 -> Z1[:,71,118]
     ### D02 = 183, 137 -> Z2[:,137,183]
 
-    plt.plot(np.squeeze(data1[:,137,183]),z1[:,137,183],label = file_dir1[0:2])
-    plt.plot(np.squeeze(data2[:,137,183]),z2[:,137,183],label = file_dir2[0:2])
+    plt.plot(np.squeeze(data1[:,137,183]),z1[:,137,183]) #,label = file_dir1[0:2]
+    plt.plot(np.squeeze(data2[:,137,183]),z2[:,137,183]) #,label = file_dir2[0:2]
     plt.ylim([0,2000])
     plt.title(data1.name+'\n'+str(data1.Time.values))
     plt.legend()
@@ -308,10 +308,10 @@ def main():
     # map = plotmap(nc1, nc2, nc3, time_index, z_index)
 
     ## Plot vertical profile at Halley
-    # profile = plotProfile(nc1, nc2, var, time_index, file_dir1, file_dir2)
+    profile = plotProfile(nc1, nc2, var, time_index)
 
     ## Plot average diagnostics over nest subset
-    subset = plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir2)
+    # subset = plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir2)
 
     END_TIME = time.time()
     print ''
