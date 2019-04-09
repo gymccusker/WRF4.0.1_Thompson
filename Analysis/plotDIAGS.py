@@ -82,7 +82,7 @@ def chooseData(nc1, nc2, var, time_index):
     data2 = TDtrans(data2, nc2, var, time_index)
     # data3 = TDtrans(data3, nc3, var, time_index)
 
-    return data1, data2, data3
+    return data1, data2
 
 def plotmap(nc1, nc2, time_index, z_index):
 
