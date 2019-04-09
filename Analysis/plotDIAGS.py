@@ -105,14 +105,20 @@ def plotmap(nc1, nc2, var, time_index, z_index):
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
 
-    data1 = defName(data1, var)
-    data2 = defName(data2, var)
-
     ## Get the latitude and longitude points
     lats, lons = wrf.latlon_coords(data1)
 
     ## Get the cartopy mapping object
     cart_proj = wrf.get_cartopy(data1)
+
+    data1 = defName(data1, var)
+    data2 = defName(data2, var)
+
+    # ## Get the latitude and longitude points
+    # lats, lons = wrf.latlon_coords(data1)
+    #
+    # ## Get the cartopy mapping object
+    # cart_proj = wrf.get_cartopy(data1)
 
     data1 = wrf.to_np(data1[z_index,:,:])
     data2 = wrf.to_np(data2[z_index,:,:])
