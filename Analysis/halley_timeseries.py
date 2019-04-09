@@ -64,12 +64,14 @@ import pandas as pd
 ## 15_Archer_DRIVER_NWFA1D_150e3_K1/
 ## 16_Archer_DRIVER_NWFA1D_100e3_K1/
 
-file_dir1 = '3_Nisg80_ThompsonAeroClim/'
-file_dir2 = '11_Archer_DRIVER_NWFA1D_100e3/'
+file_dir1 = '2_Nisg80_ThompsonDefault/'
+file_dir2 = '3_Nisg80_ThompsonAeroClim/'
 
 index = 'gsw'
 
-root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+# root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+root_dir = '/data/mac/giyoung/MAC_WRFThompson/' # BAS SCIHUB
+
 
 ###################################
 ## d01
@@ -107,10 +109,29 @@ df2.columns = ['id','ts_hour','id_tsloc','ix','iy','t','q','u','v','psfc','glw',
 ## Ignore 1st 24 hours (spin up)
 ###################################
 
-plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label=file_dir[0:2])
-plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label=file_dir2[0:2])
+
+SMALL_SIZE = 14
+MED_SIZE = 16
+LARGE_SIZE = 18
+
+plt.rc('font',size=MED_SIZE)
+plt.rc('axes',titlesize=MED_SIZE)
+plt.rc('axes',labelsize=MED_SIZE)
+plt.rc('xtick',labelsize=SMALL_SIZE)
+plt.rc('ytick',labelsize=SMALL_SIZE)
+plt.rc('legend',fontsize=SMALL_SIZE)
+# plt.rc('figure',titlesize=LARGE_SIZE)
+
+## create figure and axes instances
+fig = plt.figure(figsize=(6,5))
+
+ax  = fig.add_axes([0.2,0.15,0.7,0.7])	# left, bottom, width, height
+
+plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label = 'Default')
+plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label = 'AeroClim')
 plt.xlabel('Time, h [27-Nov-2018]')
 plt.ylabel(index)
 plt.xlim([0,24])
 plt.legend()
+plt.savefig('FIGS/Halley_GSW_timeseries.png',dpi=300)
 plt.show()
