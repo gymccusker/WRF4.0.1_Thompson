@@ -224,12 +224,12 @@ def plotProfile(nc1, nc2, var, time_index):
     ### D02 = 183, 137 -> Z2[:,137,183]
     plt.plot(np.squeeze(data1[:,137,183]),z1[:,137,183],label= 'Default')
     plt.plot(np.squeeze(data2[:,137,183]),z2[:,137,183],label = 'AeroClim')
-    if var == 'QNWFA': plt.plot(408,0,'d',label = 'CASLab(CPC)')
+    if var == 'QNWFA': plt.plot(408,0,'d',markersize = 10, label = 'CASLab (CPC)')
     plt.ylim([0,2000])
     plt.title(data1.name+'\n'+str(data1.Time.values))
     plt.legend()
     plt.ylabel(z1.description)
-    plt.savefig('FIGS/Halley_QNCLOUD.png',dpi=300)
+    plt.savefig('FIGS/Halley_QNWFA.png',dpi=300)
     plt.show()
 
 def plotSubset(nc1, nc2, var, time_index):
