@@ -198,9 +198,9 @@ def plotProfile(nc1, nc2, var, time_index):
     z1 = wrf.getvar(nc1, "z")
     z2 = wrf.getvar(nc2, "z")
 
-    SMALL_SIZE = 12
-    MED_SIZE = 14
-    LARGE_SIZE = 16
+    SMALL_SIZE = 14
+    MED_SIZE = 16
+    LARGE_SIZE = 18
 
     plt.rc('font',size=MED_SIZE)
     plt.rc('axes',titlesize=MED_SIZE)
@@ -211,7 +211,7 @@ def plotProfile(nc1, nc2, var, time_index):
     # plt.rc('figure',titlesize=LARGE_SIZE)
 
     ## create figure and axes instances
-    fig = plt.figure(figsize=(6,8))
+    fig = plt.figure(figsize=(4,5))
 
     #########################################################################################################
 
@@ -229,7 +229,7 @@ def plotProfile(nc1, nc2, var, time_index):
     plt.ylabel(z1.description)
     plt.show()
 
-def plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir2):
+def plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir:
 
     ###################################
     ## PROFILE OVER NEST SUBSET
@@ -260,9 +260,9 @@ def plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir2):
     datay1 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
     datay2 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
 
-    SMALL_SIZE = 12
-    MED_SIZE = 14
-    LARGE_SIZE = 16
+    SMALL_SIZE = 14
+    MED_SIZE = 16
+    LARGE_SIZE = 18
 
     plt.rc('font',size=MED_SIZE)
     plt.rc('axes',titlesize=MED_SIZE)
@@ -273,7 +273,7 @@ def plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir2):
     # plt.rc('figure',titlesize=LARGE_SIZE)
 
     ## create figure and axes instances
-    fig = plt.figure(figsize=(6,8))
+    fig = plt.figure(figsize=(4,5))
 
     #########################################################################################################
 
