@@ -111,7 +111,7 @@ def plotmap(nc1, nc2, var, time_index, z_index):
     lats, lons = wrf.latlon_coords(data1)
 
     ## Get the cartopy mapping object
-    cart_proj = wrf.get_cartopy(data1)
+    # cart_proj = wrf.get_cartopy(data1)
 
     data1 = wrf.to_np(data1[z_index,:,:])
     data2 = wrf.to_np(data2[z_index,:,:])
@@ -121,7 +121,7 @@ def plotmap(nc1, nc2, var, time_index, z_index):
     fig = plt.figure(figsize=(8,4))
 
     # Set the GeoAxes to the projection used by WRF
-    ax = fig.add_axes([0.1,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, width, height
+    ax = fig.add_axes([0.1,0.1,0.4,0.8])# , projection=cart_proj)	# left, bottom, width, height
     # ax = plt.axes(projection=cart_proj)
 
     # Add coastlines
@@ -147,7 +147,7 @@ def plotmap(nc1, nc2, var, time_index, z_index):
     plt.title(data1.name+'\n'+str(data1.Time.values))
 
     # Set the GeoAxes to the projection used by WRF
-    ax = fig.add_axes([0.55,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, width, height
+    ax = fig.add_axes([0.55,0.1,0.4,0.8])#, projection=cart_proj)	# left, bottom, width, height
     # ax = plt.axes(projection=cart_proj)
 
     # Add coastlines
