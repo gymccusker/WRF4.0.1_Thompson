@@ -178,6 +178,9 @@ def plotProfile(nc1, nc2, var, time_index):
     ###################################
 
     import wrf
+    import matplotlib
+    import matplotlib.cm as mpl_cm
+    import matplotlib.pyplot as plt
 
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
@@ -205,6 +208,9 @@ def plotSubset(nc1, nc2, var, time_index):
     ###################################
 
     import wrf
+    import matplotlib
+    import matplotlib.cm as mpl_cm
+    import matplotlib.pyplot as plt
 
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
