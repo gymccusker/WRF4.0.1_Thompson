@@ -198,12 +198,31 @@ def plotProfile(nc1, nc2, var, time_index):
     z1 = wrf.getvar(nc1, "z")
     z2 = wrf.getvar(nc2, "z")
 
+    SMALL_SIZE = 12
+    MED_SIZE = 14
+    LARGE_SIZE = 16
+
+    plt.rc('font',size=MED_SIZE)
+    plt.rc('axes',titlesize=MED_SIZE)
+    plt.rc('axes',labelsize=MED_SIZE)
+    plt.rc('xtick',labelsize=SMALL_SIZE)
+    plt.rc('ytick',labelsize=SMALL_SIZE)
+    plt.rc('legend',fontsize=SMALL_SIZE)
+    # plt.rc('figure',titlesize=LARGE_SIZE)
+
+    ## create figure and axes instances
+    fig = plt.figure(figsize=(6,8))
+
+    #########################################################################################################
+
+    ax  = fig.add_axes([0.1,0.1,0.8,0.8])	# left, bottom, width, height
+
+
     ##### HALLEY POSITION IN MODEL - NEAREST GRID POINT (LAT/LON)
     ### D01 = 118,  71 -> Z1[:,71,118]
     ### D02 = 183, 137 -> Z2[:,137,183]
-
-    plt.plot(np.squeeze(data1[:,137,183]),z1[:,137,183]) #,label = file_dir1[0:2]
-    plt.plot(np.squeeze(data2[:,137,183]),z2[:,137,183]) #,label = file_dir2[0:2]
+    plt.plot(np.squeeze(data1[:,137,183]),z1[:,137,183],label= 'Default')
+    plt.plot(np.squeeze(data2[:,137,183]),z2[:,137,183],label = 'AeroClim')
     plt.ylim([0,2000])
     plt.title(data1.name+'\n'+str(data1.Time.values))
     plt.legend()
@@ -241,8 +260,27 @@ def plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir2):
     datay1 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
     datay2 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
 
-    plt.plot(datax1,datay1)
-    plt.plot(datax2,datay2)
+    SMALL_SIZE = 12
+    MED_SIZE = 14
+    LARGE_SIZE = 16
+
+    plt.rc('font',size=MED_SIZE)
+    plt.rc('axes',titlesize=MED_SIZE)
+    plt.rc('axes',labelsize=MED_SIZE)
+    plt.rc('xtick',labelsize=SMALL_SIZE)
+    plt.rc('ytick',labelsize=SMALL_SIZE)
+    plt.rc('legend',fontsize=SMALL_SIZE)
+    # plt.rc('figure',titlesize=LARGE_SIZE)
+
+    ## create figure and axes instances
+    fig = plt.figure(figsize=(6,8))
+
+    #########################################################################################################
+
+    ax  = fig.add_axes([0.1,0.1,0.8,0.8])	# left, bottom, width, height
+
+    plt.plot(datax1,datay1, label = 'Default')
+    plt.plot(datax2,datay2, label = 'AeroClim')
     plt.ylim([0,2000])
     plt.xlabel(data1.name)
     plt.ylabel(z1.description)
@@ -313,7 +351,7 @@ def main():
     profile = plotProfile(nc1, nc2, var, time_index)
 
     ## Plot average diagnostics over nest subset
-    # subset = plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir2)
+    subset = plotSubset(nc1, nc2, var, time_index)
 
     END_TIME = time.time()
     print ''
