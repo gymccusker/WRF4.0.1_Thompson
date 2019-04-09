@@ -135,3 +135,10 @@ plt.xlim([0,24])
 plt.legend()
 plt.savefig('FIGS/Halley_GSW_timeseries.png',dpi=300)
 plt.show()
+
+gsw_total1 = np.nansum(df1.loc[np.size(df1.values[:,0])/float(2)-1:,index])
+gsw_total2 = np.nansum(df2.loc[np.size(df2.values[:,0])/float(2)-1:,index])
+
+print 'Default = ' + gsw_total1
+print ''
+print 'AeroClim = ' + gsw_total2
