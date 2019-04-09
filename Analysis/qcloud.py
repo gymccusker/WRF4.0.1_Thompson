@@ -34,12 +34,14 @@ def TDtrans(data, nc, var, time_index):
 
     if var == 'QNCLOUD': data = (data * rho) / float(1e6)
     if var == 'QNWFA': data = (data * rho) / float(1e6)
+    if var == 'QCLOUD': data = data * float(1e3)
 
     return data
 
 def defName(data, var):
 
     if var == 'QNCLOUD': data.name = 'Cloud droplet number conc, cm-3'
+    if var == 'QCLOUD': data.name = 'Cloud liquid mixing ratio, g/kg'
     if var == 'QNWFA': data.name = 'water-friendly aerosol number con, cm-3'
 
     return data
