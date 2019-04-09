@@ -1,3 +1,7 @@
+import time
+import datetime
+import numpy as np
+
 ###################################
 ###################################
 ## Script to compare WRF diagnostics using T-E and Morrison uphys schemes
