@@ -130,7 +130,7 @@ ax  = fig.add_axes([0.2,0.15,0.7,0.7])	# left, bottom, width, height
 plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label = 'Default')
 plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label = 'AeroClim')
 plt.xlabel('Time, h [27-Nov-2018]')
-plt.ylabel(index)
+plt.ylabel('Net SW flux at surface (W/m^2)')
 plt.xlim([0,24])
 plt.legend()
 plt.savefig('FIGS/Halley_GSW_timeseries.png',dpi=300)
