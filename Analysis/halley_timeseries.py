@@ -72,6 +72,8 @@ index = 'gsw'
 # root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/' # BAS SCIHUB
 
+# obs_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/FlightData/Halley/'
+obs_dir = '~/giyoung/MAC/'
 
 ###################################
 ## d01
@@ -86,6 +88,18 @@ df1 = pd.DataFrame(file1)
 filename2 = "".join(root_dir+file_dir2+'hal.d02.TS')
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
+
+###################################
+## Obs
+###################################
+filenameObs = "".join(obs_dir+'Halley_radiation_27-Nov-2015.csv')
+dfObs = pd.read_table(filenameObs,skiprows=1,delimiter=',')
+
+inc_sw_obs = dfObs.iloc[:,5]
+out_sw_obs = dfObs.iloc[:,6]
+gsw_obs = inc_sw_obs - out_sw_obs
+
+time_obs = dfObs.iloc[:,4]/float(60) + dfObs.iloc[:,3]
 
 ###################################
 ## Quick check
@@ -129,6 +143,7 @@ ax  = fig.add_axes([0.2,0.15,0.7,0.7])	# left, bottom, width, height
 
 plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label = 'Default')
 plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label = 'AeroClim')
+plt.plot(time_obs, gsw_obs, 'k')
 plt.xlabel('Time, h [27-Nov-2018]')
 plt.ylabel('Net SW flux at surface ($W/m^2$)')
 plt.xlim([0,24])
@@ -136,9 +151,9 @@ plt.legend()
 plt.savefig('FIGS/Halley_GSW_timeseries.png',dpi=300)
 plt.show()
 
-gsw_total1 = np.nansum(df1.loc[np.size(df1.values[:,0])/float(2)-1:,index])
-gsw_total2 = np.nansum(df2.loc[np.size(df2.values[:,0])/float(2)-1:,index])
+gsw_total1 = np.nanmean(df1.loc[np.size(df1.values[:,0])/float(2)-1:,index])
+gsw_total2 = np.nanmean(df2.loc[np.size(df2.values[:,0])/float(2)-1:,index])
 
-print 'Default = ' + gsw_total1
+print 'Default = ', gsw_total1
 print ''
-print 'AeroClim = ' + gsw_total2
+print 'AeroClim = ', gsw_total2
