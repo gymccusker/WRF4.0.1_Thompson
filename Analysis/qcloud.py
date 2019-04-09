@@ -16,6 +16,8 @@ def TDtrans(data, nc, time_index):
     ###################################
     ###################################
 
+    import wrf
+
     theta = wrf.getvar(nc, 'T', timeidx=time_index) + 300 # potential temperature in K
     theta.name = 'Potential temperature, K'
 
@@ -62,6 +64,7 @@ def plotmap(data1, data2, time_index, z_index):
     import matplotlib.pyplot as plt
     import cartopy.crs as crs
     import cartopy.feature as cfe
+    import wrf
 
     ###################################
     ###################################
@@ -144,6 +147,8 @@ def plotProfile(nc1, nc2, var, time_index):
     ###################################
     ###################################
 
+    import wrf
+
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
 
@@ -168,6 +173,8 @@ def plotSubset(nc1, nc2, var, time_index):
     ###################################
     ## PROFILE OVER NEST SUBSET
     ###################################
+
+    import wrf
 
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
@@ -220,6 +227,7 @@ def main():
     ## 22_Archer_initialise_real_qnwfanow_x2_17redo/            ## GIVES THE SAME AS #5...?
 
     from netCDF4 import Dataset
+    import wrf
 
     START_TIME = time.time()
     print ''
