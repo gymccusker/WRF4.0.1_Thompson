@@ -348,8 +348,8 @@ def main():
     file_dir2 = '3_Nisg80_ThompsonAeroClim/'
     file_dir3 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
 
-    # root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
-    root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
+    root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+    # root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
     ### Read in netCDF files
     nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
