@@ -64,7 +64,7 @@ def chooseData(nc1, nc2, var, time_index):
 
     return data1, data2
 
-def plotmap(data1, data2, time_index, z_index):
+def plotmap(data1, data2, var, time_index, z_index):
 
     import matplotlib
     import matplotlib.cm as mpl_cm
@@ -268,7 +268,7 @@ def main():
     data1, data2 = chooseData(nc1, nc2, var, time_index)
 
     ## Plot map (cartopy)
-    map = plotmap(data1, data2, time_index, z_index)
+    map = plotmap(data1, data2, var, time_index, z_index)
 
     ## Plot vertical profile at Halley
     # profile = plotProfile(nc1, nc2, var, time_index)
