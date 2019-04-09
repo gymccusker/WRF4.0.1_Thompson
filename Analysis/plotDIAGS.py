@@ -229,7 +229,7 @@ def plotProfile(nc1, nc2, var, time_index):
     plt.title(data1.name+'\n'+str(data1.Time.values))
     plt.legend()
     plt.ylabel(z1.description)
-    plt.savefig('FIGS/Halley_QNWFA.png',dpi=300)
+    plt.savefig('FIGS/Halley_QNCLOUD.png',dpi=300)
     plt.show()
 
 def plotSubset(nc1, nc2, var, time_index):
@@ -345,7 +345,7 @@ def main():
     z_index = 16
 
     ## Choose variable to plot
-    var = 'QNWFA'
+    var = 'QNCLOUD'
 
     ## Plot map (cartopy)
     # map = plotmap(nc1, nc2, var, time_index, z_index)
