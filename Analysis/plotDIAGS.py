@@ -229,7 +229,7 @@ def plotProfile(nc1, nc2, var, time_index):
     plt.ylabel(z1.description)
     plt.show()
 
-def plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir:
+def plotSubset(nc1, nc2, var, time_index):
 
     ###################################
     ## PROFILE OVER NEST SUBSET
