@@ -183,17 +183,19 @@ plt.rc('legend',fontsize=SMALL_SIZE)
 # plt.rc('figure',titlesize=LARGE_SIZE)
 
 ## create figure and axes instances
-fig = plt.figure(figsize=(4,5))
+fig = plt.figure(figsize=(6,5))
 
-plt.plot(np.squeeze(df1_1.values[time,1:]),Z1_1[0:15,71,118],label = 'd01: Default')
-plt.plot(np.squeeze(df2_1.values[time,1:]),Z2_1[0:15,137,183],label = 'd02: Default')
-plt.plot(np.squeeze(df1_2.values[time,1:]),Z1_2[0:15,71,118],'--',label = 'd01: AeroClim')
-plt.plot(np.squeeze(df2_2.values[time,1:]),Z2_2[0:15,137,183],'--',label = 'd02: AeroClim')
-#plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
+ax  = fig.add_axes([0.2,0.1,0.7,0.7])	# left, bottom, width, height
+
+# plt.plot(np.squeeze(df1_1.values[time,1:]),Z1_1[0:15,71,118],label = 'd01: Default')
+plt.plot(np.squeeze(df2_1.values[time,1:]),Z2_1[0:15,137,183],label = 'Default')
+# plt.plot(np.squeeze(df1_2.values[time,1:]),Z1_2[0:15,71,118],'--',label = 'd01: AeroClim')
+plt.plot(np.squeeze(df2_2.values[time,1:]),Z2_2[0:15,137,183],'--',label = 'AeroClim')
+plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
 plt.xlabel(param)
 plt.ylabel('Z [m]')
 plt.ylim([0,1200])
-#plt.xlim([270,290])
+plt.xlim([270,290])
 plt.legend()
-plt.savefig('FIGS/Halley_QV')
+plt.savefig('FIGS/Halley_TH')
 plt.show()
