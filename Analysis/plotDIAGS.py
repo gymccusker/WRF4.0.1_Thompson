@@ -47,7 +47,7 @@ def TDtrans(data, nc, var, time_index):
     pressure.name = 'Air pressure, Pa'
 
     tempvar = float(287.05)/float(1005)
-    tempvar0 = (pressure2/100000)**tempvar
+    tempvar0 = (pressure/100000)**tempvar
     temperature = tempvar0 * theta
     temperature.name = 'Air Temperature, K'
 
