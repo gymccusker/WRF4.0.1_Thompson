@@ -8,7 +8,7 @@ import numpy as np
 ###################################
 ###################################
 
-def TDtrans(data, nc, time_index):
+def TDtrans(data, nc, var, time_index):
 
     ###################################
     ###################################
@@ -52,8 +52,8 @@ def chooseData(nc1, nc2, var, time_index):
     data1 = wrf.getvar(nc1, var, timeidx=time_index)
     data2 = wrf.getvar(nc2, var, timeidx=time_index)
 
-    data1 = TDtrans(data1, nc1, time_index)
-    data2 = TDtrans(data2, nc2, time_index)
+    data1 = TDtrans(data1, nc1, var, time_index)
+    data2 = TDtrans(data2, nc2, var, time_index)
 
     return data1, data2
 
