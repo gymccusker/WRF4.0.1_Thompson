@@ -349,10 +349,10 @@ def main():
     var = 'QNWFA'
 
     ## Plot map (cartopy)
-    # map = plotmap(nc1, nc2, var, time_index, z_index)
+    map = plotmap(nc1, nc2, var, time_index, z_index)
 
     ## Plot vertical profile at Halley
-    profile = plotProfile(nc1, nc2, var, time_index)
+    # profile = plotProfile(nc1, nc2, var, time_index)
 
     ## Plot average diagnostics over nest subset
     # subset = plotSubset(nc1, nc2, var, time_index)
