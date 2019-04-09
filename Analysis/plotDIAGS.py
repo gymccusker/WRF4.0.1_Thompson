@@ -184,6 +184,7 @@ def plotProfile(nc1, nc2, var, time_index, file_dir1, file_dir2):
     import matplotlib
     import matplotlib.cm as mpl_cm
     import matplotlib.pyplot as plt
+    import numpy as np
 
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
@@ -217,7 +218,8 @@ def plotSubset(nc1, nc2, var, time_index, file_dir1, file_dir2):
     import matplotlib
     import matplotlib.cm as mpl_cm
     import matplotlib.pyplot as plt
-
+    import numpy as np
+    
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
 
