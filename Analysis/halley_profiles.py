@@ -46,8 +46,8 @@ from wrf import to_np, getvar, CoordPair, vertcross
 ## 15_Archer_DRIVER_NWFA1D_150e3_K1/
 ## 16_Archer_DRIVER_NWFA1D_100e3_K1/
 
-file_dir1 = '3_Nisg80_ThompsonAeroClim/'
-file_dir2 = '10_Archer_DRIVER_NWFA1D_100/'
+file_dir1 = '2_Nisg80_ThompsonDefault/'
+file_dir2 = '3_Nisg80_ThompsonAeroClim/'
 
 param = 'QV'
 
@@ -168,14 +168,31 @@ ztemp = np.arange(0,15)
 ### D01 = 118,  71 -> Z1[:,71,118]
 ### D02 = 183, 137 -> Z2[:,137,183]
 
-plt.plot(np.squeeze(df1_1.values[time,1:]),Z1_1[0:15,71,118],label = 'd01')
-plt.plot(np.squeeze(df2_1.values[time,1:]),Z2_1[0:15,137,183],label = 'd02')
-plt.plot(np.squeeze(df1_2.values[time,1:]),Z1_2[0:15,71,118],'--',label = 'd01')
-plt.plot(np.squeeze(df2_2.values[time,1:]),Z2_2[0:15,137,183],'--',label = 'd02')
+
+SMALL_SIZE = 14
+MED_SIZE = 16
+LARGE_SIZE = 18
+
+plt.rc('font',size=MED_SIZE)
+plt.rc('axes',titlesize=MED_SIZE)
+plt.rc('axes',labelsize=MED_SIZE)
+plt.rc('xtick',labelsize=SMALL_SIZE)
+plt.rc('ytick',labelsize=SMALL_SIZE)
+plt.rc('legend',fontsize=SMALL_SIZE)
+# plt.rc('figure',titlesize=LARGE_SIZE)
+
+## create figure and axes instances
+fig = plt.figure(figsize=(4,5))
+
+plt.plot(np.squeeze(df1_1.values[time,1:]),Z1_1[0:15,71,118],label = 'd01: Default')
+plt.plot(np.squeeze(df2_1.values[time,1:]),Z2_1[0:15,137,183],label = 'd02: Default')
+plt.plot(np.squeeze(df1_2.values[time,1:]),Z1_2[0:15,71,118],'--',label = 'd01: AeroClim')
+plt.plot(np.squeeze(df2_2.values[time,1:]),Z2_2[0:15,137,183],'--',label = 'd02: AeroClim')
 #plt.plot(theta,dfObs.loc[:,'z'],'k',label = 'Obs')
 plt.xlabel(param)
 plt.ylabel('Z [m]')
 plt.ylim([0,1200])
 #plt.xlim([270,290])
 plt.legend()
+plt.savefig('FIGS/Halley_QV')
 plt.show()
