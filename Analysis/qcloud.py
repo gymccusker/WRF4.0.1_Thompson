@@ -32,10 +32,10 @@ def TDtrans(data, nc, time_index):
     rho = pressure/(float(287.05) * temperature)
     rho.name = 'Air density, kg m-3'
 
-    qnwfa = (qnwfa * rho) / float(1e6)
-    qnwfa.name = 'water-friendly aerosol number con, cm-3'
+    if var == 'QNCLOUD': data = (data * rho) / float(1e6)
+    if var == 'QNWFA': data = (data * rho) / float(1e6)
 
-    return qnwfa
+    return data
 
 def chooseData(nc1, nc2, var, time_index):
 
@@ -80,7 +80,9 @@ def plotmap(data1, data2, time_index, z_index):
 
     data1 = wrf.to_np(data1[z_index,:,:])
     data2 = wrf.to_np(data2[z_index,:,:])
-    data3 = wrf.to_np(data3[z_index,:,:])
+
+    data1 = defName(data1, var)
+    data2 = defName(data2, var)
 
     # Create a figure
     fig = plt.figure(figsize=(8,4))
