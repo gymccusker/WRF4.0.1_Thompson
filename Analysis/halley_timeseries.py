@@ -127,7 +127,7 @@ fig = plt.figure(figsize=(6,5))
 
 ax  = fig.add_axes([0.2,0.1,0.7,0.7])	# left, bottom, width, height
 
-plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label=file_dir[0:2])
+plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label=file_dir1[0:2])
 plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label=file_dir2[0:2])
 plt.xlabel('Time, h [27-Nov-2018]')
 plt.ylabel(index)
