@@ -37,6 +37,13 @@ def TDtrans(data, nc, var, time_index):
 
     return data
 
+def defName(data, var):
+
+    if var == 'QNCLOUD': data.name = 'Cloud droplet number conc, cm-3'
+    if var == 'QNWFA': data.name = 'water-friendly aerosol number con, cm-3'
+
+    return data
+
 def chooseData(nc1, nc2, var, time_index):
 
     ###################################
