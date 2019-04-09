@@ -38,6 +38,8 @@ def TDtrans(data, nc, var, time_index):
     ###################################
     ###################################
 
+    import wrf
+
     theta = wrf.getvar(nc, 'T', timeidx=time_index) + 300 # potential temperature in K
     theta.name = 'Potential temperature, K'
 
@@ -70,6 +72,8 @@ def chooseData(nc1, nc2, var, time_index):
     ###################################
     ###################################
 
+    import wrf
+
     data1 = wrf.getvar(nc1, var, timeidx=time_index)
     data2 = wrf.getvar(nc2, var, timeidx=time_index)
     # data3 = wrf.getvar(nc3, var, timeidx=time_index)
@@ -87,6 +91,7 @@ def plotmap(nc1, nc2, time_index, z_index):
     import matplotlib.pyplot as plt
     import cartopy.crs as crs
     import cartopy.feature as cfe
+    import wrf
 
     ###################################
     ###################################
@@ -172,6 +177,8 @@ def plotProfile(nc1, nc2, var, time_index):
     ###################################
     ###################################
 
+    import wrf
+
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
 
@@ -196,6 +203,8 @@ def plotSubset(nc1, nc2, var, time_index):
     ###################################
     ## PROFILE OVER NEST SUBSET
     ###################################
+
+    import wrf
 
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
