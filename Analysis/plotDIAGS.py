@@ -102,6 +102,9 @@ def plotmap(nc1, nc2, time_index, z_index):
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
 
+    data1 = defName(data1, var)
+    data2 = defName(data2, var)
+
     ## Get the latitude and longitude points
     lats, lons = wrf.latlon_coords(data1)
 
@@ -184,6 +187,9 @@ def plotProfile(nc1, nc2, var, time_index, file_dir1, file_dir2):
 
     ## Load in chosen data
     data1, data2 = chooseData(nc1, nc2, var, time_index)
+
+    data1 = defName(data1, var)
+    data2 = defName(data2, var)
 
     # Extract the model height
     z1 = wrf.getvar(nc1, "z")
