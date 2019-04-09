@@ -216,7 +216,7 @@ def plotProfile(nc1, nc2, var, time_index):
 
     #########################################################################################################
 
-    ax  = fig.add_axes([0.2,0.2,0.7,0.7])	# left, bottom, width, height
+    ax  = fig.add_axes([0.2,0.1,0.7,0.7])	# left, bottom, width, height
 
 
     ##### HALLEY POSITION IN MODEL - NEAREST GRID POINT (LAT/LON)
