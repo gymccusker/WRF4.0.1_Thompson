@@ -345,7 +345,7 @@ def main():
     z_index = 16
 
     ## Choose variable to plot
-    var = 'QNCLOUD'
+    var = 'QNWFA'
 
     ## Plot map (cartopy)
     # map = plotmap(nc1, nc2, var, time_index, z_index)
