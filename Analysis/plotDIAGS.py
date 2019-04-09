@@ -1,15 +1,6 @@
-from netCDF4 import Dataset
-import wrf
-import xarray as xr
+import time
+import datetime
 import numpy as np
-
-import matplotlib
-import matplotlib.cm as mpl_cm
-#from mpl_toolkits.basemap import Basemap
-import matplotlib.pyplot as plt
-
-import cartopy.crs as crs
-import cartopy.feature as cfe
 
 ###################################
 ## Load in WRF data
@@ -78,10 +69,6 @@ def chooseData(nc1, nc2, nc3, var, time_index):
     ## Read in data from netCDF using WRF-Python
     ###################################
     ###################################
-
-    import wrf
-    import xarray as xr
-    import numpy as np
 
     data1 = wrf.getvar(nc1, var, timeidx=time_index)
     data2 = wrf.getvar(nc2, var, timeidx=time_index)
@@ -264,6 +251,9 @@ def main():
     ## 22_Archer_initialise_real_qnwfanow_x2_17redo/            ## GIVES THE SAME AS #5...?
 
     from netCDF4 import Dataset
+    import wrf
+    import xarray as xr
+    import numpy as np
 
     START_TIME = time.time()
     print ''
