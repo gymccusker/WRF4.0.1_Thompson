@@ -118,11 +118,23 @@ def plotmap(nc1, nc2, var, time_index, z_index):
     data2 = wrf.to_np(data2[z_index,:,:])
     # data3 = wrf.to_np(data3[z_index,:,:])
 
+    SMALL_SIZE = 14
+    MED_SIZE = 16
+    LARGE_SIZE = 18
+
+    plt.rc('font',size=MED_SIZE)
+    plt.rc('axes',titlesize=MED_SIZE)
+    plt.rc('axes',labelsize=MED_SIZE)
+    plt.rc('xtick',labelsize=SMALL_SIZE)
+    plt.rc('ytick',labelsize=SMALL_SIZE)
+    plt.rc('legend',fontsize=SMALL_SIZE)
+    # plt.rc('figure',titlesize=LARGE_SIZE)
+
     # Create a figure
     fig = plt.figure(figsize=(8,4))
 
     # Set the GeoAxes to the projection used by WRF
-    ax = fig.add_axes([0.1,0.1,0.4,0.8] , projection=cart_proj)	# left, bottom, width, height
+    ax = fig.add_axes([0.1,0.1,0.4,0.8] , projection = cart_proj)	# left, bottom, width, height
     # ax = plt.axes(projection=cart_proj)
 
     # Add coastlines
