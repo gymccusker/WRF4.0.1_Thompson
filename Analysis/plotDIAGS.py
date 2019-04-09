@@ -62,7 +62,7 @@ def defName(data, var):
     if var == 'QNCLOUD': data.name = 'Cloud droplet number conc, cm-3'
     if var == 'QNWFA': data.name = 'water-friendly aerosol number con, cm-3'
 
-def chooseData(nc1, nc2, nc3, var, time_index):
+def chooseData(nc1, nc2, var, time_index):
 
     ###################################
     ###################################
@@ -72,15 +72,15 @@ def chooseData(nc1, nc2, nc3, var, time_index):
 
     data1 = wrf.getvar(nc1, var, timeidx=time_index)
     data2 = wrf.getvar(nc2, var, timeidx=time_index)
-    data3 = wrf.getvar(nc3, var, timeidx=time_index)
+    # data3 = wrf.getvar(nc3, var, timeidx=time_index)
 
     data1 = TDtrans(data1, nc1, var, time_index)
     data2 = TDtrans(data2, nc2, var, time_index)
-    data3 = TDtrans(data3, nc3, var, time_index)
+    # data3 = TDtrans(data3, nc3, var, time_index)
 
     return data1, data2, data3
 
-def plotmap(nc1, nc2, nc3, time_index, z_index):
+def plotmap(nc1, nc2, time_index, z_index):
 
     import matplotlib
     import matplotlib.cm as mpl_cm
@@ -95,7 +95,7 @@ def plotmap(nc1, nc2, nc3, time_index, z_index):
     ###################################
 
     ## Load in chosen data
-    data1, data2, data3 = chooseData(nc1, nc2, nc3, var, time_index)
+    data1, data2 = chooseData(nc1, nc2, var, time_index)
 
     ## Get the latitude and longitude points
     lats, lons = wrf.latlon_coords(data1)
@@ -105,7 +105,7 @@ def plotmap(nc1, nc2, nc3, time_index, z_index):
 
     data1 = wrf.to_np(data1[z_index,:,:])
     data2 = wrf.to_np(data2[z_index,:,:])
-    data3 = wrf.to_np(data3[z_index,:,:])
+    # data3 = wrf.to_np(data3[z_index,:,:])
 
     # Create a figure
     fig = plt.figure(figsize=(8,4))
@@ -164,7 +164,7 @@ def plotmap(nc1, nc2, nc3, time_index, z_index):
 
     plt.show()
 
-def plotProfile(nc1, nc2, nc3, var, time_index):
+def plotProfile(nc1, nc2, var, time_index):
 
     ###################################
     ###################################
@@ -173,7 +173,7 @@ def plotProfile(nc1, nc2, nc3, var, time_index):
     ###################################
 
     ## Load in chosen data
-    data1, data2, data3 = chooseData(nc1, nc2, nc3, var, time_index)
+    data1, data2 = chooseData(nc1, nc2, var, time_index)
 
     # Extract the model height
     z1 = wrf.getvar(nc1, "z")
@@ -262,7 +262,7 @@ def main():
 
     file_dir1 = '2_Nisg80_ThompsonDefault/'
     file_dir2 = '3_Nisg80_ThompsonAeroClim/'
-    file_dir3 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
+    # file_dir3 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
 
     root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
     # root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
@@ -270,7 +270,7 @@ def main():
     ### Read in netCDF files
     nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
     nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
-    nc3 = Dataset(root_dir+file_dir3+'wrfout_d02_2015-11-27_00:00:00')
+    # nc3 = Dataset(root_dir+file_dir3+'wrfout_d02_2015-11-27_00:00:00')
 
     ## Choose time_index to plot (32 = 16h)
     time_index = 32
@@ -285,7 +285,7 @@ def main():
     # map = plotmap(nc1, nc2, nc3, time_index, z_index)
 
     ## Plot vertical profile at Halley
-    profile = plotProfile(nc1, nc2, nc3, var, time_index)
+    profile = plotProfile(nc1, nc2, var, time_index)
 
     ## Plot average diagnostics over nest subset
     subset = plotSubset(nc1, nc2, var, time_index)
