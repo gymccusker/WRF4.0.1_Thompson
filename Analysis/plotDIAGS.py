@@ -211,11 +211,11 @@ def plotProfile(nc1, nc2, var, time_index):
     # plt.rc('figure',titlesize=LARGE_SIZE)
 
     ## create figure and axes instances
-    fig = plt.figure(figsize=(4,5))
+    fig = plt.figure(figsize=(5,4))
 
     #########################################################################################################
 
-    ax  = fig.add_axes([0.1,0.1,0.8,0.8])	# left, bottom, width, height
+    ax  = fig.add_axes([0.15,0.15,0.7,0.7])	# left, bottom, width, height
 
 
     ##### HALLEY POSITION IN MODEL - NEAREST GRID POINT (LAT/LON)
@@ -345,13 +345,13 @@ def main():
     var = 'QNCLOUD'
 
     ## Plot map (cartopy)
-    # map = plotmap(nc1, nc2, nc3, time_index, z_index)
+    map = plotmap(nc1, nc2, time_index, z_index)
 
     ## Plot vertical profile at Halley
     profile = plotProfile(nc1, nc2, var, time_index)
 
     ## Plot average diagnostics over nest subset
-    subset = plotSubset(nc1, nc2, var, time_index)
+    # subset = plotSubset(nc1, nc2, var, time_index)
 
     END_TIME = time.time()
     print ''
