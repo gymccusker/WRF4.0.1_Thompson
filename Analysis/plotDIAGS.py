@@ -212,11 +212,11 @@ def plotProfile(nc1, nc2, var, time_index):
     # plt.rc('figure',titlesize=LARGE_SIZE)
 
     ## create figure and axes instances
-    fig = plt.figure(figsize=(5,4))
+    fig = plt.figure(figsize=(6,5))
 
     #########################################################################################################
 
-    ax  = fig.add_axes([0.15,0.15,0.7,0.7])	# left, bottom, width, height
+    ax  = fig.add_axes([0.2,0.2,0.7,0.7])	# left, bottom, width, height
 
 
     ##### HALLEY POSITION IN MODEL - NEAREST GRID POINT (LAT/LON)
@@ -229,6 +229,7 @@ def plotProfile(nc1, nc2, var, time_index):
     plt.title(data1.name+'\n'+str(data1.Time.values))
     plt.legend()
     plt.ylabel(z1.description)
+    plt.savefig('FIGS/Halley_QNCLOUD.png',dpi=300)
     plt.show()
 
 def plotSubset(nc1, nc2, var, time_index):
