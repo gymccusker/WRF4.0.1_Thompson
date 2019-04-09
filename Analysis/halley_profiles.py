@@ -49,7 +49,7 @@ from wrf import to_np, getvar, CoordPair, vertcross
 file_dir1 = '2_Nisg80_ThompsonDefault/'
 file_dir2 = '3_Nisg80_ThompsonAeroClim/'
 
-param = 'QV'
+param = 'TH'
 
 root_dir = '/data/mac/giyoung/MAC_WRFThompson/' # BAS SCIHUB
 # root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
