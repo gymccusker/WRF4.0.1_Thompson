@@ -51,9 +51,10 @@ file_dir2 = '3_Nisg80_ThompsonAeroClim/'
 
 param = 'QV'
 
-# root_dir = '/data/mac/giyoung/MAC_WRFThompson/' # BAS SCIHUB
-root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
-obs_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/FlightData/Halley/'
+root_dir = '/data/mac/giyoung/MAC_WRFThompson/' # BAS SCIHUB
+# root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+# obs_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/FlightData/Halley/'
+obs_dir = '~/giyoung/MAC/'
 
 ###################################
 ## d01
