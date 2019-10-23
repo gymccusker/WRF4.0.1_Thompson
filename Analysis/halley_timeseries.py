@@ -64,12 +64,16 @@ import pandas as pd
 ## 15_Archer_DRIVER_NWFA1D_150e3_K1/
 ## 16_Archer_DRIVER_NWFA1D_100e3_K1/
 
-file_dir1 = '3_Nisg80_ThompsonAeroClim/'
-file_dir2 = '11_Archer_DRIVER_NWFA1D_100e3/'
+file_dir1 = '2_Nisg80_ThompsonDefault/'
+file_dir2 = '3_Nisg80_ThompsonAeroClim/'
 
 index = 'gsw'
 
-root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+# root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+root_dir = '/data/mac/giyoung/MAC_WRFThompson/' # BAS SCIHUB
+
+# obs_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/FlightData/Halley/'
+obs_dir = '~/giyoung/MAC/'
 
 ###################################
 ## d01
@@ -84,6 +88,18 @@ df1 = pd.DataFrame(file1)
 filename2 = "".join(root_dir+file_dir2+'hal.d02.TS')
 file2 = np.loadtxt(filename2,skiprows=1)
 df2 = pd.DataFrame(file2)
+
+###################################
+## Obs
+###################################
+filenameObs = "".join(obs_dir+'Halley_radiation_27-Nov-2015.csv')
+dfObs = pd.read_table(filenameObs,skiprows=1,delimiter=',')
+
+inc_sw_obs = dfObs.iloc[:,5]
+out_sw_obs = dfObs.iloc[:,6]
+gsw_obs = inc_sw_obs - out_sw_obs
+
+time_obs = dfObs.iloc[:,4]/float(60) + dfObs.iloc[:,3]
 
 ###################################
 ## Quick check
@@ -107,10 +123,37 @@ df2.columns = ['id','ts_hour','id_tsloc','ix','iy','t','q','u','v','psfc','glw',
 ## Ignore 1st 24 hours (spin up)
 ###################################
 
-plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label=file_dir[0:2])
-plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label=file_dir2[0:2])
+
+SMALL_SIZE = 14
+MED_SIZE = 16
+LARGE_SIZE = 18
+
+plt.rc('font',size=MED_SIZE)
+plt.rc('axes',titlesize=MED_SIZE)
+plt.rc('axes',labelsize=MED_SIZE)
+plt.rc('xtick',labelsize=SMALL_SIZE)
+plt.rc('ytick',labelsize=SMALL_SIZE)
+plt.rc('legend',fontsize=SMALL_SIZE)
+# plt.rc('figure',titlesize=LARGE_SIZE)
+
+## create figure and axes instances
+fig = plt.figure(figsize=(6,5))
+
+ax  = fig.add_axes([0.2,0.15,0.7,0.7])	# left, bottom, width, height
+
+plt.plot(df1.loc[np.size(df1.values[:,0])/float(2)-1:,'ts_hour']-24,df1.loc[np.size(df1.values[:,0])/float(2)-1:,index],label = 'Default')
+plt.plot(df2.loc[np.size(df2.values[:,0])/float(2)-1:,'ts_hour']-24,df2.loc[np.size(df2.values[:,0])/float(2)-1:,index],label = 'AeroClim')
+plt.plot(time_obs[0:2021], gsw_obs[0:2021], 'k', label = 'Obs')
 plt.xlabel('Time, h [27-Nov-2018]')
-plt.ylabel(index)
+plt.ylabel('Net SW flux at surface ($W/m^2$)')
 plt.xlim([0,24])
 plt.legend()
+plt.savefig('FIGS/Halley_GSW_timeseries.png',dpi=300)
 plt.show()
+
+gsw_total1 = np.nanmean(df1.loc[np.size(df1.values[:,0])/float(2)-1:,index])
+gsw_total2 = np.nanmean(df2.loc[np.size(df2.values[:,0])/float(2)-1:,index])
+
+print 'Default = ', gsw_total1
+print ''
+print 'AeroClim = ', gsw_total2

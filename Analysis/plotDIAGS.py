@@ -1,16 +1,44 @@
+import time
+import datetime
+import numpy as np
+
+###################################
+## Load in WRF data
+###################################
+## 2_Nisg80_ThompsonDefault/
+## 3_Nisg80_ThompsonAeroClim/
+## 4_Nisg80_Thompson_naCCN0408_naCCN1100/
+## 5_Archer_Default_AeroClim
+## 6_Archer_NWFApl100_AeroClim
+## 7_Archer_INITpl100/
+## 8_Archer_INITpl100_DRIVERpl100/
+## 9_Archer_DRIVER_NWFA1D_100e6/
+## 10_Archer_DRIVER_NWFA1D_100/
+## 11_Archer_DRIVER_NWFA1D_100e3/       ## WRONG NAMELIST
+## 12_Archer_DRIVER_NWFA1D_x2/       ## WRONG NAMELIST
+## 13_Archer_DRIVER_NWFA1D_x05/       ## WRONG NAMELIST
+## 14_Archer_DRIVER_NWFA1D_150e3/       ## WRONG NAMELIST
+## 15_Archer_DRIVER_NWFA1D_150e3_K1/       ## WRONG NAMELIST
+## 16_Archer_DRIVER_NWFA1D_100e3_K1/       ## WRONG NAMELIST
+## 17_Archer_initialise_real_qnwfanow_x2/       ## WRONG NAMELIST
+## 18_Archer_initialise_real_qnwfanow_K1_100e6/
+## 19_Archer_initialise_real_qnwfanow_K1_x2/
+
 ###################################
 ###################################
 ## Script to plot out WRF diagnostics using T-E uphys scheme
 ###################################
 ###################################
 
-def TDtrans(data, nc, time_index):
+def TDtrans(data, nc, var, time_index):
 
     ###################################
     ###################################
     ## Transform units from kg/kg to g/m3
     ###################################
     ###################################
+
+    import wrf
 
     theta = wrf.getvar(nc, 'T', timeidx=time_index) + 300 # potential temperature in K
     theta.name = 'Potential temperature, K'
@@ -19,15 +47,15 @@ def TDtrans(data, nc, time_index):
     pressure.name = 'Air pressure, Pa'
 
     tempvar = float(287.05)/float(1005)
-    tempvar0 = (pressure2/100000)**tempvar
+    tempvar0 = (pressure/100000)**tempvar
     temperature = tempvar0 * theta
     temperature.name = 'Air Temperature, K'
 
     rho = pressure/(float(287.05) * temperature)
     rho.name = 'Air density, kg m-3'
 
-    qnwfa = (qnwfa * rho) / float(1e6)
-    qnwfa.name = 'water-friendly aerosol number con, cm-3'
+    if var == 'QNCLOUD': data = (data * rho) / float(1e6)
+    if var == 'QNWFA': data = (data * rho) / float(1e6)
 
     return data
 
@@ -38,7 +66,7 @@ def defName(data, var):
 
     return data
 
-def chooseData(nc1, nc2, nc3, var, time_index):
+def chooseData(nc1, nc2, var, time_index):
 
     ###################################
     ###################################
@@ -47,26 +75,26 @@ def chooseData(nc1, nc2, nc3, var, time_index):
     ###################################
 
     import wrf
-    import xarray as xr
-    import numpy as np
 
     data1 = wrf.getvar(nc1, var, timeidx=time_index)
     data2 = wrf.getvar(nc2, var, timeidx=time_index)
-    data3 = wrf.getvar(nc3, var, timeidx=time_index)
+    # data3 = wrf.getvar(nc3, var, timeidx=time_index)
 
-    data1 = TDtrans(data1, nc1, time_index)
-    data2 = TDtrans(data2, nc2, time_index)
-    data3 = TDtrans(data3, nc3, time_index)
+    data1 = TDtrans(data1, nc1, var, time_index)
+    data2 = TDtrans(data2, nc2, var, time_index)
+    # data3 = TDtrans(data3, nc3, var, time_index)
 
-    return data1, data2, data3
+    return data1, data2
 
-def plotmap(data1, data2, data3, time_index, z_index):
+def plotmap(nc1, nc2, var, time_index, z_index):
 
     import matplotlib
     import matplotlib.cm as mpl_cm
     import matplotlib.pyplot as plt
     import cartopy.crs as crs
     import cartopy.feature as cfe
+    import wrf
+    import numpy as np
 
     ###################################
     ###################################
@@ -74,21 +102,45 @@ def plotmap(data1, data2, data3, time_index, z_index):
     ###################################
     ###################################
 
+    ## Load in chosen data
+    data1, data2 = chooseData(nc1, nc2, var, time_index)
+
     ## Get the latitude and longitude points
     lats, lons = wrf.latlon_coords(data1)
 
     ## Get the cartopy mapping object
     cart_proj = wrf.get_cartopy(data1)
 
+    data1 = defName(data1, var)
+    data2 = defName(data2, var)
+
+    # ## Get the latitude and longitude points
+    # lats, lons = wrf.latlon_coords(data1)
+    #
+    # ## Get the cartopy mapping object
+    # cart_proj = wrf.get_cartopy(data1)
+
     data1 = wrf.to_np(data1[z_index,:,:])
     data2 = wrf.to_np(data2[z_index,:,:])
-    data3 = wrf.to_np(data3[z_index,:,:])
+    # data3 = wrf.to_np(data3[z_index,:,:])
+
+    SMALL_SIZE = 14
+    MED_SIZE = 16
+    LARGE_SIZE = 18
+
+    plt.rc('font',size=MED_SIZE)
+    plt.rc('axes',titlesize=MED_SIZE)
+    plt.rc('axes',labelsize=MED_SIZE)
+    plt.rc('xtick',labelsize=SMALL_SIZE)
+    plt.rc('ytick',labelsize=SMALL_SIZE)
+    plt.rc('legend',fontsize=SMALL_SIZE)
+    # plt.rc('figure',titlesize=LARGE_SIZE)
 
     # Create a figure
     fig = plt.figure(figsize=(8,4))
 
     # Set the GeoAxes to the projection used by WRF
-    ax = fig.add_axes([0.1,0.1,0.4,0.8], projection=cart_proj)	# left, bottom, width, height
+    ax = fig.add_axes([0.1,0.1,0.4,0.8] , projection = cart_proj)	# left, bottom, width, height
     # ax = plt.axes(projection=cart_proj)
 
     # Add coastlines
@@ -141,7 +193,7 @@ def plotmap(data1, data2, data3, time_index, z_index):
 
     plt.show()
 
-def plotProfile(nc1, nc2, nc3, var, time_index):
+def plotProfile(nc1, nc2, var, time_index):
 
     ###################################
     ###################################
@@ -149,22 +201,110 @@ def plotProfile(nc1, nc2, nc3, var, time_index):
     ###################################
     ###################################
 
+    import wrf
+    import matplotlib
+    import matplotlib.cm as mpl_cm
+    import matplotlib.pyplot as plt
+    import numpy as np
+
     ## Load in chosen data
-    data1, data2, data3 = chooseData(nc1, nc2, nc3, var, time_index)
+    data1, data2 = chooseData(nc1, nc2, var, time_index)
+
+    data1 = defName(data1, var)
+    data2 = defName(data2, var)
 
     # Extract the model height
     z1 = wrf.getvar(nc1, "z")
     z2 = wrf.getvar(nc2, "z")
 
+    SMALL_SIZE = 14
+    MED_SIZE = 16
+    LARGE_SIZE = 18
+
+    plt.rc('font',size=MED_SIZE)
+    plt.rc('axes',titlesize=MED_SIZE)
+    plt.rc('axes',labelsize=MED_SIZE)
+    plt.rc('xtick',labelsize=SMALL_SIZE)
+    plt.rc('ytick',labelsize=SMALL_SIZE)
+    plt.rc('legend',fontsize=SMALL_SIZE)
+    # plt.rc('figure',titlesize=LARGE_SIZE)
+
+    ## create figure and axes instances
+    fig = plt.figure(figsize=(6,5))
+
+    #########################################################################################################
+
+    ax  = fig.add_axes([0.2,0.1,0.7,0.7])	# left, bottom, width, height
+
+
     ##### HALLEY POSITION IN MODEL - NEAREST GRID POINT (LAT/LON)
     ### D01 = 118,  71 -> Z1[:,71,118]
     ### D02 = 183, 137 -> Z2[:,137,183]
-
-    plt.plot(np.squeeze(data1[:,137,183]),z1[:,137,183],label = file_dir1[0:2])
-    plt.plot(np.squeeze(data2[:,137,183]),z2[:,137,183],label = file_dir2[0:2])
+    plt.plot(np.squeeze(data1[:,137,183]),z1[:,137,183],label= 'Default')
+    plt.plot(np.squeeze(data2[:,137,183]),z2[:,137,183],label = 'AeroClim')
+    if var == 'QNWFA': plt.plot(408,0,'d',markersize = 10, label = 'CASLab (CPC)')
+    if var == 'QNWFA': plt.plot(np.squeeze(data2[:,137,183])+float(200),z2[:,137,183],label = 'Adapt AeroClim?')
     plt.ylim([0,2000])
     plt.title(data1.name+'\n'+str(data1.Time.values))
     plt.legend()
+    plt.ylabel(z1.description)
+    plt.savefig('FIGS/Halley_QNCLOUD_AdaptAeroClim.png',dpi=300)
+    plt.show()
+
+def plotSubset(nc1, nc2, var, time_index):
+
+    ###################################
+    ## PROFILE OVER NEST SUBSET
+    ###################################
+
+    import wrf
+    import matplotlib
+    import matplotlib.cm as mpl_cm
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    ## Load in chosen data
+    data1, data2 = chooseData(nc1, nc2, var, time_index)
+
+    data1 = defName(data1, var)
+    data2 = defName(data2, var)
+
+    #### 	Define near-aircraft cloud box
+    xlon = wrf.getvar(nc2, 'XLONG', timeidx=time_index)
+    box = np.where(np.logical_and(xlon >=-29.5, xlon<=-26.5))
+
+    # Extract the model height
+    z1 = wrf.getvar(nc1, "z")
+    z2 = wrf.getvar(nc2, "z")
+
+    datax1 = np.nanmean(np.nanmean(data1[:,190:340,np.unique(box[1])],1),1)
+    datax2 = np.nanmean(np.nanmean(data2[:,190:340,np.unique(box[1])],1),1)
+    datay1 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+    datay2 = np.nanmean(np.nanmean(z1[:,190:340,np.unique(box[1])],1),1)
+
+    SMALL_SIZE = 14
+    MED_SIZE = 16
+    LARGE_SIZE = 18
+
+    plt.rc('font',size=MED_SIZE)
+    plt.rc('axes',titlesize=MED_SIZE)
+    plt.rc('axes',labelsize=MED_SIZE)
+    plt.rc('xtick',labelsize=SMALL_SIZE)
+    plt.rc('ytick',labelsize=SMALL_SIZE)
+    plt.rc('legend',fontsize=SMALL_SIZE)
+    # plt.rc('figure',titlesize=LARGE_SIZE)
+
+    ## create figure and axes instances
+    fig = plt.figure(figsize=(4,5))
+
+    #########################################################################################################
+
+    ax  = fig.add_axes([0.1,0.1,0.8,0.8])	# left, bottom, width, height
+
+    plt.plot(datax1,datay1, label = 'Default')
+    plt.plot(datax2,datay2, label = 'AeroClim')
+    plt.ylim([0,2000])
+    plt.xlabel(data1.name)
     plt.ylabel(z1.description)
     plt.show()
 
@@ -196,6 +336,9 @@ def main():
     ## 22_Archer_initialise_real_qnwfanow_x2_17redo/            ## GIVES THE SAME AS #5...?
 
     from netCDF4 import Dataset
+    import wrf
+    import xarray as xr
+    import numpy as np
 
     START_TIME = time.time()
     print ''
@@ -204,15 +347,15 @@ def main():
 
     file_dir1 = '2_Nisg80_ThompsonDefault/'
     file_dir2 = '3_Nisg80_ThompsonAeroClim/'
-    file_dir3 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
+    # file_dir3 = '4_Nisg80_Thompson_naCCN0408_naCCN1100/'
 
-    # root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
-    root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
+    root_dir = '/gws/nopw/j04/ncas_weather/gyoung/MAC/WRF_V4.0.1/RUNS/'
+    # root_dir = '/data/mac/giyoung/MAC_WRFThompson/'
 
     ### Read in netCDF files
     nc1 = Dataset(root_dir+file_dir1+'wrfout_d02_2015-11-27_00:00:00')
     nc2 = Dataset(root_dir+file_dir2+'wrfout_d02_2015-11-27_00:00:00')
-    nc3 = Dataset(root_dir+file_dir3+'wrfout_d02_2015-11-27_00:00:00')
+    # nc3 = Dataset(root_dir+file_dir3+'wrfout_d02_2015-11-27_00:00:00')
 
     ## Choose time_index to plot (32 = 16h)
     time_index = 32
@@ -223,14 +366,14 @@ def main():
     ## Choose variable to plot
     var = 'QNWFA'
 
-    ## Load in chosen data
-    data1, data2, data3 = chooseData(nc1, nc2, nc3, var, time_index)
-
     ## Plot map (cartopy)
-    map = plotmap(data1, data2, data3, time_index, z_index)
+    map = plotmap(nc1, nc2, var, time_index, z_index)
 
     ## Plot vertical profile at Halley
-    # profile = plotProfile(nc1, nc2, nc3, var, time_index)
+    # profile = plotProfile(nc1, nc2, var, time_index)
+
+    ## Plot average diagnostics over nest subset
+    # subset = plotSubset(nc1, nc2, var, time_index)
 
     END_TIME = time.time()
     print ''
